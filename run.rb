@@ -42,7 +42,7 @@ parts.each do |part|
   m = part == 1 ? :part1 : :part2
   next unless klass.instance_methods.include?(m)
   puts "\n******* Running part #{part} *******\n\n"
-  puts klass.new(input).__send__(m)
+  puts klass.new(input.dup).__send__(m)
 end
 
 puts ''
