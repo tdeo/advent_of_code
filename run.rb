@@ -39,6 +39,10 @@ require_relative file
 klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
 
 parts.each do |part|
+  m = part == 1 ? :part1 : :part2
+  next unless klass.instance_methods.include?(m)
   puts "\n******* Running part #{part} *******\n\n"
-  puts klass.new(input).__send__(part == 1 ? :part1 : :part2)
+  puts klass.new(input).__send__(m)
 end
+
+puts ''
