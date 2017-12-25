@@ -26,7 +26,7 @@ end
 year = ARGV[0]
 day = ARGV[1].to_s.rjust(2, '0')
 
-input = `curl -sS --cookie "session=#{session}" -XGET http://adventofcode.com/#{year}/day/#{day.to_i}/input`.strip
+input = `curl -sS --cookie "session=#{session}" -XGET http://adventofcode.com/#{year}/day/#{day.to_i}/input`
 
 puts "\n*******          Input         *******\n\n"
 puts input.split("\n").first(12).join("\n")[0..500]
