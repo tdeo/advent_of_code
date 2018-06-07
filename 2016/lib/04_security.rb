@@ -1,7 +1,7 @@
 class Security
   def initialize(input)
     @rooms = []
-    input.each_line do |l|
+    input.strip.each_line do |l|
       m = /^([-a-z]+)-(\d+)\[([a-z]+)\]$/.match(l.strip)
       @rooms << {
         name: m[1],

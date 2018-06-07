@@ -2,7 +2,7 @@ class Registers
   def initialize(input)
     @commands = []
     @vars = Hash.new { |h, k| h[k] = 0 }
-    input.each_line { |l| @commands << parse_command(l) }
+    input.strip.each_line { |l| @commands << parse_command(l) }
   end
 
   def parse_command(command)

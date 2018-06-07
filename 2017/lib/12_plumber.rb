@@ -1,7 +1,7 @@
 class Plumber
   def initialize(input)
     @pipes = Hash.new { |h, k| h[k] = {} }
-    input.each_line do |l|
+    input.strip.each_line do |l|
       a, bs = l.split(' <-> ').map(&:strip)
       @pipes[a.to_i][a.to_i] = true
       bs.split(',').map(&:strip).each do |b|

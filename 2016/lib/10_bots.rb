@@ -3,7 +3,7 @@ class Bots
     @bots = Hash.new { |h, k| h[k] = [] }
     @config = {}
     @output = {}
-    input.each_line { |l| parse(l) }
+    input.strip.each_line { |l| parse(l) }
   end
 
   def parse(instruction)

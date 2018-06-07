@@ -1,5 +1,6 @@
 #! /usr/bin/env ruby
 
+require 'benchmark'
 require 'pathname'
 
 dir = File.expand_path(File.dirname(__FILE__))
@@ -42,7 +43,10 @@ parts.each do |part|
   m = part == 1 ? :part1 : :part2
   next unless klass.instance_methods.include?(m)
   puts "\n******* Running part #{part} *******\n\n"
-  puts klass.new(input.dup).__send__(m)
+  res = nil
+  real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
+  puts res
+  puts "\n\tRun in #{real.round(2)} seconds"
 end
 
 puts ''

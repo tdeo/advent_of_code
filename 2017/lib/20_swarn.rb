@@ -1,7 +1,7 @@
 class Swarn
   def initialize(input)
     @particles = []
-    input.each_line do |l|
+    input.strip.each_line do |l|
       position, velocity, acceleration = l.split(', ').map(&:strip).map do |token|
         m = /^[pva]=<(-?\d+),(-?\d+),(-?\d+)>$/.match(token)
         m[1..3].map(&:to_i)
