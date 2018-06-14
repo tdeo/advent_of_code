@@ -48,6 +48,5 @@ File.open(test_file, 'w') do |f|
         assert_equal answer, @k.new(input).part2
       end
     end
-
   TEST
 end unless File.exist?(test_file)
