@@ -1,0 +1,26 @@
+class WrappingPaper
+  def initialize(input)
+    @gifts = input.split("\n").map do |l|
+      next unless l =~ /^(\d+)x(\d+)x(\d+)$/
+      [$1, $2, $3].map(&:to_i).sort
+    end
+  end
+
+  def paper(gift)
+    gift.sort!
+    3 * gift[0] * gift[1] + 2 * gift[1] * gift[2] + 2 * gift[0] * gift[2]
+  end
+
+  def ribbon(gift)
+    gift.sort!
+   2 * (gift[0] + gift[1]) + gift.reduce(:*)
+  end
+
+  def part1
+    @gifts.map { |g| paper(g) }.reduce(:+)
+  end
+
+  def part2
+    @gifts.map { |g| ribbon(g) }.reduce(:+)
+  end
+end
