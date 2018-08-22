@@ -1,5 +1,11 @@
 class Timing
   def initialize(input)
+    @wheels = {}
+    input.split("\n").each do |l|
+      m = l.match(/^Disc #(\d+) has (\d+) positions; at time=0, it is at position (\d+).$/)
+      next if m.nil?
+      @wheels[m[1].to_i] = [m[2].to_i, m[3].to_i]
+    end
   end
 
   def valid?(time)
@@ -16,36 +22,12 @@ class Timing
     i
   end
 
-  def demo
-    @wheels = {
-      1 => [5, 4],
-      2 => [2, 1],
-    }
-  run!
-  end
-
   def part1
-    @wheels = {
-      1 => [17, 5],
-      2 => [19, 8],
-      3 => [7, 1],
-      4 => [13, 7],
-      5 => [5, 1],
-      6 => [3, 0],
-    }
     run!
   end
 
   def part2
-    @wheels = {
-      1 => [17, 5],
-      2 => [19, 8],
-      3 => [7, 1],
-      4 => [13, 7],
-      5 => [5, 1],
-      6 => [3, 0],
-      7 => [11, 0],
-    }
+    @wheels[@wheels.keys.max + 1] = [11, 0]
     run!
   end
 end

@@ -2,7 +2,7 @@ require 'digest'
 
 class Chess
   def initialize(input)
-    @input = input
+    @input = input.strip
     @index = 0
   end
 

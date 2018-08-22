@@ -1,10 +1,19 @@
 require 'set'
 
 class ThermoelectricGenerators
-  def initialize(_input)
+  def initialize(input)
     @elevator = 1
     @queued = Set.new
     @queue = []
+    @initial = Hash.new { |h, k| h[k] = {} }
+    input.split("\n").each_with_index do |line, i|
+      line.scan(/\b([a-z]+) generator/).each do |elem|
+        @initial[elem][:gen] = i + 1
+      end
+      line.scan(/\b([a-z]+)-compatible microchip/).each do |elem|
+        @initial[elem][:chip] = i + 1
+      end
+    end
   end
 
   def hash(opt, ele)
@@ -57,24 +66,18 @@ class ThermoelectricGenerators
     while !@queue.empty?
       sit, ele, moves = @queue.shift
       return moves if win?(sit)
-      moves(sit, ele) { |up, ele| queue!(up, ele, moves + 1) }
+      moves(sit, ele) { |a, b| queue!(a, b, moves + 1) }
     end
     nil
   end
 
-  def demo
-    queue!([2, 1, 3, 1], 1, 0)
-    execute!
-  end
-
   def part1
-    # gen, chip pairs
-    queue!([1, 1, 2, 3, 2, 3, 2, 3, 2, 3], 1, 0)
+    queue!(@initial.flat_map { |_, v| [v[:gen], v[:chip]] }, 1, 0)
     execute!
   end
 
   def part2
-    queue!([1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, 3, 2, 3], 1, 0)
+    queue!(@initial.flat_map { |_, v| [v[:gen], v[:chip]] } + [1, 1, 1, 1], 1, 0)
     execute!
   end
 end

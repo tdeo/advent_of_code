@@ -35,13 +35,15 @@ class Bots
       else
         @output[@config[k][:high][:num]] = high
       end
+      return k if [low, high] == [17, 61]
     end
+    nil
   end
 
   def part1
     while true do
-      @bots.each { |k, v| return k if v.sort == [17, 61] }
-      run_step!
+      r = run_step!
+      return r unless r.nil?
     end
   end
 

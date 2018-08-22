@@ -1,5 +1,6 @@
 class ClockSignal
   def initialize(input)
+    @input = input
   end
 
   # The code rewritten to ruby gives the following.
@@ -35,6 +36,12 @@ class ClockSignal
 
 
   def part1
-    "10101010101010".to_i(2) - 7 * 362
+    x = @input.split("\n")[1].split(' ')[1].to_i
+    y = @input.split("\n")[2].split(' ')[1].to_i
+    i = 2
+    while i < x * y
+      i = i * 4 + 2
+    end
+    i - x * y
   end
 end
