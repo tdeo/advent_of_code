@@ -9,20 +9,24 @@ Dir.chdir dir
 session = File.read('./session_cookie').strip
 
 unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
-  puts 'Usage: ./run.rb <year> <problem number>
+  puts <<~HELP
+    Usage: ./run.rb <year> <problem number>
 
     The script assumes the following:
       - You have your session cookie in a `session_cookie` file in the same directory.
 
-      - Files are located the following way: ./<year>/lib/<num>_<name>.rb, where is
+      - Files are located the following way: ./<year>/lib/<num>_<name>.rb, where <num> is
         0-padded to have 2 digits.
 
-      - The file in question define a class name in the camelcased <name>, which
-        can be instantiated and implements the 2 instance methods `part1` and `part2`
-        which returns the result of part1 and part2 of the problem.
-    '
+      - The file in question defines a class named with camelcased <name>, which
+        can be instantiated with a puzzle input and implements the 2 instance
+        methods `part1` and `part2` which returns the result of part1 and
+        part2 of the problem.
+HELP
   exit 1
 end
+
+post_to_aoc = ARGV.delete('--post')
 
 year = ARGV[0]
 day = ARGV[1].to_s.rjust(2, '0')
@@ -46,6 +50,10 @@ parts.each do |part|
   res = nil
   real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
   puts res
+  if post_to_aoc
+    resp = `curl -sSL --cookie \"session=#{session}\" -XPOST http://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
+    puts resp[%r{<main>(.*)</main>}m]
+  end
   puts "\n\tRun in #{real.round(2)} seconds"
 end
 
