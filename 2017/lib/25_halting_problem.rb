@@ -1,16 +1,41 @@
 class HaltingProblem
-  A = 'A'
-  B = 'B'
-  C = 'C'
-  D = 'D'
-  E = 'E'
-  F = 'F'
-
   def initialize(input)
-    @steps = 12386363
+    @steps = input.match(/Perform a diagnostic checksum after (\d+) steps./)[1].to_i
     @tape = Hash.new { |h, k| h[k] = 0 }
     @cursor = 0
-    @state = 'A'
+    @state = input.match(/Begin in state (.*)\./)[1]
+
+    @state_actions = Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = {} } }
+    cur_state = cur_value = nil
+    input.split("\n").each do |l|
+      line = l.strip
+      if line.start_with? 'In state '
+        cur_state = line.match(/In state (.*):/)[1]
+        next
+      end
+      if line.start_with? 'If the current value is '
+        cur_value = line.match(/If the current value is (\d+):/)[1].to_i
+        next
+      end
+      if line.start_with? '- '
+        if line.start_with? '- Write the value '
+          @state_actions[cur_state][cur_value][:write] = \
+            line.match(/- Write the value (\d)\./)[1].to_i
+        end
+        if line.start_with? '- Move one slot to the '
+          dir = line.match(/- Move one slot to the (.*)\./)[1]
+          @state_actions[cur_state][cur_value][:move] = if dir == 'left'
+                                                          -1
+                                                        elsif dir == 'right'
+                                                          1
+                                                        end
+        end
+        if line.start_with? '- Continue with state '
+          @state_actions[cur_state][cur_value][:continue] = \
+            line.match(/- Continue with state (.*)\./)[1]
+        end
+      end
+    end
   end
 
   def current
@@ -21,88 +46,23 @@ class HaltingProblem
     @tape[@cursor] = val
   end
 
-  def right
-    @cursor += 1
+  def move(i)
+    @cursor += i
   end
 
-  def left
-    @cursor -= 1
-  end
-
-  def state(val)
+  def continue(val)
     @state = val
   end
 
-  def stateA
-    if current == 0
-      write 1
-      right
-      state B
-    else
-      write 0
-      left
-      state E
+  def execute_state!
+    @state_actions[@state][current].each do |k, v|
+      __send__(k, v)
     end
   end
 
-  def stateB
-    if current == 0
-      write 1
-      left
-      state C
-    else
-      write 0
-      right
-      state A
-    end
-  end
-
-  def stateC
-    if current == 0
-      write 1
-      left
-      state D
-    else
-      write 0
-      right
-      state C
-    end
-  end
-
-  def stateD
-    if current == 0
-      write 1
-      left
-      state E
-    else
-      write 0
-      left
-      state F
-    end
-  end
-
-  def stateE
-    if current == 0
-      write 1
-      left
-      state A
-    else
-      write 1
-      left
-      state C
-    end
-  end
-
-  def stateF
-    if current == 0
-      write 1
-      left
-      state E
-    else
-      write 1
-      right
-      state A
-    end
+  def print!
+    puts @tape.keys.sort.map { |k| @tape[k] }.join(' ')
+    puts "State #{@state}, idx #{@cursor}"
   end
 
   def ones
@@ -111,9 +71,13 @@ class HaltingProblem
 
   def part1
     @steps.times do |i|
-      __send__(:"state#{@state}")
-      puts i if i % 100_000 == 0
+      execute_state!
+      puts i if i % 500_000 == 0
     end
     ones
+  end
+
+  def part2
+    0
   end
 end

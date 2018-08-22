@@ -30,5 +30,9 @@ class LetItSnow
     end
     code
   end
+
+  def part2
+    0
+  end
 end
 

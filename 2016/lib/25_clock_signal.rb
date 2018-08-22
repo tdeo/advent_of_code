@@ -44,4 +44,8 @@ class ClockSignal
     end
     i - x * y
   end
+
+  def part2
+    0
+  end
 end

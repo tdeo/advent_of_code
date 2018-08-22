@@ -1,7 +1,7 @@
 class Hex
   def initialize(input)
     @current = [0, 0]
-    @moves = input.split(',')
+    @moves = input.strip.split(',')
   end
 
   def apply!(move)

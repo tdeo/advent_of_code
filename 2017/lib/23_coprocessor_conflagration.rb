@@ -1,3 +1,5 @@
+require 'prime'
+
 class CoprocessorConflagration
   def initialize(input)
     @registers = Hash.new { |hash, key| key =~ /^-?\d+$/ ? hash[key] = key.to_i : hash[key] = 0 }
@@ -12,7 +14,6 @@ class CoprocessorConflagration
 
   def execute!
     ins, x, y = @instructions[@index].split(' ')
-    print! if x == 'h'
     y = val(y)
     case ins
     when 'set'
@@ -59,9 +60,10 @@ class CoprocessorConflagration
     #   exit if b == c
     #   b += 17
     # end
-    require 'prime'
-    b = 106_700
-    c = 123_700
+    @registers['a'] = 1
+    12.times { execute! }
+    b = @registers['b']
+    c = @registers['c']
     h = 0
     while true
       h += 1 unless Prime.prime?(b)

@@ -1,6 +1,6 @@
 class InverseCapcha
   def initialize(input)
-    @input = input.to_s
+    @input = input.strip
     @chars = @input.chars
     @size = @chars.size
   end
