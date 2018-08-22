@@ -1,6 +1,10 @@
 class RpgSimulator
   def initialize(input)
-    @boss = { hp: 100, damage: 8, armor: 2 }
+    @boss = {
+      hp: input.scan(/Hit Points: (\d+)\n/)[0][0].to_i,
+      damage: input.scan(/Damage: (\d+)\n/)[0][0].to_i,
+      armor: input.scan(/Armor: (\d+)\n/)[0][0].to_i,
+    }
     @me = { hp: 100, damage: 0, armor: 0 }
   end
 

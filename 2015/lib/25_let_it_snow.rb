@@ -4,6 +4,8 @@ class LetItSnow
   CODE = 20_151_125
 
   def initialize(input)
+    @row = input.scan(/row (\d*)\b/)[0][0].to_i
+    @col = input.scan(/column (\d*)\b/)[0][0].to_i
   end
 
   def index_of(row, col)
@@ -16,8 +18,8 @@ class LetItSnow
     (val * MULT) % MOD
   end
 
-  def part1(row = 2981, col = 3075)
-    idx = index_of(row, col)
+  def part1
+    idx = index_of(@row, @col)
     code = CODE
     i = 1
     viewed = {}

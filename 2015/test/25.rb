@@ -5,6 +5,6 @@ describe LetItSnow do
   before { @k = LetItSnow }
 
   def test_part1
-    assert_equal 10600672, @k.new('').part1(4, 5)
+    assert_equal 10600672, @k.new('To continue, please consult the code grid in the manual.  Enter the code at row 4, column 5.').part1
   end
 end
