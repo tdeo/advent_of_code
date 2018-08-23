@@ -32,7 +32,6 @@ class LikeARogue
     visited = { @rows.last => 0 }
     while @rows.size < rows
       next_row!
-      puts "Visited #{visited[@rows.last]} #{@rows.size}" if visited.key?(@rows.last)
       visited[@rows.last] = @rows.size
     end
     @rows.map { |r| r.tr('^', '').size }.reduce(:+)

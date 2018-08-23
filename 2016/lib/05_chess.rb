@@ -13,30 +13,27 @@ class Chess
   def next_index!
     while digest[0...5] != '00000'
       @index += 1
-      puts @index if @index % 500_000 == 0
     end
   end
 
   def get_digit!
     next_index!
     char = digest[5]
-    puts char + ' for ' + @index.to_s
     @index += 1
     char
   end
 
-  def part1
-    8.times.map { get_digit! }.join
+  def part1(times = 8)
+    times.times.map { get_digit! }.join
   end
 
-  def part2
+  def part2(times = 8)
     password = {}
-    while password.size < 8
+    while password.size < times
       next_index!
-      password[digest[5].to_i] ||= digest[6] if (0...8).map(&:to_s).include?(digest[5])
-      puts password
+      password[digest[5].to_i] ||= digest[6] if (0...times).map(&:to_s).include?(digest[5])
       @index += 1
     end
-    (0...8).map { |i| password[i] }.join
+    (0...times).map { |i| password[i] }.join
   end
 end

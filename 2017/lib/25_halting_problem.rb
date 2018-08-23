@@ -72,7 +72,6 @@ class HaltingProblem
   def part1
     @steps.times do |i|
       execute_state!
-      puts i if i % 500_000 == 0
     end
     ones
   end

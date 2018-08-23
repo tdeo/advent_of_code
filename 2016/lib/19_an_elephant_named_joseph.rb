@@ -10,9 +10,7 @@ class AnElephantNamedJoseph
       to_delete = (i + 1) % @elves.size
       i = to_delete % @elves.size
       @elves.delete_at(to_delete)
-      print "\033[2K\r#{@elves.size}" if @elves.size % 100_000 == 0
     end
-    print "\033[2K\r"
     @elves.value
   end
 
@@ -23,9 +21,7 @@ class AnElephantNamedJoseph
       to_delete = (i + @elves.size / 2) % @elves.size
       i = (i + 1) % @elves.size unless (to_delete % @elves.size) < (i % @elves.size)
       @elves.delete_at(to_delete).to_s
-      print "\033[2K\r#{@elves.size}" if @elves.size % 100_000 == 0
     end
-    print "\033[2K\r"
     @elves.value
   end
 end

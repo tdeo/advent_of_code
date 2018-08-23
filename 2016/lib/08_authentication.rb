@@ -29,11 +29,11 @@ class Authentication
       j = m[1].to_i
       rot = m[2].to_i
       copy = []
-      (0...@rows).each do |i|
-        copy[i] = @grid[(i - rot) % @rows][j]
+      (0...@rows).each do |k|
+        copy[k] = @grid[(k - rot) % @rows][j]
       end
-      (0...@rows).each do |i|
-        @grid[i][j] = copy[i]
+      (0...@rows).each do |k|
+        @grid[k][j] = copy[k]
       end
     end
   end

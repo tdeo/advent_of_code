@@ -78,8 +78,6 @@ class Duet
     @pos = 2.times.map { 0 }
     while true
       status = [apply2!(0), apply2!(1)]
-      # puts @pos.join(' ')
-      # puts status.join(' ')
       break if (status.uniq - %w(finished blocked)).empty?
     end
     @sent[1]

@@ -42,7 +42,7 @@ class Plumber
       end
       components += 1
       break if visited.size == @pipes.size
-      unknown = @pipes.keys.find { |e| visited[e].nil? }
+      unknown = @pipes.keys.find { |k| visited[k].nil? }
       queue << unknown
     end
     components

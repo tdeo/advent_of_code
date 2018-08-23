@@ -20,7 +20,7 @@ describe Squares do
     assert_equal 0, @k.new('15 10 5').part1
   end
 
-  def test_part1_3
+  def test_part1_5
     assert_equal 0, @k.new('5 10 15').part1
   end
 

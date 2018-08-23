@@ -26,8 +26,4 @@ NOT y -> i')
       },
       i.instance_variable_get(:@gates))
   end
-
-  def test_part2
-    assert_equal answer, @k.new(input).part2
-  end
 end
