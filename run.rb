@@ -31,10 +31,10 @@ post_to_aoc = ARGV.delete('--post')
 year = ARGV[0]
 day = ARGV[1].to_s.rjust(2, '0')
 
-input = `curl -sS --cookie "session=#{session}" -XGET http://adventofcode.com/#{year}/day/#{day.to_i}/input`
+input = `curl -sS --cookie "session=#{session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
 
-puts "\n*******          Input         *******\n\n"
-puts input.split("\n").first(12).join("\n")[0..500]
+puts "\n******* Input #{year}-#{day} *******\n\n"
+puts input.split("\n").first(6).join("\n")[0..500]
 puts "...\n"
 
 parts = ARGV[2] ? [ARGV[2].to_i] : [1, 2]
@@ -51,7 +51,7 @@ parts.each do |part|
   real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
   puts res
   if post_to_aoc
-    resp = `curl -sSL --cookie \"session=#{session}\" -XPOST http://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
+    resp = `curl -sSL --cookie \"session=#{session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
     puts resp[%r{<main>(.*)</main>}m]
   end
   puts "\n\tRun in #{real.round(2)} seconds"
