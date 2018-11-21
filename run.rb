@@ -6,7 +6,7 @@ require 'pathname'
 dir = File.expand_path(File.dirname(__FILE__))
 Dir.chdir dir
 
-session = File.read('./session_cookie').strip
+$session = File.read('./session_cookie').strip
 
 unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
   puts <<~HELP
@@ -26,35 +26,37 @@ HELP
   exit 1
 end
 
-post_to_aoc = ARGV.delete('--post')
+$post_to_aoc = ARGV.delete('--post')
 
-year = ARGV[0]
-day = ARGV[1].to_s.rjust(2, '0')
+def run(year, day, parts)
+  day = day.to_s.rjust(2, '0')
+  parts = [parts || [1, 2]].flatten.map(&:to_i)
 
-input = `curl -sS --cookie "session=#{session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+  input = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
 
-puts "\n******* Input #{year}-#{day} *******\n\n"
-puts input.split("\n").first(6).join("\n")[0..500]
-puts "...\n"
+  puts "\n******* Input #{year}-#{day} *******\n\n"
+  puts input.split("\n").first(6).join("\n")[0..500]
+  puts "...\n"
 
-parts = ARGV[2] ? [ARGV[2].to_i] : [1, 2]
+  file = Dir[Pathname.new(year).join('lib', "#{day}_*")].first
+  require_relative file
+  klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
 
-file = Dir[Pathname.new(year).join('lib', "#{day}_*")].first
-require_relative file
-klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
-
-parts.each do |part|
-  m = part == 1 ? :part1 : :part2
-  next unless klass.instance_methods.include?(m)
-  puts "\n******* Running part #{part} *******\n\n"
-  res = nil
-  real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
-  puts res
-  if post_to_aoc
-    resp = `curl -sSL --cookie \"session=#{session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
-    puts resp[%r{<main>(.*)</main>}m]
+  parts.each do |part|
+    m = :"part#{part}"
+    next unless klass.instance_methods.include?(m)
+    puts "\n******* Running part #{part} *******\n\n"
+    res = nil
+    real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
+    puts res
+    if $post_to_aoc
+      resp = `curl -sSL --cookie \"session=#{$session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
+      puts resp[%r{<main>(.*)</main>}m]
+    end
+    puts "\n\tRun in #{real.round(2)} seconds"
   end
-  puts "\n\tRun in #{real.round(2)} seconds"
 end
 
 puts ''
+
+run(ARGV[0], ARGV[1], ARGV[2])

@@ -1,5 +1,3 @@
-require 'byebug'
-
 class SomeAssemblyRequired
   MAX = 2**16 - 1
 
