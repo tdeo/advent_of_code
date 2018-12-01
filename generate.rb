@@ -20,6 +20,7 @@ File.open(lib_file, 'w') do |f|
   f.write <<~LIB
     class #{filename.camelcase}
       def initialize(input)
+        @input = input
       end
 
       def part1
