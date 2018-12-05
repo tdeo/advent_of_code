@@ -42,11 +42,11 @@ File.open(test_file, 'w') do |f|
       before { @k = #{filename.camelcase} }
 
       def test_part1
-        assert_equal answer, @k.new(input).part1
+        assert_equal nil, @k.new('input').part1
       end
 
       def test_part2
-        assert_equal answer, @k.new(input).part2
+        assert_equal nil, @k.new('input').part2
       end
     end
   TEST
