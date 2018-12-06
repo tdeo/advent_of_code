@@ -23,8 +23,8 @@ class MedicineForRudolph
     possible.size
   end
 
-  def random_move(mol)
-    @rules.shuffle.each do |orig, repl|
+  def move(mol)
+    @rules.each do |orig, repl|
       i = mol.index(repl)
       next if i.nil?
       mol.sub!(repl, orig)
@@ -35,14 +35,16 @@ class MedicineForRudolph
 
   def solution(mol)
     i = 0
-    while random_move(mol)
+    while move(mol)
       i += 1
     end
     mol == 'e' ? i : nil
   end
 
   def part2
-    z = 100.times.map { solution(@mol.dup) }
-    z.compact.min
+    200.times.map do
+      @rules.shuffle!
+      solution(@mol.dup)
+    end.compact.min
   end
 end
