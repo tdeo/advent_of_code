@@ -8,6 +8,9 @@ Dir.chdir dir
 
 $session = File.read('./session_cookie').strip
 
+$post_to_aoc = ARGV.delete('--post')
+$skip_tests = ARGV.delete('--no-test')
+
 unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
   puts <<~HELP
     Usage: ./run.rb <year> <problem number>
@@ -26,20 +29,20 @@ HELP
   exit 1
 end
 
-$post_to_aoc = ARGV.delete('--post')
-
 def run(year, day, parts)
   day = day.to_s.rjust(2, '0')
 
-  test_cmd = "ruby #{year}/test/#{day}.rb"
-  test_cmd += " -n test_part#{parts}" if parts
-  test_output = `#{test_cmd}`
+  unless $skip_tests
+    test_cmd = "ruby #{year}/test/#{day}.rb"
+    test_cmd += " -n test_part#{parts}" if parts
+    test_output = `#{test_cmd}`
 
-  puts "\n******* Tests #{year}-#{day} *******\n\n"
-  puts test_output
+    puts "\n******* Tests #{year}-#{day} *******\n\n"
+    puts test_output
 
-  if !test_output.include?(' 0 failures') || test_output.include?('\n0 runs')
-    exit 1
+    if !test_output.include?(' 0 failures') || test_output.include?('\n0 runs')
+      exit 1
+    end
   end
 
   parts = [parts || [1, 2]].flatten.map(&:to_i)
