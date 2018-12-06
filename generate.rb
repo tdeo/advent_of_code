@@ -6,14 +6,22 @@ require 'active_support/core_ext/string'
 dir = File.expand_path(File.dirname(__FILE__))
 Dir.chdir dir
 
-unless ARGV.size == 3 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
-  puts 'Usage: ./generate.rb <year> <problem number> <name>'
+unless ARGV.size >= 2 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
+  puts 'Usage: ./generate.rb <year> <problem number> [name]'
   exit 1
 end
 
 year = ARGV[0]
 day = ARGV[1].to_s.rjust(2, '0')
-filename = ARGV[2].underscore
+
+filename = ARGV[2] || begin
+  page = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}`
+  filename = page[/<h2[^>]*>.*Day\s*\d+:(.*)\s-*<\/h2>/, 1]
+end
+
+fail 'Cannot find problem name' if filename.nil?
+
+filename = filename.strip.tr(' ', '').underscore
 
 lib_file = "./#{year}/lib/#{day}_#{filename}.rb"
 File.open(lib_file, 'w') do |f|
