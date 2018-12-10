@@ -6,15 +6,23 @@ require 'active_support/core_ext/string'
 dir = File.expand_path(File.dirname(__FILE__))
 Dir.chdir dir
 
-unless ARGV.size >= 2 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
+args = ARGV
+
+if args.delete('auto')
+  t = Time.now.utc - 5 * 60 * 60
+  args = [t.year, t.day].map(&:to_s)
+end
+
+if (args.delete('-h') || args.delete('--help')) \
+  || (args[0] !~ /^\d*$/ || args[1] !~ /^\d*$/)
   puts 'Usage: ./generate.rb <year> <problem number> [name]'
   exit 1
 end
 
-year = ARGV[0]
-day = ARGV[1].to_s.rjust(2, '0')
+year = args[0]
+day = args[1].to_s.rjust(2, '0')
 
-filename = ARGV[2] || begin
+filename = args[2] || begin
   page = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}`
   filename = page[/<h2[^>]*>.*Day\s*\d+:(.*)\s-*<\/h2>/, 1]
 end
