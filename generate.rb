@@ -29,7 +29,7 @@ end
 
 fail 'Cannot find problem name' if filename.nil?
 
-filename = filename.strip.tr(' ', '').underscore
+filename = filename.strip.gsub(/[^A-Za-z]/, '').underscore
 
 lib_file = "./#{year}/lib/#{day}_#{filename}.rb"
 File.open(lib_file, 'w') do |f|
