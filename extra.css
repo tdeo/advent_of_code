@@ -1,0 +1,72 @@
+#sidebar {
+  width: initial;
+  max-width: 200px;
+  margin: 2.2em 1em 1em 1em;
+}
+
+article {
+  width: initial;
+  max-width: 45em;
+}
+
+article h2 {
+  white-space: normal;
+}
+
+p.wrap, .sponsors {
+  width: initial;
+  max-width: 45em;
+}
+
+p.quiet, form#settings {
+  width: initial !important;
+  max-width: 45em;
+}
+
+pre, header {
+  overflow: auto;
+}
+
+body {
+  min-width: auto;
+  padding: 0 5px;
+}
+
+.calendar {
+  display: inline-block;
+}
+
+#calendar-countdown {
+  color: #666;
+}
+
+@media(max-width: 767px) {
+  .calendar {
+    font-size: 12px;
+  }
+  #calendar-countdown {
+    font-size: 10px;
+  }
+  #sidebar {
+    max-width: initial;
+    float: unset;
+  }
+  header {
+    white-space: normal;
+  }
+  header h1 {
+    float: left;
+    width: 35%;
+    padding-right: 0;
+  }
+  header nav {
+    display: initial;
+    float: right;
+    width: 65%;
+  }
+  header .user {
+    float: left;
+    width: 35%;
+    padding-left: 0;
+  }
+}
