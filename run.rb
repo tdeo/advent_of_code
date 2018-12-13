@@ -34,7 +34,7 @@ def run(year, day, parts)
 
   unless $skip_tests
     test_cmd = "ruby #{year}/test/#{day}.rb"
-    test_cmd += " -n test_part#{parts}" if parts
+    test_cmd += " -n /test_part#{parts}/" if parts
     test_output = `#{test_cmd}`
 
     puts "\n******* Tests #{year}-#{day} *******\n\n"
