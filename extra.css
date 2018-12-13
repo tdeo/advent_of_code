@@ -1,12 +1,12 @@
 #sidebar {
-  width: initial;
-  max-width: 200px;
   margin: 2.2em 1em 1em 1em;
+  max-width: 200px;
+  width: initial;
 }
 
 article {
-  width: initial;
   max-width: 45em;
+  width: initial;
 }
 
 article h2 {
@@ -14,13 +14,13 @@ article h2 {
 }
 
 p.wrap, .sponsors {
-  width: initial;
   max-width: 45em;
+  width: initial;
 }
 
 p.quiet, form#settings {
-  width: initial !important;
   max-width: 45em;
+  width: initial !important;
 }
 
 pre, header {
@@ -40,6 +40,11 @@ body {
   color: #666;
 }
 
+form#settings input[type="checkbox"] ~ span,
+form#settings input[type="radio"] ~ span {
+  min-width: auto;
+}
+
 @media(max-width: 767px) {
   .calendar {
     font-size: 12px;
@@ -48,16 +53,16 @@ body {
     font-size: 10px;
   }
   #sidebar {
-    max-width: initial;
     float: unset;
+    max-width: initial;
   }
   header {
     white-space: normal;
   }
   header h1 {
     float: left;
-    width: 35%;
     padding-right: 0;
+    width: 35%;
   }
   header nav {
     display: initial;
@@ -66,7 +71,10 @@ body {
   }
   header .user {
     float: left;
-    width: 35%;
     padding-left: 0;
+    width: 35%;
+  }
+  .leaderboard-entry {
+    white-space: normal;
   }
 }
