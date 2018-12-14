@@ -9,7 +9,7 @@ article {
   width: initial;
 }
 
-article h2 {
+article h2, header, .leaderboard-entry, article a {
   white-space: normal;
 }
 
@@ -56,9 +56,6 @@ form#settings input[type="radio"] ~ span {
     float: unset;
     max-width: initial;
   }
-  header {
-    white-space: normal;
-  }
   header h1 {
     float: left;
     padding-right: 0;
@@ -73,8 +70,5 @@ form#settings input[type="radio"] ~ span {
     float: left;
     padding-left: 0;
     width: 35%;
-  }
-  .leaderboard-entry {
-    white-space: normal;
   }
 }
