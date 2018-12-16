@@ -57,7 +57,7 @@ assert_equal '#########
 #########', k.repr(life: false)
   end
 
-  def test_part1
+  def xtest_part1
     assert_equal [47, 590], @k.new('
 #######
 #.G...#
@@ -131,7 +131,7 @@ assert_equal '#########
 '.strip).part1(false)
   end
 
-  def test_part2
-    assert_equal nil, @k.new('input').part2
-  end
+  # def test_part2
+  #   assert_equal nil, @k.new('input').part2
+  # end
 end

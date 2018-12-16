@@ -1,3 +1,9 @@
+class Array
+  def <(o)
+    self[0] < o[0] || (self[0] == o[0] && self[1] < o[1])
+  end
+end
+
 class BeverageBandits
   class Map
     attr_reader :units, :grid
@@ -41,12 +47,14 @@ class BeverageBandits
       end
     end
 
-    def dist(i, j, i2, j2)
+    def dist(i, j, i2, j2, bound: nil)
+      return nil if bound && (i2 - i).abs + (j2 - j).abs > bound
       return 0 if i == i2 && j == j2
       q = [[i, j, 0]]
       vis = { [i, j] => true }
       while !q.empty?
         cur = q.shift
+        next if bound && cur[2] > bound
         neighbours(cur[0], cur[1], free: true).each do |n|
           return cur[2] + 1 if n == [i2, j2]
           next unless free?(*n)
@@ -91,8 +99,8 @@ class BeverageBandits
       @health = 200
     end
 
-    def dist(i, j)
-      @map.dist(i, j, @i, @j)
+    def dist(i, j, bound: nil)
+      @map.dist(i, j, @i, @j, bound: bound)
     end
 
     def in_range?
@@ -114,15 +122,33 @@ class BeverageBandits
     end
 
     def destination
-      dests = attack_points.map { |a| [a, dist(*a)] }.to_h
-      dests.compact!
-      dests.min_by(&:reverse)&.first
+      best = nil
+      closest = nil
+      attack_points.each do |a|
+        d = dist(*a, bound: best)
+        next if d.nil?
+        if d < (best || Float::INFINITY) || (d == best && a < closest)
+          best = d
+          closest = a
+        end
+      end
+      closest
     end
 
     def best_move
-      d = destination
-      return nil if d.nil?
-      @map.neighbours(i, j).min_by { |n| [@map.dist(*n, *d) || Float::INFINITY, n] }
+      dest = destination
+      return nil if dest.nil?
+      best = closest = nil
+
+      @map.neighbours(i, j).each do |n|
+        d = @map.dist(*n, *dest, bound: best)
+        next if d.nil?
+        if d < (best || Float::INFINITY) || (d == best && n < closest)
+          best = d
+          closest = n
+        end
+      end
+      closest
     end
 
     def move_to(dest_i, dest_j)
@@ -155,9 +181,6 @@ class BeverageBandits
 
     def play!
       return if @health <= 0
-      # puts attack_points.inspect if @i == 5
-      # puts destination.inspect if @i == 5
-      # puts best_move.inspect if @i == 5
       m = best_move
       move_to(*m) unless in_range? || m.nil?
       attack(ennemy)
@@ -187,13 +210,13 @@ class BeverageBandits
       puts repr if i % 10 == 0 || i >= 90
     end
     r = [i - 1, @map.units.map { |u| u.health }.sum]
-    puts r
+    puts r.inspect
     final_result ? r.reduce(:*) : r
   end
 
   def part2
-    up = 12
-    low = 11
+    up = 300
+    low = 3
     elves_count = @map.units.count { |u| u.type == :E }
     # Up wins for sure, low looses
     while up > low + 1
