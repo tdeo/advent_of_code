@@ -45,30 +45,41 @@ form#settings input[type="radio"] ~ span {
   min-width: auto;
 }
 
+header > div {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 160px auto auto;
+  justify-content: start
+}
+
+header h1 {
+  padding-right: 0;
+  grid-column: 1 / 2;
+}
+
+header nav {
+  grid-column: 2 / 3;
+}
+
+header .user {
+  grid-column: 3 / 4;
+}
+
 @media(max-width: 767px) {
-  .calendar {
-    font-size: 12px;
-  }
+  .calendar,
   #calendar-countdown {
     font-size: 10px;
+    font-size: 2.55vw;
   }
   #sidebar {
     float: unset;
     max-width: initial;
+    margin: 0;
   }
-  header h1 {
-    float: left;
-    padding-right: 0;
-    width: 35%;
-  }
-  header nav {
-    display: initial;
-    float: right;
-    width: 65%;
+  #sponsor {
+    margin-bottom: 1em;
   }
   header .user {
-    float: left;
-    padding-left: 0;
-    width: 35%;
+    grid-column: 2 / 3;
   }
 }
