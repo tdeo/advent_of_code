@@ -65,12 +65,7 @@ header .user {
   grid-column: 3 / 4;
 }
 
-@media(max-width: 767px) {
-  .calendar,
-  #calendar-countdown {
-    font-size: 10px;
-    font-size: 2.55vw;
-  }
+@media(max-width: 955px) {
   #sidebar {
     float: unset;
     max-width: initial;
@@ -78,6 +73,14 @@ header .user {
   }
   #sponsor {
     margin-bottom: 1em;
+  }
+}
+
+@media(max-width: 767px) {
+  .calendar,
+  #calendar-countdown {
+    font-size: 10px;
+    font-size: 2.55vw;
   }
   header .user {
     grid-column: 2 / 3;
