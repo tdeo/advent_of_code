@@ -64,6 +64,7 @@ class ExperimentalEmergencyTeleportation
     end
 
     comp = strongly_connected (0...@bots.size).to_a
+    fail if comp.size != 1 # Edge case not handled
 
     r = 0
     comp[0].each do |i|
