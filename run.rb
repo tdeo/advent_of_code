@@ -53,7 +53,7 @@ def run(year, day, parts)
   puts input.split("\n").first(6).join("\n")[0..500]
   puts "...\n"
 
-  file = Dir[Pathname.new(year).join('lib', "#{day}_*")].first
+  file = Dir[Pathname.new(year).join('lib', "#{day}_*.rb")].first
   require_relative file
   klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
 

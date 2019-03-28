@@ -10,9 +10,10 @@ class ChronalConversion < GoWithTheFlow
   end
 
   def part1
-    # The halting condition of the program is r4 == r0 on instruction 28
+    # The halting condition of the program is r? == r0 on instruction 28
+    idx = @instructions[28][1..2].find { |e| e != 0 }
     while @ptr >= 0 && @ptr < @instructions.size
-      return @regs[4] if @ptr == 28
+      return @regs[idx] if @ptr == 28
       round!
     end
   end
@@ -20,7 +21,7 @@ class ChronalConversion < GoWithTheFlow
   def n(r4)
     r1 = r4 | 65536
 
-    r4 = 2024736
+    r4 = @instructions[7][1]
 
     while r1 > 0
       r4 += (r1 & 255)
@@ -41,7 +42,7 @@ class ChronalConversion < GoWithTheFlow
     # r4 = 0
     # while true
     #   r1 = r4 | 65536
-    #   r4 = 2024736
+    #   r4 = 2024736 # this is a constant depending on input
     #   while r1 > 0
     #     r4 += (r1 & 255)
     #     r4 *= 65899

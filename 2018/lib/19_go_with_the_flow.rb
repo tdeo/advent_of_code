@@ -105,10 +105,11 @@ class GoWithTheFlow
     # r0 = 0
     # GOTO 1
 
+    reg_idx = @instructions[33][3]
     @regs[0] = 1
     while @ptr != 2
       round!
     end
-    divisor_sum(@regs[2])
+    divisor_sum(@regs[reg_idx])
   end
 end
