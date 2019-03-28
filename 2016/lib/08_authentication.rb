@@ -43,6 +43,15 @@ class Authentication
     @grid.flat_map(&:dup).reduce(0, :+)
   end
 
+  def decode_char(idx)
+    rows = (1..6).map { |i| @grid[i][6*i .. 6*i + 3] }
+    if rows[0] === [' 00 ']
+  end
+
+  chars = [
+    [' 00 ', '0  0', '0  0', '0000', '0  0', '0  0'], # A
+    ['000 ', '0  0', '000 ', '0  0', '0  0', '000 '], # B
+
   def part2
     @instructions.each { |ins| apply!(ins) }
     @grid.each do |r|
