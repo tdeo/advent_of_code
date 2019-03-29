@@ -27,6 +27,9 @@ class ReservoirResearch
   end
 
   def flow(x, y)
+    # puts "\e[2J\e[1;1H"
+    # print!(y - 10, y + 30)
+    # sleep 0.02
     return if y > @maxy
     if @map[x][y].nil?
       @count += 1 if y >= @miny
@@ -75,13 +78,14 @@ class ReservoirResearch
     end
   end
 
-  def print!
-    (0..@maxy).each do |y|
-      (400..600).each do |x|
-        print @map[x][y] || ' '
-      end
-      puts ''
-    end
+  def print!(ymin = 0, ymax = nil)
+    ymax ||= @ymax
+    str = (ymin..ymax).map do |y|
+      (400..600).map do |x|
+        @map[x][y] || ' '
+      end.join('')
+    end.join("\n")
+    puts str
   end
 
   def static(x, y)
