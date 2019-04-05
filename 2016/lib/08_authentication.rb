@@ -54,7 +54,7 @@ class Authentication
         ]
       end
     end.to_h
-    @alphabet[rows]
+    @alphabet[rows] || puts("Didn't recognize char #{idx}:\n#{rows.join("\n")}")
   end
 
   def part2

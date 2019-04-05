@@ -37,7 +37,7 @@ class ExperimentalEmergencyTeleportation
   def strongly_connected(idxs)
     return [[]] if idxs.empty?
 
-    a = idxs.first
+    a = idxs.sample
     c = []
     nc = []
     idxs[1..-1].each do |i|
