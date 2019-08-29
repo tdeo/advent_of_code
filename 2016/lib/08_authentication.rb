@@ -44,7 +44,7 @@ class Authentication
   end
 
   def decode_char(idx)
-    rows = (0...6).map { |i| @grid[i][5*idx .. 5*idx + 3].map { |i| i == 1 ? '0' : ' ' }.join('') }
+    rows = (0...6).map { |i| @grid[i][5*idx .. 5*idx + 3].map { |j| j == 1 ? '0' : ' ' }.join('') }
     @alphabet ||= begin
       f = File.read(File.dirname(__FILE__) + '/08_alphabet').split("\n")
       (0...26).map do |c|

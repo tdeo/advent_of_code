@@ -49,7 +49,6 @@ class TheSumofItsParts
 
     while !steps.empty?
       to_do = nil
-      next_time = schedule[-workers]&.last
 
       steps.sort_by! { |e| [can_start_at(e, schedule, workers: workers), e] }
 

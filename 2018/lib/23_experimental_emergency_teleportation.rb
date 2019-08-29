@@ -121,7 +121,7 @@ class ExperimentalEmergencyTeleportation
     end
 
     comp = strongly_connected (0...@bots.size).to_a
-    puts "Biggest component size: #{comp[0].size}"
+    # puts "Biggest component size: #{comp[0].size}"
     fail if comp.size != 1 # Edge case not handled
 
     r = 0
