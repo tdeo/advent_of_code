@@ -1,19 +1,20 @@
 require_relative './05_sunnywitha_chanceof_asteroids'
 
-class AmplificationCircuit
+class AmplificationCircuit < SunnywithaChanceofAsteroids
   def initialize(input)
     @input = input
+    super
   end
 
   def part1
     best = -1
     opts = [0,1,2,3,4]
     opts.permutation do |opt|
-      a = SunnywithaChanceofAsteroids.new(@input).part1([opt[0], 0])
-      b = SunnywithaChanceofAsteroids.new(@input).part1([opt[1], a])
-      c = SunnywithaChanceofAsteroids.new(@input).part1([opt[2], b])
-      d = SunnywithaChanceofAsteroids.new(@input).part1([opt[3], c])
-      e = SunnywithaChanceofAsteroids.new(@input).part1([opt[4], d])
+      a = self.class.new(@input).sendint(opt[0]).sendint(0).execute
+      b = self.class.new(@input).sendint(opt[1]).sendint(a).execute
+      c = self.class.new(@input).sendint(opt[2]).sendint(b).execute
+      d = self.class.new(@input).sendint(opt[3]).sendint(c).execute
+      e = self.class.new(@input).sendint(opt[4]).sendint(d).execute
       if e > best
         best = e
       end
@@ -21,32 +22,47 @@ class AmplificationCircuit
     best
   end
 
+  def sendint(val = nil)
+    super(val) unless val.nil?
+  end
+
+  def execute
+    @i ||= 0
+
+    while true do
+      ins = instruction
+
+      break if ins == 99
+      break if ins == 3 && @stdin.empty? # We need to wait for more input
+
+      compute
+      @i += increment(ins)
+      return @stdout.shift if ins == 4 # Let's return the output to send it to other process
+    end
+    nil
+  end
+
   def part2
     best = -1
     opts = [5,6,7,8,9]
     opts.permutation do |opt|
       last = nil
-      ain = [opt[0], 0]
-      bin = [opt[1]]
-      cin = [opt[2]]
-      din = [opt[3]]
-      ein = [opt[4]]
-      a = SunnywithaChanceofAsteroids.new(@input)
-      b = SunnywithaChanceofAsteroids.new(@input)
-      c = SunnywithaChanceofAsteroids.new(@input)
-      d = SunnywithaChanceofAsteroids.new(@input)
-      e = SunnywithaChanceofAsteroids.new(@input)
+      a = self.class.new(@input).sendint(opt[0]).sendint(0)
+      b = self.class.new(@input).sendint(opt[1])
+      c = self.class.new(@input).sendint(opt[2])
+      d = self.class.new(@input).sendint(opt[3])
+      e = self.class.new(@input).sendint(opt[4])
       while true do
-        aa = a.part1(ain)
-        bin << aa
-        bb = b.part1(bin)
-        cin << bb
-        cc = c.part1(cin)
-        din << cc
-        dd = d.part1(din)
-        ein << dd
-        ee = e.part1(ein)
-        ain << ee
+        aa = a.execute
+        b.sendint(aa)
+        bb = b.execute
+        c.sendint(bb)
+        cc = c.execute
+        d.sendint(cc)
+        dd = d.execute
+        e.sendint(dd)
+        ee = e.execute
+        a.sendint(ee)
         last = ee unless ee.nil?
         break if [aa,bb,cc,dd,ee].all?(&:nil?)
       end

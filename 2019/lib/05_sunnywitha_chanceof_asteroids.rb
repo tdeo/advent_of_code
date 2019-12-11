@@ -1,80 +1,101 @@
-class SunnywithaChanceofAsteroids
+require_relative '02_program_alarm'
+
+class SunnywithaChanceofAsteroids < ProgramAlarm
   def initialize(input)
-    @input = input.split(',').map(&:to_i)
+    super(input)
+    @stdin = []
+    @stdout = []
   end
 
-  def set(i, val)
-    @input[i] = val
+  def sendint(val)
+    @stdin << val
     self
   end
 
-  def part1(inputs = [1])
-    @i ||= 0
-    ret = nil
+  def a
+    if (@tape[@i] / 100) % 10 == 1
+      @tape[@i + 1]
+    else
+      super
+    end
+  end
+
+  def b
+    if (@tape[@i] / 1000) % 10 == 1
+      @tape[@i + 2]
+    else
+      super
+    end
+  end
+
+  def instruction
+    @tape[@i] % 100
+  end
+
+  def compute
+    case instruction
+    when 3
+      @tape[@tape[@i + 1]] = @stdin.shift
+    when 4
+      @stdout << a
+    when 5
+      if a != 0
+        @i = b
+      else
+        @i += 3
+      end
+    when 6
+      if a == 0
+        @i = b
+      else
+        @i += 3
+      end
+    when 7
+      @tape[@tape[@i + 3]] = (a < b) ? 1 : 0
+    when 8
+      @tape[@tape[@i + 3]] = (a == b) ? 1 : 0
+    else
+      super
+    end
+  end
+
+  def increment(instruction)
+    case instruction
+    when 1, 2, 7, 8
+      4
+    when 3, 4
+      2
+    when 5, 6
+      0
+    else
+      fail "Unknwon increment for #{instruction}"
+    end
+  end
+
+  def perform
+    return false if @tape[@i] == 99
+    compute
+    return true
+  end
+
+  def execute
+    @i = 0
 
     while true do
-      ins = @input[@i] % 100
-
-      a = if (@input[@i] / 100) % 10 == 0
-        @input[@input[@i+1] || 0]
-      else
-        @input[@i+1]
-      end
-      b = if (@input[@i] / 1000) % 10 == 0
-        @input[@input[@i+2] || 0]
-      else
-        @input[@i+2]
-      end
-
-      if ins == 1
-        @input[@input[@i + 3]] = a + b
-        @i += 4
-      elsif ins == 2
-        @input[@input[@i + 3]] = a * b
-        @i += 4
-      elsif ins == 3
-        return nil if inputs.empty? # we'll resume later
-        @input[@input[@i + 1]] = inputs.shift
-        @i += 2
-      elsif ins == 4
-        @i += 2
-        return a # we'll resume later
-      elsif ins == 5
-        if a != 0
-          @i = b
-        else
-          @i += 3
-        end
-      elsif ins == 6
-        if a == 0
-          @i = b
-        else
-          @i += 3
-        end
-      elsif ins == 7
-        if (a < b)
-          @input[@input[@i+3]] = 1
-        else
-          @input[@input[@i+3]] = 0
-        end
-        @i += 4
-      elsif ins == 8
-        if (a == b)
-          @input[@input[@i+3]] = 1
-        else
-          @input[@input[@i+3]] = 0
-        end
-        @i += 4
-      elsif ins == 99
-        return nil
-      else
-        fail "Unrecognized ins #{ins} at position #{@i}"
-      end
+      ins = instruction
+      puts "#{@i} - #{@tape}" if ENV['DEBUG']
+      out = perform
+      break unless (out == true)
+      @i += increment(ins)
     end
-    ret
+    @stdout.last
+  end
+
+  def part1
+    sendint(1).execute
   end
 
   def part2
-    part1([5])
+    sendint(5).execute
   end
 end
