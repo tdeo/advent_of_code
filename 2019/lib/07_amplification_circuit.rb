@@ -32,6 +32,9 @@ class AmplificationCircuit < SunnywithaChanceofAsteroids
     while true do
       ins = instruction
 
+      puts [@i,@tape[@i],a,b].inspect if ENV['DEBUG']
+      puts @tape.inspect if ENV['DEBUG']
+
       break if ins == 99
       break if ins == 3 && @stdin.empty? # We need to wait for more input
 

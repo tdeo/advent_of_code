@@ -9,11 +9,11 @@ class ProgramAlarm
   end
 
   def a
-    @tape[@tape[@i + 1]]
+    @tape[@tape[@i + 1].to_i]
   end
 
   def b
-    @tape[@tape[@i + 2]]
+    @tape[@tape[@i + 2].to_i]
   end
 
   def instruction
