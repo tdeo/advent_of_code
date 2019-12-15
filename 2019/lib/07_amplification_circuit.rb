@@ -1,20 +1,19 @@
-require_relative './05_sunnywitha_chanceof_asteroids'
+require_relative 'intcode'
 
-class AmplificationCircuit < SunnywithaChanceofAsteroids
+class AmplificationCircuit
   def initialize(input)
     @input = input
-    super
   end
 
   def part1
     best = -1
     opts = [0,1,2,3,4]
     opts.permutation do |opt|
-      a = self.class.new(@input).sendint(opt[0]).sendint(0).execute
-      b = self.class.new(@input).sendint(opt[1]).sendint(a).execute
-      c = self.class.new(@input).sendint(opt[2]).sendint(b).execute
-      d = self.class.new(@input).sendint(opt[3]).sendint(c).execute
-      e = self.class.new(@input).sendint(opt[4]).sendint(d).execute
+      a = Intcode.new(@input).sendint(opt[0]).sendint(0).run.getint
+      b = Intcode.new(@input).sendint(opt[1]).sendint(a).run.getint
+      c = Intcode.new(@input).sendint(opt[2]).sendint(b).run.getint
+      d = Intcode.new(@input).sendint(opt[3]).sendint(c).run.getint
+      e = Intcode.new(@input).sendint(opt[4]).sendint(d).run.getint
       if e > best
         best = e
       end
@@ -22,50 +21,33 @@ class AmplificationCircuit < SunnywithaChanceofAsteroids
     best
   end
 
-  def sendint(val = nil)
-    super(val) unless val.nil?
-  end
-
-  def execute
-    @i ||= 0
-
-    while true do
-      ins = instruction
-
-      puts [@i,@tape[@i],a,b].inspect if ENV['DEBUG']
-      puts @tape.inspect if ENV['DEBUG']
-
-      break if ins == 99
-      break if ins == 3 && @stdin.empty? # We need to wait for more input
-
-      compute
-      @i += increment(ins)
-      return @stdout.shift if ins == 4 # Let's return the output to send it to other process
-    end
-    nil
-  end
-
   def part2
     best = -1
     opts = [5,6,7,8,9]
     opts.permutation do |opt|
       last = nil
-      a = self.class.new(@input).sendint(opt[0]).sendint(0)
-      b = self.class.new(@input).sendint(opt[1])
-      c = self.class.new(@input).sendint(opt[2])
-      d = self.class.new(@input).sendint(opt[3])
-      e = self.class.new(@input).sendint(opt[4])
+      a = Intcode.new(@input).sendint(opt[0]).sendint(0)
+      b = Intcode.new(@input).sendint(opt[1])
+      c = Intcode.new(@input).sendint(opt[2])
+      d = Intcode.new(@input).sendint(opt[3])
+      e = Intcode.new(@input).sendint(opt[4])
+      aa = bb = cc = dd = ee = nil
       while true do
-        aa = a.execute
-        b.sendint(aa)
-        bb = b.execute
-        c.sendint(bb)
-        cc = c.execute
-        d.sendint(cc)
-        dd = d.execute
-        e.sendint(dd)
-        ee = e.execute
-        a.sendint(ee)
+        a.run_until_input
+        aa = a.getint
+        b.sendint(aa) unless aa.nil?
+        b.run_until_input
+        bb = b.getint
+        c.sendint(bb) unless bb.nil?
+        c.run_until_input
+        cc = c.getint
+        d.sendint(cc) unless cc.nil?
+        d.run_until_input
+        dd = d.getint
+        e.sendint(dd) unless dd.nil?
+        e.run_until_input
+        ee = e.getint
+        a.sendint(ee) unless ee.nil?
         last = ee unless ee.nil?
         break if [aa,bb,cc,dd,ee].all?(&:nil?)
       end
