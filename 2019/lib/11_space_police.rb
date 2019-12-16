@@ -9,28 +9,6 @@ TURNS = {
   [0, -1] => [ [1, 0], [-1, 0] ],
 }
 
-class FIntcode
-  def initialize(input)
-    @stdout = [1, 0, 0, 0, 1, 0, 1, 0, 0,1, 1,0, 1,0]
-  end
-
-  def getint
-    @stdout.shift
-  end
-
-  def sendint(val)
-    self
-  end
-
-  def run_until_input
-    true
-  end
-
-  def finished?
-    @stdout.empty?
-  end
-end
-
 class SpacePolice
   def initialize(input)
     @input = input
