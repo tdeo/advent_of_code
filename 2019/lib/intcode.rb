@@ -15,7 +15,7 @@ class Intcode
   end
 
   def getint
-    @stdout.pop
+    @stdout.shift
   end
 
   def sendint(i)

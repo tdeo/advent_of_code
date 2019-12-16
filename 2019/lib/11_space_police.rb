@@ -9,25 +9,45 @@ TURNS = {
   [0, -1] => [ [1, 0], [-1, 0] ],
 }
 
+class FIntcode
+  def initialize(input)
+    @stdout = [1, 0, 0, 0, 1, 0, 1, 0, 0,1, 1,0, 1,0]
+  end
+
+  def getint
+    @stdout.shift
+  end
+
+  def sendint(val)
+    self
+  end
+
+  def run_until_input
+    true
+  end
+
+  def finished?
+    @stdout.empty?
+  end
+end
+
 class SpacePolice
   def initialize(input)
     @input = input
-    @panels = Hash.new { |h, k| h[k] = Hash.new(0) }
+    @panels = Hash.new(0)
     @robot = [0, 0]
     @dir = [-1, 0]
     @intcode = Intcode.new(@input)
-    @painted = {}
   end
 
   def step
-    @intcode.sendint(@panels[@robot[0]][@robot[1]])
+    @intcode.sendint(@panels[@robot])
     @intcode.run_until_input
     color = @intcode.getint
-
-    @painted[@robot] = true
-
-    @panels[@robot[0]][@robot[1]] = color
+    return nil if color.nil?
     turn = @intcode.getint
+
+    @panels[@robot.dup] = color
 
     new_dir = DIRS.index(@dir)
     new_dir += (turn == 0) ? 1 : -1
@@ -37,19 +57,20 @@ class SpacePolice
 
     @robot[0] += @dir[0]
     @robot[1] += @dir[1]
+    true
   end
 
   def print_map
-    @panels[@robot[0]][@robot[1]]
-    mini, maxi = @panels.keys.minmax
-    minj, maxj = @panels.values.flat_map(&:keys).minmax
+    @panels[@robot]
+    mini, maxi = @panels.keys.map(&:first).minmax
+    minj, maxj = @panels.keys.map(&:last).minmax
 
-    (mini..maxi).each do |i|
-      (minj..maxj).each do |j|
+    (mini - 1..maxi + 1).each do |i|
+      (minj - 1..maxj + 1).each do |j|
         if @robot == [i, j]
           print 'R'
         else
-          print @panels[i][j] == 1 ? ?# : ?.
+          print @panels[[i, j]] == 1 ? ?# : ?.
         end
       end
       puts ''
@@ -57,19 +78,17 @@ class SpacePolice
   end
 
   def part1
-    count = 0
     while !@intcode.finished? do
-      count += 1
       step
-      # print_map
-      # break if count > 10
     end
 
-    print_map
-
-    @painted.size
+    @panels.size
   end
 
   def part2
+    @panels[[0, 0]] = 1
+    part1
+    print_map
+    ''
   end
 end
