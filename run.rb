@@ -63,7 +63,7 @@ def run(year, day, parts)
     puts "\n******* Running part #{part} *******\n\n"
     res = nil
     real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
-    puts res.inspect
+    puts res
     if $post_to_aoc
       resp = `curl -sSL --cookie \"session=#{$session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
       puts resp[%r{<main>(.*)</main>}m]
