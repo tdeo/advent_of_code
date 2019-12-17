@@ -18,6 +18,10 @@ class Intcode
     @stdout.shift
   end
 
+  def has_output?
+    !@stdout.empty?
+  end
+
   def sendint(i)
     @stdin << i
     self

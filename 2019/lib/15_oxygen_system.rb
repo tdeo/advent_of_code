@@ -96,7 +96,7 @@ class OxygenSystem
     @map[[0, 0]] = ?.
 
     while !queue.empty? do
-      todo = queue.shift
+      todo = queue.pop
       i, j = todo
       [[i - 1, j], [i + 1, j], [i, j - 1], [i, j + 1]].each do |neighbour|
         next if @map[neighbour]
