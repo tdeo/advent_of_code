@@ -1,3 +1,5 @@
+require_relative '../../lib/priority_queue'
+
 class ManyWorldsInterpretation
   def initialize(input)
     @input = input.strip
@@ -41,7 +43,7 @@ class ManyWorldsInterpretation
     false
   end
 
-  def find_blocking_doors
+  def key_information
     keys = {}
     viewed = { @origin => [] }
     q = [@origin]
@@ -75,47 +77,71 @@ class ManyWorldsInterpretation
 
   def shortest_path(from, to)
     @shortest ||= {}
+    @time ||= 0
     @shortest[[from, to]] ||= @shortest[[to, from]] ||= begin
+      @time -= Time.now.to_i
       v = { from => 0 }
       q = [from]
+      ret = nil
       while !q.empty? do
         cur = q.shift
-        return v[cur] if cur == to
+        if cur == to
+          ret = v[cur]
+          break
+        end
         neighbours(cur) do |n|
           next if v.key?(n)
           v[n] = v[cur] + 1
           q << n
         end
       end
-      fail "No path from #{from} to #{to}"
+      @time += Time.now.to_i
+      fail "No path from #{from} to #{to}" if ret.nil?
+      ret
     end
   end
 
-  def order(prefix, blocking = find_blocking_doors)
-    if prefix.size == blocking.size
-      yield prefix
-      return
+  def enhance(key_info)
+    res = []
+    key_info.each do |k, info|
+      info[:letter] = k
+      info[:doors] = info[:doors].map { |e| 1 << (e.ord - ?a.ord) }.reduce(0, :|)
+      info[:keys] = info[:keys].map { |e| 1 << (e.ord - ?a.ord) }.reduce(0, :|)
+      res[k.ord - ?a.ord] = info
     end
-    blocking.keys.each do |k|
-      next if prefix.include?(k)
-      next unless blocking[k][:doors].all? { |door| prefix.include?(door) }
-
-      order(prefix.merge({ k => true }), blocking) do |poss|
-        yield poss
-      end
-    end
+    res
   end
 
   def part1
-    blocking = find_blocking_doors.sort.reverse.to_h
-    pp blocking
-    c = 0
-    order({}, blocking) do |opt|
-      c += 1
-      puts opt.keys.join(',') if c % 100_000 == 0
-      puts c if c % 100_000 == 0
+    key_infos = enhance(key_information.sort.to_h)
+    pp key_infos.map { |e| e.merge({ doors: e[:doors].to_s(2), keys: e[:keys].to_s(2) }) }
+
+    target = (1 << key_infos.size) - 1
+
+    q = PriorityQueue.new { |el| el.first }
+    viewed = {}
+    q << [0, [@origin, 0]]
+
+    while !q.empty? do
+      val, el = q.pop
+      pos, visited = el
+      return val if visited == target
+
+      next if viewed[el]
+      viewed[el] = val
+
+      key_infos.each_with_index do |info, k|
+        next if visited[k] != 0
+        next unless info[:doors] & visited == info[:doors]
+        q << [
+          val + shortest_path(pos, info[:pos]),
+          [
+            info[:pos],
+            visited | (1 << k)
+          ]
+        ]
+      end
     end
-    c
   end
 
   def part2

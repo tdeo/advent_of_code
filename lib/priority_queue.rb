@@ -1,16 +1,21 @@
 class PriorityQueue
+  attr_reader :size
+
   def initialize(&block)
     @q = [nil]
     @block = block
+    @size = 0
     fail 'Unrecognized block arity' if block && (block.arity < 1 || block.arity > 2)
   end
 
   def <<(el)
+    @size += 1
     @q << el
     bubble_up(@q.size - 1)
   end
 
   def pop
+    @size -= 1
     exchange(1, @q.size - 1)
     el = @q.pop
     bubble_down(1)
