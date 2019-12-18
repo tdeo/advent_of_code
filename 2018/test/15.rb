@@ -130,8 +130,4 @@ assert_equal '#########
 #########
 '.strip).part1(false)
   end
-
-  # def test_part2
-  #   assert_equal nil, @k.new('input').part2
-  # end
 end

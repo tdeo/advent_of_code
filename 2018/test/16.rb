@@ -9,8 +9,4 @@ describe ChronalClassification do
 9 2 1 2
 After:  [3, 2, 2, 1]').part1
   end
-
-  def xtest_part2
-    assert_equal nil, @k.new('input').part2
-  end
 end

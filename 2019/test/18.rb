@@ -22,7 +22,7 @@ describe ManyWorldsInterpretation do
 #########').part1
   end
 
-  def xtest_part1_b
+  def test_part1_b
     assert_equal 86, @k.new('########################
 #f.D.E.e.C.b.A.@.a.B.c.#
 ######################.#
@@ -30,7 +30,7 @@ describe ManyWorldsInterpretation do
 ########################').part1
   end
 
-  def xtest_part1_c
+  def test_part1_c
     assert_equal 132, @k.new('########################
 #...............b.C.D.f#
 #.######################
@@ -38,7 +38,7 @@ describe ManyWorldsInterpretation do
 ########################').part1
   end
 
-  def xtest_part1_c
+  def test_part1_d
     assert_equal 136, @k.new('#################
 #i.G..c...e..H.p#
 ########.########
@@ -50,7 +50,7 @@ describe ManyWorldsInterpretation do
 #################').part1
   end
 
-  def xtest_part1_c
+  def test_part1_e
     assert_equal 81, @k.new('########################
 #@..............ac.GI.b#
 ###d#e#f################
@@ -59,7 +59,7 @@ describe ManyWorldsInterpretation do
 ########################').part1
   end
 
-  def test_part2
-    assert_equal nil, @k.new('input').part2
+  def xtest_part2
+    assert_equal true, @k.new('input').part2
   end
 end

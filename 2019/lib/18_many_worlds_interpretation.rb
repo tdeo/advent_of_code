@@ -79,7 +79,7 @@ class ManyWorldsInterpretation
     @shortest ||= {}
     @time ||= 0
     @shortest[[from, to]] ||= @shortest[[to, from]] ||= begin
-      @time -= Time.now.to_i
+      @time -= Time.now.to_f
       v = { from => 0 }
       q = [from]
       ret = nil
@@ -95,7 +95,8 @@ class ManyWorldsInterpretation
           q << n
         end
       end
-      @time += Time.now.to_i
+      @time += Time.now.to_f
+      # puts "#{from} #{to} #{@time.round(3)}"
       fail "No path from #{from} to #{to}" if ret.nil?
       ret
     end
@@ -114,7 +115,7 @@ class ManyWorldsInterpretation
 
   def part1
     key_infos = enhance(key_information.sort.to_h)
-    pp key_infos.map { |e| e.merge({ doors: e[:doors].to_s(2), keys: e[:keys].to_s(2) }) }
+    # pp key_infos.map { |e| e.merge({ doors: e[:doors].to_s(2), keys: e[:keys].to_s(2) }) }
 
     target = (1 << key_infos.size) - 1
 
@@ -145,5 +146,6 @@ class ManyWorldsInterpretation
   end
 
   def part2
+    true
   end
 end
