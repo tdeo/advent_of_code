@@ -5,15 +5,16 @@ class ManyWorldsInterpretation
     @input = input.strip
     @maze = @input.split("\n")
     @origin = nil
+    @pos = {}
     (0...@maze.size).each do |i|
       (0...@maze[i].size).each do |j|
-        @origin = [i, j] if at(i, j) == ?@
+        @pos[at(i, j)] = [i, j] if at(i, j) != ?# && at(i, j) != ?.
       end
     end
   end
 
-  def at(i, j = nil)
-    j.nil? ? @maze[i[0]][i[1]] : @maze[i][j]
+  def at(i, j)
+    @maze[i][j]
   end
 
   def neighbours(pos)
@@ -75,30 +76,27 @@ class ManyWorldsInterpretation
     keys
   end
 
-  def shortest_path(from, to)
+  def shortest_paths(from)
     @shortest ||= {}
-    @time ||= 0
-    @shortest[[from, to]] ||= @shortest[[to, from]] ||= begin
-      @time -= Time.now.to_f
-      v = { from => 0 }
-      q = [from]
-      ret = nil
+    pos = @pos[from]
+    puts pos
+    @shortest[from] ||= begin
+      v = { pos => [0, []] }
+      q = [pos]
       while !q.empty? do
         cur = q.shift
-        if cur == to
-          ret = v[cur]
-          break
-        end
+        s = at(*cur)
+
         neighbours(cur) do |n|
           next if v.key?(n)
-          v[n] = v[cur] + 1
+          v[n] = [
+            v[cur][0] + 1,
+            s =~ /[A-Za-z]/ ? v[cur][1] + [s.downcase] : v[cur][1],
+          ]
           q << n
         end
       end
-      @time += Time.now.to_f
-      # puts "#{from} #{to} #{@time.round(3)}"
-      fail "No path from #{from} to #{to}" if ret.nil?
-      ret
+      @pos.keys.select { |k| k =~ /[a-z]/ }.map { |k| [k, v[@pos[k]]] }.to_h
     end
   end
 
@@ -113,23 +111,37 @@ class ManyWorldsInterpretation
     res
   end
 
+  def print_map
+    @maze.each do |l|
+      puts l.tr('#.', "\u2588 ")
+    end
+  end
+
   def part1
-    key_infos = enhance(key_information.sort.to_h)
+    puts shortest_paths(?@)
+    # print_map
+    key_infos = key_information.sort.to_h
+    # pp key_infos.map { |k, v| [k, v[:doors].sort.join(',')].join(', ') }
+    key_infos = enhance(key_infos)
     # pp key_infos.map { |e| e.merge({ doors: e[:doors].to_s(2), keys: e[:keys].to_s(2) }) }
 
     target = (1 << key_infos.size) - 1
 
-    q = PriorityQueue.new { |el| el.first }
-    viewed = {}
+    # q = PriorityQueue.new { |el| el.first }
+    q = []
+    # viewed = {}
     q << [0, [@origin, 0]]
+    best = 10000000
 
     while !q.empty? do
       val, el = q.pop
       pos, visited = el
-      return val if visited == target
+      if visited == target
+        best = val if val < best
+      end
 
-      next if viewed[el]
-      viewed[el] = val
+      # next if viewed[el]
+      # viewed[el] = val
 
       key_infos.each_with_index do |info, k|
         next if visited[k] != 0
@@ -139,10 +151,12 @@ class ManyWorldsInterpretation
           [
             info[:pos],
             visited | (1 << k)
-          ]
+          ],
+          pos
         ]
       end
     end
+    best
   end
 
   def part2
