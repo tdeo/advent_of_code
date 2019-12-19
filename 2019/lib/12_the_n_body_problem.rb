@@ -1,28 +1,26 @@
 class TheNBodyProblem
+  N = 3
+
   def initialize(input)
     @input = input
     @moons = input.split("\n").map do |l|
       {
-        pos: l.split('=')[1..3].map(&:to_i),
-        vel: [0, 0, 0],
+        pos: l.split('=')[1..N].map(&:to_i),
+        vel: [0] * N,
       }
     end
   end
 
-  def time_step
+  def time_step!
     @moons.combination(2).each do |a, b|
-      [0, 1, 2].each do |i|
-        if a[:pos][i] > b[:pos][i]
-          a[:vel][i] -= 1
-          b[:vel][i] += 1
-        elsif a[:pos][i] < b[:pos][i]
-          a[:vel][i] += 1
-          b[:vel][i] -= 1
-        end
+      N.times do |i|
+        cmp = (a[:pos][i] <=> b[:pos][i])
+        a[:vel][i] -= cmp
+        b[:vel][i] += cmp
       end
     end
     @moons.each do |a|
-      [0, 1, 2].each do |i|
+      N.times do |i|
         a[:pos][i] += a[:vel][i]
       end
     end
@@ -35,31 +33,32 @@ class TheNBodyProblem
   end
 
   def part1(steps = 1000)
-    steps.times { time_step }
+    steps.times { time_step! }
     total_energy
   end
 
-  def find_cycle(idx)
-    viewed = {}
+  def find_cycles
+    viewed = N.times.map { {} }
+    cycles = [nil] * N
     steps = 0
+
     while true do
-      key = @moons.map { |v| [v[:pos][idx], v[:vel][idx]] }
-      if viewed[key]
-        return [viewed[key], steps - viewed[key]]
+      N.times do |i|
+        next unless cycles[i].nil?
+        key = @moons.flat_map { |m| [m[:pos][i], m[:vel][i]] }
+        if viewed[i][key]
+          cycles[i] = steps
+        else
+          viewed[i][key] = true
+        end
       end
-      viewed[key] = steps
-      time_step
+      return cycles unless cycles.any?(&:nil?)
+      time_step!
       steps += 1
     end
   end
 
   def part2
-    repeat = []
-    [0, 1, 2].each do |i|
-      sim = self.class.new(@input)
-      repeat[i] = sim.find_cycle(i)
-    end
-    l = repeat.map(&:last).reduce(&:lcm)
-    res = l + repeat.map(&:first).min
+    find_cycles.reduce(&:lcm)
   end
 end
