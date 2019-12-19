@@ -11,9 +11,7 @@ class Chess
   end
 
   def next_index!
-    while digest[0...5] != '00000'
-      @index += 1
-    end
+    @index += 1 while digest[0...5] != '00000'
   end
 
   def get_digit!
@@ -31,7 +29,9 @@ class Chess
     password = {}
     while password.size < times
       next_index!
-      password[digest[5].to_i] ||= digest[6] if (0...times).map(&:to_s).include?(digest[5])
+      dig = digest
+      pos = dig[5].to_i(16)
+      password[pos] ||= dig[6] if pos < times
       @index += 1
     end
     (0...times).map { |i| password[i] }.join

@@ -11,7 +11,7 @@ $session = File.read('./session_cookie').strip
 $post_to_aoc = ARGV.delete('--post')
 $skip_tests = ARGV.delete('--no-test')
 
-unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && ARGV[1] =~ /\d+/
+unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && (ARGV[1] =~ /\d+/ || ARGV[1] == 'benchmark')
   puts <<~HELP
     Usage: ./run.rb <year> <problem number>
 
@@ -32,8 +32,9 @@ end
 def run(year, day, parts)
   day = day.to_s.rjust(2, '0')
 
-  unless $skip_tests
-    test_cmd = "ruby #{year}/test/#{day}.rb"
+  test_file = "#{year}/test/#{day}.rb"
+  if File.exists?(test_file) && !$skip_tests
+    test_cmd = "ruby #{test_file}"
     test_cmd += " -n /test_part#{parts}/" if parts
     test_output = `#{test_cmd}`
 
@@ -57,7 +58,7 @@ def run(year, day, parts)
   require_relative file
   klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
 
-  parts.each do |part|
+  parts.map do |part|
     m = :"part#{part}"
     next unless klass.instance_methods.include?(m)
     puts "\n******* Running part #{part} *******\n\n"
@@ -69,7 +70,22 @@ def run(year, day, parts)
       puts resp[%r{<main>(.*)</main>}m]
     end
     puts "\n\tRun in #{real.round(2)} seconds"
+    real
   end
+end
+
+
+def benchmark(year)
+  $skip_tests = true
+  '01'.upto('25').each do |day|
+    times = run(year, day, [1, 2])
+    STDERR.puts "#{year} - #{day}: #{times[0].round(4).to_s.rjust(10)} #{times[1].round(4).to_s.rjust(10)}"
+  end
+end
+
+if ARGV[1] == 'benchmark'
+  benchmark(ARGV[0])
+  exit 0
 end
 
 puts ''

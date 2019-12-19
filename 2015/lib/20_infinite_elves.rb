@@ -1,20 +1,13 @@
+require 'prime'
+
 class InfiniteElves
   def initialize(input)
     @target = input.strip.to_i
   end
 
   def divisor_sum(n)
-    i = 2
-    sum = 1 + n
-    while i * i < n
-      if n % i == 0
-        sum += i
-        sum += n / i
-      end
-      i += 1
-    end
-    sum += i if i * i == n
-    sum
+    divs = n.prime_division.map { |p, pow| (p**(pow + 1) - 1) / (p - 1) }
+    divs.empty? ? 1 + n : divs.reduce(:*)
   end
 
   def part1
