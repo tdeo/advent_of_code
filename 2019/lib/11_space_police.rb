@@ -48,7 +48,7 @@ class SpacePolice
         if @robot == [i, j]
           print 'R'
         else
-          print @panels[[i, j]] == 1 ? ?# : ?.
+          print @panels[[i, j]] == 1 ? ?# : ' '
         end
       end
       puts ''

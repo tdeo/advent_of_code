@@ -104,7 +104,6 @@ class OxygenSystem
         queue << neighbour
       end
     end
-    print_map
     tank = @map.find { |k, v| v == ?O }[0]
     path([0, 0], tank).size
   end

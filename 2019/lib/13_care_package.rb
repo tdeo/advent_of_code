@@ -93,7 +93,6 @@ class CarePackage
       end
       # print_map # if Random.rand() < 0.1
       return score if @map.count { |k, v| v == ?B } == 0 # No more blocks
-      puts score
       @intcode.sendint(move)
     end
   end
