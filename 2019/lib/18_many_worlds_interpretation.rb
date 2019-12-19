@@ -6,6 +6,10 @@ class ManyWorldsInterpretation
     @maze = @input.split("\n")
     @origin = nil
     @pos = {}
+    read_positions
+  end
+
+  def read_positions
     (0...@maze.size).each do |i|
       (0...@maze[i].size).each do |j|
         @pos[at(i, j)] = [i, j] if at(i, j) != ?# && at(i, j) != ?.
@@ -25,8 +29,8 @@ class ManyWorldsInterpretation
   end
 
   def has_cycle?
-    viewed = { @origin => nil }
-    q = [@origin]
+    viewed = { @pos[?@] => nil }
+    q = [@pos[?@]]
     while !q.empty? do
       cur = q.shift
       neighbours(cur) do |n|
@@ -44,42 +48,9 @@ class ManyWorldsInterpretation
     false
   end
 
-  def key_information
-    keys = {}
-    viewed = { @origin => [] }
-    q = [@origin]
-    while !q.empty? do
-      cur = q.shift
-      neighbours(cur) do |n|
-        next if viewed[n]
-
-        c = at(n)
-        if (?A...?Z) === c || (?a...?z) === c
-          viewed[n] = viewed[cur] + [c]
-        else
-          viewed[n] = viewed[cur]
-        end
-        q << n
-
-        if (?a..?z) === c
-          keys[c] = { pos: n, needs: viewed[cur].dup }
-        end
-      end
-    end
-    keys.keys.each do |k|
-      keys[k] = {
-        pos: keys[k][:pos],
-        keys: keys[k][:needs].select { |e| (?a...?z) === e }.sort,
-        doors: keys[k][:needs].select { |e| (?A...?Z) === e }.map(&:downcase).sort,
-      }
-    end
-    keys
-  end
-
   def shortest_paths(from)
     @shortest ||= {}
     pos = @pos[from]
-    puts pos
     @shortest[from] ||= begin
       v = { pos => [0, []] }
       q = [pos]
@@ -96,70 +67,88 @@ class ManyWorldsInterpretation
           q << n
         end
       end
-      @pos.keys.select { |k| k =~ /[a-z]/ }.map { |k| [k, v[@pos[k]]] }.to_h
+      @pos.keys.select { |k| k =~ /[a-z]/ && v.key?(@pos[k]) }.map do |k|
+        [k, v[@pos[k]]]
+      end.to_h
     end
   end
 
-  def enhance(key_info)
-    res = []
-    key_info.each do |k, info|
-      info[:letter] = k
-      info[:doors] = info[:doors].map { |e| 1 << (e.ord - ?a.ord) }.reduce(0, :|)
-      info[:keys] = info[:keys].map { |e| 1 << (e.ord - ?a.ord) }.reduce(0, :|)
-      res[k.ord - ?a.ord] = info
-    end
-    res
-  end
-
-  def print_map
+  def print_maze
     @maze.each do |l|
       puts l.tr('#.', "\u2588 ")
     end
   end
 
   def part1
-    puts shortest_paths(?@)
-    # print_map
-    key_infos = key_information.sort.to_h
-    # pp key_infos.map { |k, v| [k, v[:doors].sort.join(',')].join(', ') }
-    key_infos = enhance(key_infos)
-    # pp key_infos.map { |e| e.merge({ doors: e[:doors].to_s(2), keys: e[:keys].to_s(2) }) }
+    target = @pos.count { |k, v| k =~ /[a-z]/ }
 
-    target = (1 << key_infos.size) - 1
+    q = PriorityQueue.new { |el| el.first }
+    q << [0, [?@, {}]]
 
-    # q = PriorityQueue.new { |el| el.first }
-    q = []
-    # viewed = {}
-    q << [0, [@origin, 0]]
-    best = 10000000
+    viewed = {}
 
     while !q.empty? do
       val, el = q.pop
       pos, visited = el
-      if visited == target
-        best = val if val < best
+
+      if visited.size == target
+        return val
       end
 
-      # next if viewed[el]
-      # viewed[el] = val
+      next if viewed[el]
+      viewed[el] = val
 
-      key_infos.each_with_index do |info, k|
-        next if visited[k] != 0
-        next unless info[:doors] & visited == info[:doors]
-        q << [
-          val + shortest_path(pos, info[:pos]),
-          [
-            info[:pos],
-            visited | (1 << k)
-          ],
-          pos
-        ]
+      shortest_paths(pos).each do |k, v|
+        next if visited.key?(k)
+        next unless v[1].all? { |vv| visited.key?(vv) }
+        q << [val + v[0], [k, visited.merge({ k => true })]]
       end
+
     end
     best
   end
 
   def part2
-    true
+    i, j = @pos[?@]
+    @maze[i-1][j-1..j+1] = '1#2'
+    @maze[i][j-1..j+1] = '###'
+    @maze[i+1][j-1..j+1] = '3#4'
+
+    @pos = {}
+    read_positions
+    @shortest = {}
+
+    target = @pos.count { |k, v| k =~ /[a-z]/ }
+
+    q = PriorityQueue.new { |el| el.first }
+    q << [0, ['1234', {}]]
+
+    viewed = {}
+
+    while !q.empty? do
+      val, el = q.pop
+      poss, visited = el
+
+      if visited.size == target
+        return val
+      end
+
+      next if viewed[el]
+      viewed[el] = val
+
+      poss.each_char do |pos|
+        shortest_paths(pos).each do |k, v|
+          next if visited.key?(k)
+          next unless v[1].all? { |vv| visited.key?(vv) }
+          q << [
+            val + v[0],
+            [
+              poss.tr(pos, k),
+              visited.merge({ k => true })
+            ],
+          ]
+        end
+      end
+    end
   end
 end
