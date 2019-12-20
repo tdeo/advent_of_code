@@ -2,6 +2,7 @@
 
 require 'benchmark'
 require 'pathname'
+require 'fileutils'
 
 dir = File.expand_path(File.dirname(__FILE__))
 Dir.chdir dir
@@ -29,7 +30,27 @@ HELP
   exit 1
 end
 
+def init_year(year)
+  FileUtils.mkdir_p([
+    Pathname.new(File.dirname(__FILE__)).join(year, 'lib'),
+    Pathname.new(File.dirname(__FILE__)).join(year, 'test'),
+    Pathname.new(File.dirname(__FILE__)).join(year, 'inputs'),
+  ])
+end
+
+def input(year, day)
+  init_year(year)
+  day = day.to_s.rjust(2, ?0)
+  file = "#{year}/inputs/#{day}.input"
+  unless File.exist?(file)
+    input = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+    File.open(file, 'w') { |f| f.write(input) }
+  end
+  File.read(file)
+end
+
 def run(year, day, parts)
+  init_year(year)
   day = day.to_s.rjust(2, '0')
 
   test_file = "#{year}/test/#{day}.rb"
@@ -48,7 +69,7 @@ def run(year, day, parts)
 
   parts = [parts || [1, 2]].flatten.map(&:to_i)
 
-  input = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+  input = input(year, day)
 
   puts "\n******* Input #{year}-#{day} *******\n\n"
   puts input.split("\n").first(6).join("\n")[0..500]
