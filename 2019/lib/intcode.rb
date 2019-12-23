@@ -1,5 +1,5 @@
 class Intcode
-  attr_reader :stdout
+  attr_reader :stdout, :stdin, :tape
 
   def initialize(input)
     @tape = input.split(',').map(&:to_i)
@@ -8,6 +8,13 @@ class Intcode
     @stdin = []
     @stdout = []
     @finished = false
+    @default = nil
+    self
+  end
+
+  def set_default(val)
+    @default = val
+    self
   end
 
   def finished?
@@ -18,8 +25,8 @@ class Intcode
     @stdout.shift
   end
 
-  def has_output?
-    !@stdout.empty?
+  def has_output?(n = 1)
+    @stdout.size >= n
   end
 
   def sendint(i)
@@ -74,7 +81,7 @@ class Intcode
     when 2
       write(3, a * b)
     when 3
-      fail "STDIN empty" if @stdin.empty?
+      fail "STDIN empty" if @stdin.empty? && !@default
       write(1, @stdin.shift)
     when 4
       @stdout << a
@@ -118,9 +125,8 @@ class Intcode
     end
   end
 
-  def perform
+  def perform_instruction
     ins = instruction
-    # puts "#{@i} #{ins} #{@tape[@i..@i+3]}"
     if ins == 99
       @finished = true
       return nil
@@ -132,7 +138,7 @@ class Intcode
 
   def run
     while true do
-      r = perform
+      r = perform_instruction
       break if r.nil?
     end
     self
@@ -141,7 +147,7 @@ class Intcode
   def run_until_input
     while true do
       return 'needint' if instruction == 3 && @stdin.empty?
-      r = perform
+      r = perform_instruction
       return nil if r.nil?
     end
   end
