@@ -69,3 +69,5 @@ File.open(test_file, 'w') do |f|
     end
   TEST
 end unless File.exist?(test_file)
+
+`$EDITOR #{lib_file} #{test_file}`
