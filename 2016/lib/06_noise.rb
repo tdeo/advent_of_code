@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Noise
   def initialize(input)
     @messages = input.strip.split("\n").map(&:strip)
@@ -7,13 +9,13 @@ class Noise
   def letter(pos)
     letters = Hash.new { |h, k| h[k] = 0 }
     @messages.each { |m| letters[m[pos]] += 1 }
-    letters.max_by { |k, v| v }.first
+    letters.max_by { |_, v| v }.first
   end
 
   def lesser_letter(pos)
     letters = Hash.new { |h, k| h[k] = 0 }
     @messages.each { |m| letters[m[pos]] += 1 }
-    letters.min_by { |k, v| v }.first
+    letters.min_by { |_, v| v }.first
   end
 
   def part1

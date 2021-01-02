@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/04_passport_processing.rb')
+require_relative('../lib/04_passport_processing')
 
 describe PassportProcessing do
   before { @k = PassportProcessing }

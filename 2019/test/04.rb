@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/04_secure_container.rb')
+require_relative('../lib/04_secure_container')
 
 describe SecureContainer do
   before { @k = SecureContainer }

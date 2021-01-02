@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/23_safe_cracking.rb')
+require_relative('../lib/23_safe_cracking')
 
 describe SafeCracking do
   before { @k = SafeCracking }

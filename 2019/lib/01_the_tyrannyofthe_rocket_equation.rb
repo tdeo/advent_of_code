@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TheTyrannyoftheRocketEquation
   def initialize(input)
     @input = input.each_line.map(&:to_i)
@@ -15,7 +17,7 @@ class TheTyrannyoftheRocketEquation
     s = 0
     @input.each do |i|
       i = i / 3 - 2
-      while i > 0 do
+      while i > 0
         s += i
         i = i / 3 - 2
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HandheldHalting
   def initialize(input)
     @input = input
@@ -12,22 +14,23 @@ class HandheldHalting
   def execute(instruction)
     op, value = instruction
 
-    if op == 'acc'
+    case op
+    when 'acc'
       @cursor += 1
       @accumulator += value
-    elsif op == 'jmp'
+    when 'jmp'
       @cursor += value
-    elsif op == 'nop'
+    when 'nop'
       @cursor += 1
     else
-      fail "Unrecognized operator #{op}"
+      raise "Unrecognized operator #{op}"
     end
   end
 
   def part1
     visited = { @instructions.size => true }
 
-    while !visited.key?(@cursor) do
+    until visited.key?(@cursor)
       visited[@cursor] = true
       execute(@instructions[@cursor])
     end
@@ -43,17 +46,19 @@ class HandheldHalting
   def part2
     @instructions.each do |ins|
       reset!
-      if ins[0] == 'nop'
+      case ins[0]
+      when 'nop'
         ins[0] = 'jmp'
-      elsif ins[0] == 'jmp'
+      when 'jmp'
         ins[0] = 'nop'
       end
 
       part1
 
-      if ins[0] == 'nop'
+      case ins[0]
+      when 'nop'
         ins[0] = 'jmp'
-      elsif ins[0] == 'jmp'
+      when 'jmp'
         ins[0] = 'nop'
       end
 

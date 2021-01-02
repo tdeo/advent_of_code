@@ -1,44 +1,88 @@
+# frozen_string_literal: true
+
 class GoWithTheFlow
   def initialize(input)
     @input = input
     @instructions = @input.split("\n").map do |ins|
       i = ins.split(' ')
-      i[1..-1].map(&:to_i).unshift(i[0])
+      i[1..].map(&:to_i).unshift(i[0])
     end
     i = @instructions.shift
-    fail 'Invalid #ip instruction' unless i[0] == '#ip'
+    raise 'Invalid #ip instruction' unless i[0] == '#ip'
+
     @bound_to = i[1]
     @regs = Hash.new { |h, k| h[k] = 0 }
     @ptr = 0
   end
 
-  def addr(a, b, c); @regs[c] = @regs[a] + @regs[b]; end
-  def addi(a, b, c); @regs[c] = @regs[a] + b; end
+  def addr(a, b, c)
+    @regs[c] = @regs[a] + @regs[b]
+  end
 
-  def mulr(a, b, c); @regs[c] = @regs[a] * @regs[b]; end
-  def muli(a, b, c); @regs[c] = @regs[a] * b; end
+  def addi(a, b, c)
+    @regs[c] = @regs[a] + b
+  end
 
-  def banr(a, b, c); @regs[c] = @regs[a] & @regs[b]; end
-  def bani(a, b, c); @regs[c] = @regs[a] & b; end
+  def mulr(a, b, c)
+    @regs[c] = @regs[a] * @regs[b]
+  end
 
-  def borr(a, b, c); @regs[c] = @regs[a] | @regs[b]; end
-  def bori(a, b, c); @regs[c] = @regs[a] | b; end
+  def muli(a, b, c)
+    @regs[c] = @regs[a] * b
+  end
 
-  def setr(a, _b, c); @regs[c] = @regs[a]; end
-  def seti(a, _b, c); @regs[c] = a; end
+  def banr(a, b, c)
+    @regs[c] = @regs[a] & @regs[b]
+  end
 
-  def gtir(a, b, c); @regs[c] = (a > @regs[b] ? 1 : 0); end
-  def gtri(a, b, c); @regs[c] = (@regs[a] > b ? 1 : 0); end
-  def gtrr(a, b, c); @regs[c] = (@regs[a] > @regs[b] ? 1 : 0); end
+  def bani(a, b, c)
+    @regs[c] = @regs[a] & b
+  end
 
-  def eqir(a, b, c); @regs[c] = (a == @regs[b] ? 1 : 0); end
-  def eqri(a, b, c); @regs[c] = (@regs[a] == b ? 1 : 0); end
-  def eqrr(a, b, c); @regs[c] = (@regs[a] == @regs[b] ? 1 : 0); end
+  def borr(a, b, c)
+    @regs[c] = @regs[a] | @regs[b]
+  end
+
+  def bori(a, b, c)
+    @regs[c] = @regs[a] | b
+  end
+
+  def setr(a, _b, c)
+    @regs[c] = @regs[a]
+  end
+
+  def seti(a, _b, c)
+    @regs[c] = a
+  end
+
+  def gtir(a, b, c)
+    @regs[c] = (a > @regs[b] ? 1 : 0)
+  end
+
+  def gtri(a, b, c)
+    @regs[c] = (@regs[a] > b ? 1 : 0)
+  end
+
+  def gtrr(a, b, c)
+    @regs[c] = (@regs[a] > @regs[b] ? 1 : 0)
+  end
+
+  def eqir(a, b, c)
+    @regs[c] = (a == @regs[b] ? 1 : 0)
+  end
+
+  def eqri(a, b, c)
+    @regs[c] = (@regs[a] == b ? 1 : 0)
+  end
+
+  def eqrr(a, b, c)
+    @regs[c] = (@regs[a] == @regs[b] ? 1 : 0)
+  end
 
   def round!
     ins = @instructions[@ptr]
     @regs[@bound_to] = @ptr
-    __send__(ins[0], *ins[1..-1])
+    __send__(ins[0], *ins[1..])
     @ptr = @regs[@bound_to] + 1
   end
 
@@ -59,7 +103,7 @@ class GoWithTheFlow
     require 'prime'
     r = 1
     a.prime_division.each do |p, pow|
-      r *= (p ** (pow + 1) - 1) / (p - 1)
+      r *= (p**(pow + 1) - 1) / (p - 1)
     end
     r
   end
@@ -106,9 +150,7 @@ class GoWithTheFlow
     # GOTO 1
 
     @regs[0] = 1
-    while @ptr != 2
-      round!
-    end
+    round! while @ptr != 2
     divisor_sum(@regs[2])
   end
 end

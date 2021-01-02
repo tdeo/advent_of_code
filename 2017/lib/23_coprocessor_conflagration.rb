@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'prime'
 
 class CoprocessorConflagration
   def initialize(input)
-    @registers = Hash.new { |hash, key| key =~ /^-?\d+$/ ? hash[key] = key.to_i : hash[key] = 0 }
+    @registers = Hash.new { |hash, key| hash[key] = /^-?\d+$/.match?(key) ? key.to_i : 0 }
     @instructions = input.split("\n")
     @index = 0
     @muls = 0
   end
 
   def val(key)
-    key =~ /^-\d+$/ ? key.to_i : @registers[key]
+    /^-\d+$/.match?(key) ? key.to_i : @registers[key]
   end
 
   def execute!
@@ -34,9 +36,7 @@ class CoprocessorConflagration
   end
 
   def part1
-    while @instructions[@index]
-      execute!
-    end
+    execute! while @instructions[@index]
     @muls
   end
 
@@ -65,9 +65,10 @@ class CoprocessorConflagration
     b = @registers['b']
     c = @registers['c']
     h = 0
-    while true
+    loop do
       h += 1 unless Prime.prime?(b)
       break if b == c
+
       b += 17
     end
     h

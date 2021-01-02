@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/06_noise.rb')
+require_relative('../lib/06_noise')
 
 describe Noise do
   before { @k = Noise }

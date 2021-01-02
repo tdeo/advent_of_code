@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class LeonardoMonorail
   def initialize(input)
-    @registers = Hash.new { |hash, key| key =~ /^-?\d+$/ ? hash[key] = key.to_i : hash[key] = 0 }
+    @registers = Hash.new { |hash, key| hash[key] = /^-?\d+$/.match?(key) ? key.to_i : 0 }
     @instructions = input.split("\n")
     @index = 0
   end
 
   def val(key)
-    key =~ /^-\d+$/ ? key.to_i : @registers[key]
+    /^-\d+$/.match?(key) ? key.to_i : @registers[key]
   end
 
   def execute!
@@ -30,17 +32,13 @@ class LeonardoMonorail
   end
 
   def part1
-    while @instructions[@index]
-      execute!
-    end
+    execute! while @instructions[@index]
     @registers['a']
   end
 
   def part2
     @registers['c'] = 1
-    while @instructions[@index]
-      execute!
-    end
+    execute! while @instructions[@index]
     @registers['a']
   end
 end

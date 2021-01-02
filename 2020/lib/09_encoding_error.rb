@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EncodingError
   def initialize(input)
     @input = input
@@ -49,11 +51,11 @@ class EncodingError
       cumulated += number
       viewed[cumulated] = i + 1
 
-      if viewed.key?(cumulated - target)
-        start = viewed[cumulated - target]
+      next unless viewed.key?(cumulated - target)
 
-        return @numbers[start..i].minmax.sum
-      end
+      start = viewed[cumulated - target]
+
+      return @numbers[start..i].minmax.sum
     end
   end
 end

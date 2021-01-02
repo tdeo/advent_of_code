@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/03_no_matter_how_you_slice_it.rb')
+require_relative('../lib/03_no_matter_how_you_slice_it')
 
 describe NoMatterHowYouSliceIt do
   before { @k = NoMatterHowYouSliceIt }

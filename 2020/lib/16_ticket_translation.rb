@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TicketTranslation
   def initialize(input)
     @input = input
@@ -14,7 +16,7 @@ class TicketTranslation
     end
 
     @mine = my_tickets.split("\n")[1].split(',').map(&:to_i)
-    @nearby = nearby_tickets.split("\n")[1..-1].map { |line| line.split(',').map(&:to_i) }
+    @nearby = nearby_tickets.split("\n")[1..].map { |line| line.split(',').map(&:to_i) }
   end
 
   def valid?(value, ranges)
@@ -63,6 +65,7 @@ class TicketTranslation
       options.each do |key, values|
         next unless values.size == 1
         next if propagated.key?(key)
+
         propagated[key] = true
 
         options.each_key do |k2|
@@ -73,8 +76,8 @@ class TicketTranslation
 
     result = 1
     options.each do |key, values|
-      next unless key =~ regex
-      fail if values.size > 1
+      next unless key&.match?(regex)
+      raise if values.size > 1
 
       result *= @mine[values[0]]
     end

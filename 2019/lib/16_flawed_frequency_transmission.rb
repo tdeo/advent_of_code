@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FlawedFrequencyTransmission
   def initialize(input)
     @input = input.strip
@@ -17,7 +19,7 @@ class FlawedFrequencyTransmission
   def phase
     new_array = []
     (0...@array.size).each do |i|
-      res = coefficients(i + 1).zip(@array).map { |a, b| a * b}.sum
+      res = coefficients(i + 1).zip(@array).sum { |a, b| a * b }
       res *= -1 if res < 0
       new_array[i] = res % 10
     end
@@ -30,15 +32,16 @@ class FlawedFrequencyTransmission
   end
 
   def part2
-    @array = @array * 10_000
+    @array *= 10_000
     pos = @input[0...7].to_i
-    fail 'Position not in second half' unless pos > 1 + @array.size / 2
-    @array = @array[pos .. -1]
+    raise 'Position not in second half' unless pos > 1 + @array.size / 2
+
+    @array = @array[pos..]
     100.times do
       (@array.size - 1).downto(0).each do |i|
         @array[i] = ((@array[i + 1] || 0) + @array[i]) % 10
       end
     end
-    @array[0 ... 8].join
+    @array[0...8].join
   end
 end

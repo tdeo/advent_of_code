@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/06_custom_customs.rb')
+require_relative('../lib/06_custom_customs')
 
 describe CustomCustoms do
   before { @k = CustomCustoms }

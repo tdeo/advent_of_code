@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/22_slam_shuffle.rb')
+require_relative('../lib/22_slam_shuffle')
 
 describe SlamShuffle do
   before { @k = SlamShuffle }

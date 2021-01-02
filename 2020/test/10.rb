@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/10_adapter_array.rb')
+require_relative('../lib/10_adapter_array')
 
 describe AdapterArray do
   before { @k = AdapterArray }
@@ -67,7 +69,7 @@ describe AdapterArray do
   end
 
   def test_part2_2
-    assert_equal 19208, @k.new('28
+    assert_equal 19_208, @k.new('28
 33
 18
 42

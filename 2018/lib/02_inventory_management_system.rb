@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InventoryManagementSystem
   def initialize(input)
     @input = input
@@ -34,6 +36,7 @@ class InventoryManagementSystem
     @input.split.each do |w|
       wildcards(w) do |w2|
         return w2.tr('.', '') if viewed[w2]
+
         viewed[w2] = true
       end
     end

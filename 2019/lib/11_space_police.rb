@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
-DIRS = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+DIRS = [[-1, 0], [0, -1], [1, 0], [0, 1]].freeze
 
 TURNS = {
-  [-1, 0] => [ [0, -1], [0, 1] ],
-  [1, 0] => [ [0, 1], [0, -1] ],
-  [0, 1] => [ [-1, 0], [1, 0] ],
-  [0, -1] => [ [1, 0], [-1, 0] ],
-}
+  [-1, 0] => [[0, -1], [0, 1]],
+  [1, 0] => [[0, 1], [0, -1]],
+  [0, 1] => [[-1, 0], [1, 0]],
+  [0, -1] => [[1, 0], [-1, 0]],
+}.freeze
 
 class SpacePolice
   def initialize(input)
@@ -23,12 +25,13 @@ class SpacePolice
     @intcode.run_until_input
     color = @intcode.getint
     return nil if color.nil?
+
     turn = @intcode.getint
 
     @panels[@robot.dup] = color
 
     new_dir = DIRS.index(@dir)
-    new_dir += (turn == 0) ? 1 : -1
+    new_dir += turn == 0 ? 1 : -1
     new_dir += 4
     new_dir = new_dir % 4
     @dir = DIRS[new_dir]
@@ -48,7 +51,7 @@ class SpacePolice
         if @robot == [i, j]
           print 'R'
         else
-          print @panels[[i, j]] == 1 ? ?# : ' '
+          print @panels[[i, j]] == 1 ? '#' : ' '
         end
       end
       puts ''
@@ -56,9 +59,7 @@ class SpacePolice
   end
 
   def part1
-    while !@intcode.finished? do
-      step
-    end
+    step until @intcode.finished?
 
     @panels.size
   end

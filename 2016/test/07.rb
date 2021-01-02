@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/07_internet.rb')
+require_relative('../lib/07_internet')
 
 describe Internet do
   before { @k = Internet }

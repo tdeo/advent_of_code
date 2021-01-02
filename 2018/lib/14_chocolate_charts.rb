@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChocolateCharts
   def initialize(input)
     @input = input.strip
@@ -23,12 +25,10 @@ class ChocolateCharts
 
   def part2
     step = 0
-    while true
+    loop do
       300_000.times { round! }
       (step...@scores.size - @code.size).each do |i|
-        if @code.each_with_index.all? { |c, j| @code[j] == @scores[i + j] }
-          return i
-        end
+        return i if @code.each_with_index.all? { |c, j| c == @scores[i + j] }
       end
       step = @scores.size - @code.size
       print '.'
@@ -36,4 +36,3 @@ class ChocolateCharts
     @scores.size - @code.size - code?
   end
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BinaryBoarding
   def initialize(input)
     @input = input
@@ -6,7 +8,7 @@ class BinaryBoarding
 
   def row(seat)
     row = 0
-    seat.chars.first(7).each_with_index do |c, i|
+    seat[0...7].chars.each_with_index do |c, i|
       row += 2**(6 - i) if c == 'B'
     end
     row
@@ -14,7 +16,7 @@ class BinaryBoarding
 
   def col(seat)
     col = 0
-    seat.chars.last(3).each_with_index do |c, i|
+    seat[-3..].chars.each_with_index do |c, i|
       col += 2**(2 - i) if c == 'R'
     end
     col

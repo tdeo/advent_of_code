@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_like_a_rogue.rb')
+require_relative('../lib/18_like_a_rogue')
 
 describe LikeARogue do
   before { @k = LikeARogue }

@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 class SubterraneanSustainability
   def initialize(input)
     @rules = Hash.new('.')
     input.each_line do |l|
       if l.include? 'initial state'
-        @state = l[/\s+([\.\#]+)$/, 1]
+        @state = l[/\s+([.\#]+)$/, 1]
       elsif l.include? '=>'
-        @rules[l[/[\.\#]{5}/]] = l[/=> (\.|\#)/, 1]
+        @rules[l[/[.\#]{5}/]] = l[/=> (\.|\#)/, 1]
       end
     end
     @left = 0
   end
 
   def next_state!
-    @state = '....' + @state + '....'
+    @state = "....#{@state}...."
     @left -= 2
     next_state = ''
     (@state.size - 4).times do |i|
-      next_state << @rules[@state[i..i + 4]]
+      next_state += @rules[@state[i..i + 4]]
     end
     @state = next_state
 
@@ -45,7 +47,7 @@ class SubterraneanSustainability
   def part2
     before = nil
     runs = 0
-    while true
+    loop do
       before = @state
       runs += 1
       next_state!

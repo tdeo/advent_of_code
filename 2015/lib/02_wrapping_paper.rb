@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class WrappingPaper
   def initialize(input)
     @gifts = input.split("\n").map do |l|
       next unless l =~ /^(\d+)x(\d+)x(\d+)$/
+
       [$1, $2, $3].map(&:to_i).sort
     end
   end
@@ -13,14 +16,14 @@ class WrappingPaper
 
   def ribbon(gift)
     gift.sort!
-   2 * (gift[0] + gift[1]) + gift.reduce(:*)
+    2 * (gift[0] + gift[1]) + gift.reduce(:*)
   end
 
   def part1
-    @gifts.map { |g| paper(g) }.reduce(:+)
+    @gifts.sum { |g| paper(g) }
   end
 
   def part2
-    @gifts.map { |g| ribbon(g) }.reduce(:+)
+    @gifts.sum { |g| ribbon(g) }
   end
 end

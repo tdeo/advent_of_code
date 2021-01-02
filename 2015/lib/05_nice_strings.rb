@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NiceStrings
   def initialize(input)
     @strings = input.split("\n")

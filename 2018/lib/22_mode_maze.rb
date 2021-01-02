@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/priority_queue'
 
 class ModeMaze
-  MOD = 20183
+  MOD = 20_183
+  OBJECTS = [0, 1, 2].freeze
 
   def initialize(input)
     @input = input
@@ -15,20 +18,21 @@ class ModeMaze
     @erosion = Array.new(upto[0]) { Array.new(upto[1]) }
     (0...upto[0]).each do |x|
       (0...upto[1]).each do |y|
-        if x == 0
-          @erosion[x][y] = (y * 48271 + @depth) % MOD
-        elsif y == 0
-          @erosion[x][y] = (x * 16807 + @depth) % MOD
-        else
-          @erosion[x][y] = (@erosion[x-1][y] * @erosion[x][y-1] + @depth) % MOD
-        end
+        @erosion[x][y] = if x == 0
+                           (y * 48_271 + @depth) % MOD
+                         elsif y == 0
+                           (x * 16_807 + @depth) % MOD
+                         else
+                           (@erosion[x - 1][y] * @erosion[x][y - 1] + @depth) % MOD
+                         end
       end
     end
   end
 
   def type(x, y)
     return -1 if x < 0 || y < 0 || x >= @erosion.size || y >= @erosion[x].size
-    return 0 if [x, y] == @target
+    return 0 if @target == [x, y]
+
     (@erosion[x][y] % MOD) % 3
   end
 
@@ -71,7 +75,7 @@ class ModeMaze
     queue << [0, 1, 0, 0] # time, object, x, y
     viewed = { [1, 0, 0] => 0 } # object, x, y => time
 
-    while !queue.empty?
+    until queue.empty?
       e = queue.pop
 
       time, o, x, y = e
@@ -84,18 +88,20 @@ class ModeMaze
         next if t == o
 
         el = [time + 1, e[1], n[0], n[1]]
-        next if viewed[el[1..-1]] && viewed[el[1..-1]] <= time + 1
+        next if viewed[el[1..]] && viewed[el[1..]] <= time + 1
+
         queue << el
-        viewed[el[1..-1]] = time + 1
+        viewed[el[1..]] = time + 1
       end
 
-      [0, 1, 2].each do |obj|
+      OBJECTS.each do |obj|
         next if obj == type(x, y)
 
         el = [time + 7, obj, x, y]
-        next if viewed[el[1..-1]] && viewed[el[1..-1]] <= time + 7
+        next if viewed[el[1..]] && viewed[el[1..]] <= time + 7
+
         queue << el
-        viewed[el[1..-1]] = time + 7
+        viewed[el[1..]] = time + 7
       end
     end
   end

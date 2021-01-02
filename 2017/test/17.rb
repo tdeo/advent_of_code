@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/17_spinlock.rb')
+require_relative('../lib/17_spinlock')
 
 describe Spinlock do
   before { @k = Spinlock }

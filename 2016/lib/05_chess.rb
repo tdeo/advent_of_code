@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'digest'
 
 class Chess
@@ -14,7 +16,7 @@ class Chess
     @index += 1 while digest[0...5] != '00000'
   end
 
-  def get_digit!
+  def next_digit!
     next_index!
     char = digest[5]
     @index += 1
@@ -22,7 +24,7 @@ class Chess
   end
 
   def part1(times = 8)
-    times.times.map { get_digit! }.join
+    Array.new(times) { next_digit! }.join
   end
 
   def part2(times = 8)

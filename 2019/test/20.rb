@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/20_donut_maze.rb')
+require_relative('../lib/20_donut_maze')
 
 describe DonutMaze do
   before { @k = DonutMaze }

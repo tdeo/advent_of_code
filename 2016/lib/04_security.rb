@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Security
   def initialize(input)
     @rooms = []
@@ -19,6 +21,7 @@ class Security
 
   def rotate(letter, times)
     return letter if letter == '-'
+
     ((letter.ord - 'a'.ord + times) % 26 + 'a'.ord).chr
   end
 
@@ -31,7 +34,7 @@ class Security
   end
 
   def part1
-    valid_rooms.map { |r| r[:sector_id] }.reduce(0, :+)
+    valid_rooms.sum { |r| r[:sector_id] }
   end
 
   def part2

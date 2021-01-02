@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReservoirResearch
   def initialize(input)
     @input = input
@@ -12,7 +14,7 @@ class ReservoirResearch
     @input.split("\n").each do |l|
       m = l.match(/^(x|y)=(\d+), (x|y)=(\d+)..(\d+)$/)
       val = m[2].to_i
-      (m[4].to_i .. m[5].to_i).each do |a|
+      (m[4].to_i..m[5].to_i).each do |a|
         if m[1] == 'x'
           @miny = [@miny, a].min
           @maxy = [@maxy, a].max
@@ -31,6 +33,7 @@ class ReservoirResearch
     # print!(y - 10, y + 30)
     # sleep 0.02
     return if y > @maxy
+
     if @map[x][y].nil?
       @count += 1 if y >= @miny
       @map[x][y] = '|'
@@ -71,7 +74,7 @@ class ReservoirResearch
       flow(left, y) if left != :block
       flow(right, y) if right != :block
 
-      if (left == :block && right == :block)
+      if left == :block && right == :block
         static(x, y)
         flow(x, y - 1)
       end

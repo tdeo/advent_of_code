@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class GridComputing
   def initialize(input)
     @nodes = {}
     input.each_line do |l|
-      next unless l =~ %r|^/dev/grid/node-x(\d+)-y(\d+)\s*\d+T\s*(\d+)T\s*(\d+)T\s*\d+%$|
+      next unless l =~ %r{^/dev/grid/node-x(\d+)-y(\d+)\s*\d+T\s*(\d+)T\s*(\d+)T\s*\d+%$}
+
       @nodes[$1.to_i] ||= {}
       @nodes[$1.to_i][$2.to_i] = { used: $3.to_i, avail: $4.to_i }
     end
@@ -17,6 +20,7 @@ class GridComputing
             next if @nodes[x1][y1][:used] == 0
             next if x1 == x2 && y1 == y2
             next if @nodes[x1][y1][:used] > @nodes[x2][y2][:avail]
+
             viable += 1
           end
         end
@@ -49,7 +53,7 @@ class GridComputing
 
     puts "#{@nodes.keys.max} #{@nodes.values.first.keys.max}"
 
-    puts '   ' + @nodes.values.first.keys.sort.map { |k| k.to_s.ljust(3) }.join
+    puts "   #{@nodes.values.first.keys.sort.map { |k| k.to_s.ljust(3) }.join}"
     @nodes.keys.sort.each do |key|
       puts key.to_s.ljust(3) + @nodes[key].keys.sort.map { |k| sym(@nodes[key][k]) }.join('  ')
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HighEntropyPassphrases
   def initialize(input)
     @phrases = input.split("\n")

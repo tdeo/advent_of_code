@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AllergenAssessment
   def initialize(input)
     @input = input
@@ -19,28 +21,26 @@ class AllergenAssessment
   end
 
   def find_match
-    @allergens.keys.each do |allergen|
+    @allergens.each_key do |allergen|
       next unless @allergens[allergen].nil?
 
       recipes = @recipes.select { |r| r[:allergens].include?(allergen) }
 
       options = recipes.map { _1[:ingredients] }.reduce(:&)
-      options.reject! { |o| !@ingredients[o].nil? }
+      options.select! { |o| @ingredients[o].nil? }
 
-      if options.size == 1
-        @ingredients[options[0]] = allergen
-        @allergens[allergen] = options[0]
-        return true
-      end
+      next unless options.size == 1
+
+      @ingredients[options[0]] = allergen
+      @allergens[allergen] = options[0]
+      return true
     end
 
     false
   end
 
   def find_all_matches
-    while true do
-      break unless find_match
-    end
+    loop { break unless find_match }
   end
 
   def part1

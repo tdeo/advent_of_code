@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpiralMemory
   def directions
     [
@@ -10,7 +12,7 @@ class SpiralMemory
 
   def initialize(input)
     @target = input.to_i
-    @seq = Hash.new { |h,k| h[k] = {} }
+    @seq = Hash.new { |h, k| h[k] = {} }
     @seq[0][0] = 1
     @x = 0
     @y = 0
@@ -22,7 +24,7 @@ class SpiralMemory
   end
 
   def sum_adjacents
-    (-1..1).flat_map { |i| (-1..1).map { |j| @seq[@x + i][@y + j] || 0 } }.reduce(0, :+)
+    (-1..1).flat_map { |i| (-1..1).map { |j| @seq[@x + i][@y + j] || 0 } }.sum
   end
 
   def next_case!
@@ -52,6 +54,7 @@ class SpiralMemory
       next_case!
       i = sum_adjacents
       return i if i > @target
+
       set(i)
     end
   end

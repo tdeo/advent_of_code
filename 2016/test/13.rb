@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/13_cubicles.rb')
+require_relative('../lib/13_cubicles')
 
 describe Cubicles do
   before { @k = Cubicles }
@@ -8,4 +10,3 @@ describe Cubicles do
     assert_equal 11, @k.new('10').demo
   end
 end
-

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/14_docking_data.rb')
+require_relative('../lib/14_docking_data')
 
 describe DockingData do
   before { @k = DockingData }

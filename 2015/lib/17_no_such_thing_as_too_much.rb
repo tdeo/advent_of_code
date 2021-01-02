@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NoSuchThingAsTooMuch
   def initialize(input)
     @containers = input.split("\n").map(&:to_i)
@@ -20,7 +22,7 @@ class NoSuchThingAsTooMuch
       total = @containers.each_with_index.sum do |c, j|
         c * i[j]
       end
-      valids << i.to_s(2).chars.map(&:to_i).reduce(:+) if total == target
+      valids << i.to_s(2).chars.sum(&:to_i) if total == target
     end
     valids.count { |e| e == valids.min }
   end

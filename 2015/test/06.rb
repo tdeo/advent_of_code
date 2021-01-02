@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/06_fire_hazard.rb')
+require_relative('../lib/06_fire_hazard')
 
 describe FireHazard do
   before { @k = FireHazard }

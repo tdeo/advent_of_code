@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FourDimensionalAdventure
   def initialize(input)
     @stars = []
@@ -10,7 +12,7 @@ class FourDimensionalAdventure
   def dist(i, j)
     i, j = j, i if j < i
     @dist[i][j] ||= begin
-      @stars[i].zip(@stars[j]).map { |e| (e[0] - e[1]).abs }.sum
+      @stars[i].zip(@stars[j]).sum { |e| (e[0] - e[1]).abs }
     end
   end
 
@@ -26,6 +28,7 @@ class FourDimensionalAdventure
       todo[i] = true
       (0...i).each do |j|
         next unless connected(i, j)
+
         neighbours[i] << j
         neighbours[j] << i
       end
@@ -33,17 +36,18 @@ class FourDimensionalAdventure
 
     components = 0
 
-    while true
+    loop do
       return components if todo.empty?
 
       q = [todo.keys.first]
       todo.delete(q[0])
       components += 1
 
-      while !q.empty?
+      until q.empty?
         a = q.shift
         neighbours[a].each do |n|
           next unless todo[n]
+
           q << n
           todo.delete(n)
         end

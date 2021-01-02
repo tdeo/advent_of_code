@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/09_encoding_error.rb')
+require_relative('../lib/09_encoding_error')
 
 describe EncodingError do
   before { @k = EncodingError }

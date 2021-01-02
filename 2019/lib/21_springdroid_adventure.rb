@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 class SpringdroidAdventure
@@ -8,9 +10,7 @@ class SpringdroidAdventure
 
   def part1(script = nil)
     @intcode.run_until_input
-    while @intcode.has_output?
-      print @intcode.getint.chr
-    end
+    print @intcode.getint.chr while @intcode.output?
 
     script ||= <<~CODE
       OR D J
@@ -26,9 +26,10 @@ class SpringdroidAdventure
     end
 
     @intcode.run
-    while @intcode.has_output?
+    while @intcode.output?
       r = @intcode.getint
       return r if r > 2**8
+
       print r.chr
     end
   end

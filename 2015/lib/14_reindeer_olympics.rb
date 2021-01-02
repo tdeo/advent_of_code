@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class ReindeerOlympics
   def initialize(input)
     @reindeers = {}
     input.strip.each_line do |l|
-      l =~ %r|^(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.$|
+      l =~ %r{^(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.$}
       @reindeers[$1] = { speed: $2.to_i, duration: $3.to_i, rest: $4.to_i, score: 0 }
     end
   end
@@ -10,7 +12,7 @@ class ReindeerOlympics
   def distance(deer, duration)
     cycles = duration / (deer[:duration] + deer[:rest])
     remainder = duration % (deer[:duration] + deer[:rest])
-    (cycles * deer[:duration]+ [remainder, deer[:duration]].min) * deer[:speed]
+    (cycles * deer[:duration] + [remainder, deer[:duration]].min) * deer[:speed]
   end
 
   def part1(duration = 2503)

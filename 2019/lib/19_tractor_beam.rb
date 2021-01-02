@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 class TractorBeam
@@ -24,7 +26,7 @@ class TractorBeam
   def print!
     (0...50).each do |y|
       (0...50).each do |x|
-        print laser?(x, y) ? ?X : ?.
+        print laser?(x, y) ? 'X' : '.'
       end
       puts ''
     end
@@ -32,11 +34,10 @@ class TractorBeam
 
   def part2
     b = [0, 10]
-    while true do
+    loop do
       b[0] += 1 until laser?(*b)
-      if laser?(b[0] + 99, b[1] - 99)
-        return 10_000 * b[0] + (b[1] - 99)
-      end
+      return 10_000 * b[0] + (b[1] - 99) if laser?(b[0] + 99, b[1] - 99)
+
       b[1] += 1
     end
   end

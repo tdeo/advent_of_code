@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TheSumofItsParts
   def initialize(input)
     @input = input
@@ -15,7 +17,7 @@ class TheSumofItsParts
     end
     steps = steps.keys.sort
     order = []
-    while !steps.empty?
+    until steps.empty?
       to_do = nil
       steps.each do |s|
         if @before[s].empty?
@@ -47,9 +49,8 @@ class TheSumofItsParts
 
     schedule = [] # array of [task, endtime]
 
-    while !steps.empty?
+    until steps.empty?
       to_do = nil
-      next_time = schedule[-workers]&.last
 
       steps.sort_by! { |e| [can_start_at(e, schedule, workers: workers), e] }
 

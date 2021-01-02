@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 class WizardSimulator
@@ -72,24 +74,25 @@ class WizardSimulator
   end
 
   def available?(spell)
-    !(@callbacks.map { |e| e[:effect] }.include?(:"#{spell}_effect"))
+    !@callbacks.map { |e| e[:effect] }.include?(:"#{spell}_effect")
   end
 
   def next_turn!(hard: false)
     @turn += 1
-    if @turn % 2 == 0 && hard
+    if @turn.even? && hard
       @me[:health] -= 1
       @me[:health] -= 1000 if @me[:health] <= 0
     end
     @callbacks.each do |c|
       next unless c[:turn] == @turn
+
       __send__(c[:effect])
     end
     @callbacks.delete_if { |c| c[:turn] <= @turn }
   end
 
   def run_action(name)
-    spell = @spells.find { |s| s[:name] == name.to_sym}
+    spell = @spells.find { |s| s[:name] == name.to_sym }
     @history << name
     @me[:mana] -= spell[:mana_cost] unless spell.nil?
     @total_mana += spell[:mana_cost] unless spell.nil?
@@ -98,8 +101,9 @@ class WizardSimulator
 
   def available_actions
     return [] if @me[:health] <= 0
-    if @turn % 2 == 1
-      [:boss]
+
+    if @turn.odd?
+      %i[boss]
     else
       @spells.map { |s| s[:name] if available?(s[:name]) && @me[:mana] >= s[:mana_cost] }.compact
     end
@@ -109,9 +113,7 @@ class WizardSimulator
     @me[:health] <= 0
   end
 
-  def total_mana
-    @total_mana
-  end
+  attr_reader :total_mana
 
   def part1
     self.class.part1(self)
@@ -124,18 +126,20 @@ class WizardSimulator
   def self.part1(a)
     queue = [a]
     viewed = Set.new([a.hash])
-    while !queue.empty?
+    until queue.empty?
       a = queue.shift
       return a.total_mana if a.win?
+
       a.available_actions.each do |act|
-        b = Marshal::load(Marshal.dump(a))
+        b = Marshal.load(Marshal.dump(a))
         b.run_action(act)
         next if viewed.include?(b.hash)
+
         viewed << b.hash
         b.next_turn!
         queue.push(b) unless b.dead?
       end
-      queue.sort_by! { |g| g.total_mana }
+      queue.sort_by!(&:total_mana)
     end
     nil
   end
@@ -148,18 +152,20 @@ class WizardSimulator
   def self.part2(a)
     queue = [a]
     viewed = Set.new([a.hash])
-    while !queue.empty?
+    until queue.empty?
       a = queue.shift
       return a.total_mana if a.win?
+
       a.available_actions.each do |act|
-        b = Marshal::load(Marshal.dump(a))
+        b = Marshal.load(Marshal.dump(a))
         b.run_action(act)
         next if viewed.include?(b.hash)
+
         viewed << b.hash
         b.next_turn!(hard: true)
         queue.push(b) unless b.dead?
       end
-      queue.sort_by! { |g| g.total_mana }
+      queue.sort_by!(&:total_mana)
     end
     nil
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Swarn
   def initialize(input)
     @particles = []
@@ -11,25 +13,28 @@ class Swarn
   end
 
   def abs_acceleration(particle)
-    particle[:acceleration].map(&:abs).reduce(0, :+)
+    particle[:acceleration].sum(&:abs)
   end
 
   def velocity_acceleration_colinearity(particle)
-    particle[:acceleration].zip(particle[:velocity]).map { |c| c.reduce(1, :*) }.reduce(0, :+)
+    particle[:acceleration].zip(particle[:velocity]).sum { |c| c.reduce(1, :*) }
   end
 
   def part1
     lowest_acceleration = @particles.map { |part| abs_acceleration(part) }.min
     slowest = @particles.select { |part| abs_acceleration(part) == lowest_acceleration }
     return slowest.first[:idx] if slowest.size == 1
+
     lowest_colinearity = slowest.map { |part| velocity_acceleration_colinearity(part) }.min
     slowest_bis = slowest.select { |part| velocity_acceleration_colinearity(part) == lowest_colinearity }
     return slowest_bis.first[:idx] if slowest_bis.size == 1
+
     nil
   end
 
   def move_part!(particle)
     return if particle[:collided]
+
     (0...3).each do |i|
       particle[:velocity][i] += particle[:acceleration][i]
       particle[:position][i] += particle[:velocity][i]
@@ -44,17 +49,19 @@ class Swarn
     collisions = Hash.new { |h, k| h[k] = [] }
     @particles.each do |part|
       next if part[:collided]
+
       collisions[part[:position]] << part[:idx]
     end
-    collisions.each do |pos, parts|
+    collisions.each do |_, parts|
       next unless parts.size > 1
+
       parts.each { |i| @particles[i][:collided] = true }
     end
   end
 
   def part2
     resolve_collisions!
-    1_000.times do |i|
+    1_000.times do
       move!
       resolve_collisions!
     end

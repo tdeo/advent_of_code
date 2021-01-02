@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/03_spiral_memory.rb'
+require_relative '../lib/03_spiral_memory'
 
 class SpiralMemoryTest < MiniTest::Test
   def test_part1_1

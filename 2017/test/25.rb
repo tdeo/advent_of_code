@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/25_halting_problem.rb')
+require_relative('../lib/25_halting_problem')
 
 describe HaltingProblem do
   before { @k = HaltingProblem }

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/06_chronal_coordinates.rb')
+require_relative('../lib/06_chronal_coordinates')
 
 describe ChronalCoordinates do
   before { @k = ChronalCoordinates }

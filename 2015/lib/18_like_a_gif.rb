@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikeAGif
   def initialize(input)
     @grid = []
@@ -18,8 +20,8 @@ class LikeAGif
   end
 
   def neighbours(i, j)
-    ([i-1, 0].max..i+1).sum do |i2|
-      ([j-1, 0].max..j+1).sum do |j2|
+    ([i - 1, 0].max..i + 1).sum do |i2|
+      ([j - 1, 0].max..j + 1).sum do |j2|
         @grid[i2].to_i[j2]
       end
     end

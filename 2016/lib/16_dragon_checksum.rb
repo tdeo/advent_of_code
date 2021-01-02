@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 class DragonChecksum
   def initialize(input)
     @a = input.strip
   end
 
   def step!
-    @a = @a + '0' + @a.dup.reverse.tr!('10','01')
+    @a = [
+      @a,
+      '0',
+      @a.dup.reverse.tr!('10', '01'),
+    ].join
   end
 
   def checksum
     @checksum = @a.dup
-    while @checksum.size % 2 == 0
-      @checksum = @checksum.chars.each_slice(2).map { |s| s[0] == s[1] ? '1' : '0' }.join
-    end
+    @checksum = @checksum.chars.each_slice(2).map { |s| s[0] == s[1] ? '1' : '0' }.join while @checksum.size.even?
     @checksum
   end
 
   def expand!
-    while @a.size < @size
-      step!
-    end
+    step! while @a.size < @size
     @a = @a[0...@size]
   end
 
@@ -35,7 +37,7 @@ class DragonChecksum
   end
 
   def part2
-    @size = 35651584
+    @size = 35_651_584
     expand!
     checksum
   end

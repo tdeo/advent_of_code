@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/10_monitoring_station.rb')
+require_relative('../lib/10_monitoring_station')
 
 describe MonitoringStation do
   before { @k = MonitoringStation }

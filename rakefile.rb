@@ -1,16 +1,18 @@
-require "rake/testtask"
+# frozen_string_literal: true
+
+require 'rake/testtask'
 require 'minitest/profile'
 
 Rake::TestTask.new do |t|
   t.pattern = '**/test/*.rb'
   t.warning = true
-  t.options = "--profile"
+  t.options = '--profile'
 end
-desc "Run tests"
+desc 'Run tests'
 
 task default: :test
 
-(2015 .. Time.now.year).each do |year|
+(2015..Time.now.year).each do |year|
   Rake::TestTask.new do |t|
     t.name = year
     t.pattern = "#{year}/test/*.rb"

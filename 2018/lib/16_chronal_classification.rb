@@ -1,38 +1,81 @@
+# frozen_string_literal: true
+
 class ChronalClassification
   def initialize(input)
     @input = input
   end
 
   def valid?(operation, before, after)
-    __send__(operation[0], *operation[1..-1], before)
+    __send__(operation[0], *operation[1..], before)
     before == after
   end
 
-  def addr(a, b, c, regs); regs[c] = regs[a] + regs[b]; end
-  def addi(a, b, c, regs); regs[c]= regs[a] + b; end
+  def addr(a, b, c, regs)
+    regs[c] = regs[a] + regs[b]
+  end
 
-  def mulr(a, b, c, regs); regs[c] = regs[a] * regs[b]; end
-  def muli(a, b, c, regs); regs[c] = regs[a] * b; end
+  def addi(a, b, c, regs)
+    regs[c] = regs[a] + b
+  end
 
-  def banr(a, b, c, regs); regs[c] = regs[a] & regs[b]; end
-  def bani(a, b, c, regs); regs[c] = regs[a] & b; end
+  def mulr(a, b, c, regs)
+    regs[c] = regs[a] * regs[b]
+  end
 
-  def borr(a, b, c, regs); regs[c] = regs[a] | regs[b]; end
-  def bori(a, b, c, regs); regs[c] = regs[a] | b; end
+  def muli(a, b, c, regs)
+    regs[c] = regs[a] * b
+  end
 
-  def setr(a, _b, c, regs); regs[c] = regs[a]; end
-  def seti(a, _b, c, regs); regs[c] = a; end
+  def banr(a, b, c, regs)
+    regs[c] = regs[a] & regs[b]
+  end
 
-  def gtir(a, b, c, regs); regs[c] = (a > regs[b] ? 1 : 0); end
-  def gtri(a, b, c, regs); regs[c] = (regs[a] > b ? 1 : 0); end
-  def gtrr(a, b, c, regs); regs[c] = (regs[a] > regs[b] ? 1 : 0); end
+  def bani(a, b, c, regs)
+    regs[c] = regs[a] & b
+  end
 
-  def eqir(a, b, c, regs); regs[c] = (a == regs[b] ? 1 : 0); end
-  def eqri(a, b, c, regs); regs[c] = (regs[a] == b ? 1 : 0); end
-  def eqrr(a, b, c, regs); regs[c] = (regs[a] == regs[b] ? 1 : 0); end
+  def borr(a, b, c, regs)
+    regs[c] = regs[a] | regs[b]
+  end
+
+  def bori(a, b, c, regs)
+    regs[c] = regs[a] | b
+  end
+
+  def setr(a, _b, c, regs)
+    regs[c] = regs[a]
+  end
+
+  def seti(a, _b, c, regs)
+    regs[c] = a
+  end
+
+  def gtir(a, b, c, regs)
+    regs[c] = (a > regs[b] ? 1 : 0)
+  end
+
+  def gtri(a, b, c, regs)
+    regs[c] = (regs[a] > b ? 1 : 0)
+  end
+
+  def gtrr(a, b, c, regs)
+    regs[c] = (regs[a] > regs[b] ? 1 : 0)
+  end
+
+  def eqir(a, b, c, regs)
+    regs[c] = (a == regs[b] ? 1 : 0)
+  end
+
+  def eqri(a, b, c, regs)
+    regs[c] = (regs[a] == b ? 1 : 0)
+  end
+
+  def eqrr(a, b, c, regs)
+    regs[c] = (regs[a] == regs[b] ? 1 : 0)
+  end
 
   def operations
-    [:addr, :addi, :mulr, :muli, :banr, :bani, :borr, :bori, :setr, :seti, :gtir, :gtri, :gtrr, :eqir, :eqri, :eqrr]
+    %i[addr addi mulr muli banr bani borr bori setr seti gtir gtri gtrr eqir eqri eqrr]
   end
 
   def behave_like_3_or_more(operation, before, after)
@@ -50,8 +93,8 @@ class ChronalClassification
     @input.scan(/^Before: (.*)\n(.*)\nAfter: (.*)$/).each do |m|
       c += 1 if behave_like_3_or_more(
         m[1].split.map(&:to_i),
-        eval(m[0]),
-        eval(m[2]),
+        eval(m[0]), # rubocop:disable Security/Eval
+        eval(m[2]), # rubocop:disable Security/Eval
       )
     end
     c
@@ -62,16 +105,17 @@ class ChronalClassification
 
     @input.scan(/^Before: (.*)\n(.*)\nAfter: (.*)$/).each do |m|
       operation = m[1].split.map(&:to_i)
-      before = eval(m[0])
-      after = eval(m[2])
+      before = eval(m[0]) # rubocop:disable Security/Eval
+      after = eval(m[2]) # rubocop:disable Security/Eval
       mapping[operation[0]].dup.each do |op|
-        mapping[operation[0]].delete(op) unless valid?([op] + operation[1..-1], before.dup, after)
+        mapping[operation[0]].delete(op) unless valid?([op] + operation[1..], before.dup, after)
       end
     end
 
     16.times do
       mapping.each_value do |v|
         next if v.size > 1
+
         mapping.each_value { |v2| v2.delete(v[0]) if v2.size > 1 }
       end
     end
@@ -79,8 +123,9 @@ class ChronalClassification
     regs = [0, 0, 0, 0]
     @input.split("\n\n\n")[1].split("\n").each do |l|
       next if l.empty?
+
       operation = l.split(' ').map(&:to_i)
-      __send__(mapping[operation[0]][0], *operation[1..-1], regs)
+      __send__(mapping[operation[0]][0], *operation[1..], regs)
     end
     regs[0]
   end

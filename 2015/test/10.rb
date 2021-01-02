@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/10_elves.rb')
+require_relative('../lib/10_elves')
 
 describe Elves do
   before { @k = Elves }

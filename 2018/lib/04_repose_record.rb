@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReposeRecord
   def initialize(input)
     @input = input.split("\n")
@@ -5,7 +7,7 @@ class ReposeRecord
   end
 
   def total(times)
-    times.each_slice(2).map { |a, b| (b || 60) - a }.sum(0)
+    times.each_slice(2).sum { |a, b| (b || 60) - a }
   end
 
   def parse
@@ -44,6 +46,7 @@ class ReposeRecord
     best_minute = nil
     days.each_value do |day|
       next unless day[:guard] == best_guard
+
       day[:times].each_slice(2) do |a, b|
         (a...b || 60).each do |m|
           minutes[m] += 1

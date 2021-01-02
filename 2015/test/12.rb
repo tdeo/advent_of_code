@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/12_js_abacus_framework.rb')
+require_relative('../lib/12_js_abacus_framework')
 
 describe JsAbacusFramework do
   before { @k = JsAbacusFramework }

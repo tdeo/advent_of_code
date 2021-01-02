@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/08_memory_maneuver.rb')
+require_relative('../lib/08_memory_maneuver')
 
 describe MemoryManeuver do
   before { @k = MemoryManeuver }

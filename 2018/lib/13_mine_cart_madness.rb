@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MineCartMadness
   class Cart
     # include Comparable
@@ -10,9 +12,10 @@ class MineCartMadness
       self.turn = turn
     end
 
-    def <=>(o)
-      return 0 if i == o.i && i == o.j
-      i < o.i || (i == o.i && j < o.j) ? -1 : 1
+    def <=>(other)
+      return 0 if i == other.i && i == other.j
+
+      i < other.i || (i == other.i && j < other.j) ? -1 : 1
     end
 
     def repr
@@ -56,15 +59,16 @@ class MineCartMadness
     @carts.find { |c| c.i == i && c.j == j }
   end
 
-  def move(cart, save = false)
+  def move(cart, save: false)
     i, j = case cart.dir
            when :left then [cart.i, cart.j - 1]
            when :right then [cart.i, cart.j + 1]
-           when :up then [cart.i - 1,cart. j]
-           when :down then [cart.i + 1,cart. j]
+           when :up then [cart.i - 1, cart.j]
+           when :down then [cart.i + 1, cart.j]
            end
     if find_cart(i, j)
-      fail [j, i].join(',') unless save
+      raise [j, i].join(',') unless save
+
       cart.dead = true
       find_cart(i, j).dead = true
     elsif @map[i][j] == '/'
@@ -82,9 +86,10 @@ class MineCartMadness
                  when :left then :up
                  end
     elsif @map[i][j] == '+'
-      if cart.turn == :left
+      case cart.turn
+      when :left
         cart.dir = left_dir(cart.dir)
-      elsif cart.turn == :right
+      when :right
         cart.dir = right_dir(cart.dir)
       end
       cart.turn = case cart.turn
@@ -99,6 +104,7 @@ class MineCartMadness
 
   def parse_row(l)
     return if l.empty?
+
     l.each_char.each_with_index do |c, j|
       case c
       when '<'
@@ -114,12 +120,12 @@ class MineCartMadness
     @map << l.tr('<>v^', '\-\-||')
   end
 
-  def tick!(save = false)
-    @carts.sort.each { |c| move(c, save) }
+  def tick!(save: false)
+    @carts.sort.each { |c| move(c, save: save) }
     @carts.reject!(&:dead)
   end
 
-  def print!(carts = true)
+  def print!(carts: true)
     out = @map.map(&:dup)
     if carts
       @carts.each do |c|
@@ -134,12 +140,12 @@ class MineCartMadness
       tick!
     end
   rescue RuntimeError => e
-    return e.message
+    e.message
   end
 
   def part2
     loop do
-      tick!(true)
+      tick!(save: true)
       return [@carts.first.j, @carts.first.i].join(',') if @carts.size == 1
     end
   end

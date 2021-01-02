@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Bathroom
   def initialize(input)
     @instructions = input.split("\n").map(&:strip)
@@ -14,7 +16,6 @@ class Bathroom
       @j -= 1 if @grid[@i][@j - 1]
     when 'R'
       @j += 1 if @grid[@i][@j + 1]
-    else
     end
   end
 
@@ -37,7 +38,7 @@ class Bathroom
     code = ''
     @instructions.each do |l|
       l.each_char { |c| apply!(c) }
-      code << current
+      code += current
     end
     code
   end
@@ -47,7 +48,7 @@ class Bathroom
     @j = 0
     @grid[0] = { 2 => 1 }
     @grid[1] = { 1 => 2, 2 => 3, 3 => 4 }
-    @grid[2] = { 0 => 5, 1 => 6,  2 => 8, 3 => 8, 4 => 9 }
+    @grid[2] = { 0 => 5, 1 => 6, 2 => 8, 3 => 8, 4 => 9 }
     @grid[3] = { 1 => 'A', 2 => 'B', 3 => 'C' }
     @grid[4] = { 2 => 'D' }
     solve

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RambunctiousRecitation
   N = 2020
 
@@ -11,12 +13,12 @@ class RambunctiousRecitation
 
   def perform!
     @last = if @round < @orig.size
-      @orig[@round]
-    elsif @spoken.key?(@last) && @spoken[@last][-2]
-      @spoken[@last][-1] - @spoken[@last][-2]
-    else
-      0
-    end
+              @orig[@round]
+            elsif @spoken.key?(@last) && @spoken[@last][-2]
+              @spoken[@last][-1] - @spoken[@last][-2]
+            else
+              0
+            end
 
     @spoken[@last][-2] = @spoken[@last][-1]
     @spoken[@last][-1] = @round
@@ -29,7 +31,7 @@ class RambunctiousRecitation
   end
 
   def part2
-    30_000_000.times do |i|
+    30_000_000.times do
       perform!
     end
     @last

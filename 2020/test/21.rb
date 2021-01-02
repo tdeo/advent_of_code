@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/21_allergen_assessment.rb')
+require_relative('../lib/21_allergen_assessment')
 
 describe AllergenAssessment do
   before { @k = AllergenAssessment }

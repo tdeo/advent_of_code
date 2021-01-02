@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikeARogue
   def initialize(input)
     @rows = []
@@ -5,7 +7,11 @@ class LikeARogue
   end
 
   def above_chars(i)
-    (i == 0 ? '.' : '') + @rows.last[[i - 1, 0].max .. [i + 1, @rows.last.size - 1].min] + (i == @rows.last.size - 1 ? '.' : '')
+    [
+      (i == 0 ? '.' : ''),
+      @rows.last[[i - 1, 0].max..[i + 1, @rows.last.size - 1].min],
+      (i == @rows.last.size - 1 ? '.' : ''),
+    ].join
   end
 
   def next_row!
@@ -22,10 +28,8 @@ class LikeARogue
   end
 
   def part1(rows = 40)
-    while @rows.size < rows
-      next_row!
-    end
-    @rows.map { |r| r.tr('^', '').size }.reduce(:+)
+    next_row! while @rows.size < rows
+    @rows.sum { |r| r.tr('^', '').size }
   end
 
   def part2(rows = 400_000)
@@ -34,6 +38,6 @@ class LikeARogue
       next_row!
       visited[@rows.last] = @rows.size
     end
-    @rows.map { |r| r.tr('^', '').size }.reduce(:+)
+    @rows.sum { |r| r.tr('^', '').size }
   end
 end

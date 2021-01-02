@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class Matchsticks
   def initialize(input)
     @strings = input.split("\n").map(&:strip)
   end
 
   def part1
-    @strings.map { |str| str.size - eval(str).size }.reduce(:+)
+    @strings.sum { |str| str.size - eval(str).size }  # rubocop:disable Security/Eval
   end
 
   def part2
-    @strings.map { |str| str.inspect.size - str.size }.reduce(:+)
+    @strings.sum { |str| str.inspect.size - str.size }
   end
 end

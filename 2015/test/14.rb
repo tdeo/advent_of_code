@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/14_reindeer_olympics.rb')
+require_relative('../lib/14_reindeer_olympics')
 
 describe ReindeerOlympics do
   before { @k = ReindeerOlympics }

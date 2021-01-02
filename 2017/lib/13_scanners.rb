@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Scanners
   def initialize(input)
     @input = input
@@ -11,7 +13,6 @@ class Scanners
       depth, range = l.split(': ').map(&:to_i)
       @scanner_configs[depth] = range
       @scanner_positions[depth] = { dir: :down, pos: 0 }
-
     end
     @position = -1
     @severity = 0
@@ -34,13 +35,12 @@ class Scanners
   end
 
   def part1
-    while @position <= @scanner_configs.keys.max do
-      run_step!
-    end
+    run_step! while @position <= @scanner_configs.keys.max
     @severity
   end
 
-  def part2 # Let's do math
+  def part2
+    # Let's do math
     reverse_scanners = Hash.new { |h, k| h[k] = [] }
     @scanner_configs.each { |k, v| reverse_scanners[v] << k }
     mod = 1
@@ -58,20 +58,23 @@ class Scanners
     mod - allowed.max
   end
 
-  def part2_fail # Way too slow
+  def part2_fail
+    # Way too slow
     offset = 0
     initial_scanners = @scanner_positions
     loop do
       init!
-      @scanner_positions = initial_scanners.map { |k, v| [k, v.dup] }.to_h
+      @scanner_positions = initial_scanners.transform_values(&:dup)
       @position = -1
       run_step!
-      initial_scanners = @scanner_positions.map { |k, v| [k, v.dup] }.to_h
-      while @position <= @scanner_configs.keys.max do
+      initial_scanners = @scanner_positions.transform_values(&:dup)
+      while @position <= @scanner_configs.keys.max
         break if @caught
+
         run_step!
       end
       break unless @caught
+
       offset += 1
     end
     offset

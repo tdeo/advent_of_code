@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FirewallRules
   def initialize(input)
     @rules = input.split("\n").map { |r| r.split('-').map(&:to_i) }
@@ -23,6 +25,6 @@ class FirewallRules
 
   def part2
     @rules.each { |r| apply_rule!(r) }
-    @valids.map { |e| e[1] - e[0] + 1 }.reduce(:+)
+    @valids.sum { |e| e[1] - e[0] + 1 }
   end
 end

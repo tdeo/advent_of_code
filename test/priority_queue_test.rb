@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/priority_queue.rb'
+require_relative '../lib/priority_queue'
 
 describe PriorityQueue do
   before { @k = PriorityQueue }
@@ -19,7 +21,7 @@ describe PriorityQueue do
   end
 
   def test_block_arity_1
-    q = @k.new { |e| e.last }
+    q = @k.new(&:last)
     q << ['a', 7]
     q << ['b', 3]
     q << ['c', 5]

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Generators
   def initialize(input)
     @a, @b = input.each_line.map { |l| l.gsub(/^.*\s(\d+)$/, '\1').to_i }
-    @a_mult = 16807
-    @b_mult = 48271
-    @mod = 2147483647
-    @comp = 2 ** 16
+    @a_mult = 16_807
+    @b_mult = 48_271
+    @mod = 2_147_483_647
+    @comp = 2**16
     @count = 40_000_000
     @identical = 0
   end
@@ -16,18 +18,18 @@ class Generators
   end
 
   def part1
-    @count.times do |i|
+    @count.times do
       compute_next!
     end
     @identical
   end
 
   def compute_next2!
-    while true do
+    loop do
       @a = (@a * @a_mult) % @mod
       break if @a % 4 == 0
     end
-    while true do
+    loop do
       @b = (@b * @b_mult) % @mod
       break if @b % 8 == 0
     end
@@ -36,7 +38,7 @@ class Generators
 
   def part2
     @count = 5_000_000
-    @count.times do |i|
+    @count.times do
       compute_next2!
     end
     @identical

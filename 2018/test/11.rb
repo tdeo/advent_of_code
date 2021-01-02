@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/11_chronal_charge.rb')
+require_relative('../lib/11_chronal_charge')
 
 describe ChronalCharge do
   before { @k = ChronalCharge }

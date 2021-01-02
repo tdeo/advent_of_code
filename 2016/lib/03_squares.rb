@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Squares
   def initialize(input)
     @input = input
@@ -6,8 +8,7 @@ class Squares
 
   def valid?(triangle)
     triangle.sort!
-    valid = triangle[0] + triangle[1] > triangle[2]
-    valid
+    triangle[0] + triangle[1] > triangle[2]
   end
 
   def part1

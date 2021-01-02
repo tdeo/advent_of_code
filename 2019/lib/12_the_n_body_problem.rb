@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TheNBodyProblem
   N = 3
 
@@ -6,7 +8,7 @@ class TheNBodyProblem
     @moons = input.split("\n").map do |l|
       {
         pos: l.split('=')[1..N].map(&:to_i),
-        vel: [0] * N,
+        vel: [0, 0, 0],
       }
     end
   end
@@ -27,9 +29,9 @@ class TheNBodyProblem
   end
 
   def total_energy
-    @moons.map do |a|
-      a[:pos].map(&:abs).sum * a[:vel].map(&:abs).sum
-    end.sum
+    @moons.sum do |a|
+      a[:pos].sum(&:abs) * a[:vel].sum(&:abs)
+    end
   end
 
   def part1(steps = 1000)
@@ -38,13 +40,14 @@ class TheNBodyProblem
   end
 
   def find_cycles
-    viewed = N.times.map { {} }
+    viewed = Array.new(N) { {} }
     cycles = [nil] * N
     steps = 0
 
-    while true do
+    loop do
       N.times do |i|
         next unless cycles[i].nil?
+
         key = @moons.flat_map { |m| [m[:pos][i], m[:vel][i]] }
         if viewed[i][key]
           cycles[i] = steps
@@ -53,6 +56,7 @@ class TheNBodyProblem
         end
       end
       return cycles unless cycles.any?(&:nil?)
+
       time_step!
       steps += 1
     end

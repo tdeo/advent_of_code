@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/02_wrapping_paper.rb')
+require_relative('../lib/02_wrapping_paper')
 
 describe WrappingPaper do
   before { @k = WrappingPaper }

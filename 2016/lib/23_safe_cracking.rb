@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class SafeCracking
   def initialize(input)
-    @registers = Hash.new { |hash, key| key =~ /^-?\d+$/ ? hash[key] = key.to_i : hash[key] = 0 }
+    @registers = Hash.new { |hash, key| hash[key] = /^-?\d+$/.match?(key) ? key.to_i : 0 }
     @instructions = input.split("\n")
     @index = 0
   end
 
   def val(key)
-    key =~ /^-\d+$/ ? key.to_i : @registers[key]
+    /^-\d+$/.match?(key) ? key.to_i : @registers[key]
   end
 
   def execute!
@@ -24,10 +26,11 @@ class SafeCracking
     when 'tgl'
       idx = val(x) + @index
       ins = (@instructions[idx] || '').split(' ')
-      if ins.size == 2
-        ins[0] = (ins[0] == 'inc') ? 'dec' : 'inc'
-      elsif ins.size == 3
-        ins[0] = (ins[0] == 'jnz') ? 'cpy' : 'jnz'
+      case ins.size
+      when 2
+        ins[0] = ins[0] == 'inc' ? 'dec' : 'inc'
+      when 3
+        ins[0] = ins[0] == 'jnz' ? 'cpy' : 'jnz'
       end
       @instructions[idx] = ins.join(' ') if @instructions[idx]
     end
@@ -40,9 +43,7 @@ class SafeCracking
 
   def part1
     @registers['a'] = 7
-    while @instructions[@index]
-      execute!
-    end
+    execute! while @instructions[@index]
     @registers['a']
   end
 

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/09_stream.rb')
+require_relative('../lib/09_stream')
 
 describe Stream do
   before { @k = Stream }

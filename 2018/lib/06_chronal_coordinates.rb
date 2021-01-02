@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChronalCoordinates
   def initialize(input)
     @input = input
@@ -26,8 +28,8 @@ class ChronalCoordinates
 
   def dist_sum(x, y, threshold)
     s = 0
-    @points.each_with_index do |point, i|
-      s +=  d([x, y], point)
+    @points.each do |point|
+      s += d([x, y], point)
       return s if s > threshold
     end
     s
@@ -42,14 +44,14 @@ class ChronalCoordinates
       end
     end
 
-    [@points.map(&:first).min, @points.map(&:first).max].each do |x|
+    @points.map(&:first).minmax.each do |x|
       (@points.map(&:last).min..@points.map(&:last).max).each do |y|
         zones.delete(closest(x, y))
       end
     end
 
     (@points.map(&:first).min..@points.map(&:first).max).each do |x|
-      [@points.map(&:last).min, @points.map(&:last).max].each do |y|
+      @points.map(&:last).minmax.each do |y|
         zones.delete(closest(x, y))
       end
     end

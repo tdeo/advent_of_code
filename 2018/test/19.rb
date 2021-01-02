@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/19_go_with_the_flow.rb')
+require_relative('../lib/19_go_with_the_flow')
 
 describe GoWithTheFlow do
   before { @k = GoWithTheFlow }

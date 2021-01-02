@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/22_mode_maze.rb')
+require_relative('../lib/22_mode_maze')
 
 describe ModeMaze do
   before { @k = ModeMaze }

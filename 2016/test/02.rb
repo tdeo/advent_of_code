@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/02_bathroom.rb')
+require_relative('../lib/02_bathroom')
 
 describe Bathroom do
   before { @k = Bathroom }

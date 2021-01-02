@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/17_no_such_thing_as_too_much.rb')
+require_relative('../lib/17_no_such_thing_as_too_much')
 
 describe NoSuchThingAsTooMuch do
   before { @k = NoSuchThingAsTooMuch }

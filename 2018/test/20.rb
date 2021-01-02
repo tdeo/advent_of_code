@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/20_a_regular_map.rb')
+require_relative('../lib/20_a_regular_map')
 
 describe ARegularMap do
   before { @k = ARegularMap }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Bots
   def initialize(input)
     @bots = Hash.new { |h, k| h[k] = [] }
@@ -7,7 +9,7 @@ class Bots
   end
 
   def parse(instruction)
-    if instruction =~ /^value/
+    if /^value/.match?(instruction)
       m = /^value (\d+) goes to bot (\d+)$/.match(instruction)
       @bots[m[2].to_i] << m[1].to_i
     else
@@ -20,8 +22,9 @@ class Bots
   end
 
   def run_step!
-    @bots.keys.each do |k|
+    @bots.each_key do |k|
       next unless @bots[k].size == 2
+
       low = @bots[k].min
       high = @bots[k].max
       @bots.delete(k)
@@ -41,16 +44,14 @@ class Bots
   end
 
   def part1
-    while true do
+    loop do
       r = run_step!
       return r unless r.nil?
     end
   end
 
   def part2
-    while !@bots.empty? do
-      run_step!
-    end
+    run_step! until @bots.empty?
     @output[0] * @output[1] * @output[2]
   end
 end

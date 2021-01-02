@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/23_turing_lock.rb')
+require_relative('../lib/23_turing_lock')
 
 describe TuringLock do
   before { @k = TuringLock }

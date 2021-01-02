@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/13_scanners.rb')
+require_relative('../lib/13_scanners')
 
 describe Scanners do
   before { @k = Scanners }

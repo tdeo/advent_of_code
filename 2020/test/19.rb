@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/19_monster_messages.rb')
+require_relative('../lib/19_monster_messages')
 
 describe MonsterMessages do
   before { @k = MonsterMessages }

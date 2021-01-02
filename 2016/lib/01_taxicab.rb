@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 class Taxicab
@@ -14,13 +16,17 @@ class Taxicab
   end
 
   def apply_move!(move)
-    @curdir = (@curdir + (move[0] == 'R' ? 1 : (move[0] == 'L' ? -1 : 0))) % @dirs.size
-    size = move[1..-1].to_i
+    @curdir = (@curdir + (if move[0] == 'R'
+                            1
+                          else
+                            (move[0] == 'L' ? -1 : 0)
+                          end)) % @dirs.size
+    size = move[1..].to_i
     @pos = [@pos[0] + size * @dirs[@curdir][0], @pos[1] + size * @dirs[@curdir][1]]
   end
 
   def distance
-    @pos.map(&:abs).reduce(0, :+)
+    @pos.sum(&:abs)
   end
 
   def part1
@@ -34,10 +40,11 @@ class Taxicab
     @moves.each do |m|
       dir = m[0]
       apply_move!("#{dir}1")
-      size = m[1..-1].to_i
+      size = m[1..].to_i
       (size - 1).times do
         apply_move!('S1') # S for straight, ignored by apply_move!
         return distance if visited.include?(@pos)
+
         visited << @pos
       end
     end

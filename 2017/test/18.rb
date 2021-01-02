@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_duet.rb')
+require_relative('../lib/18_duet')
 
 describe Duet do
   before { @k = Duet }

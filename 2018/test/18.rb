@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_settlersof_the_north_pole.rb')
+require_relative('../lib/18_settlersof_the_north_pole')
 
 describe SettlersofTheNorthPole do
   before { @k = SettlersofTheNorthPole }

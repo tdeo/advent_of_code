@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NoMatterHowYouSliceIt
   def initialize(input)
     @input = input

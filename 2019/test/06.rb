@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/06_universal_orbit_map.rb')
+require_relative('../lib/06_universal_orbit_map')
 
 describe UniversalOrbitMap do
   before { @k = UniversalOrbitMap }

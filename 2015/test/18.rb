@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_like_a_gif.rb')
+require_relative('../lib/18_like_a_gif')
 
 describe LikeAGif do
   before { @k = LikeAGif }

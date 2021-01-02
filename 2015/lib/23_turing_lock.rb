@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TuringLock
   def initialize(input)
     @instructions = input.split("\n")
@@ -17,7 +19,7 @@ class TuringLock
     when 'jmp'
       @idx += tokens[1].to_i - 1
     when 'jie'
-      @idx += tokens[2].to_i - 1 if @registers[tokens[1]] % 2 == 0
+      @idx += tokens[2].to_i - 1 if @registers[tokens[1]].even?
     when 'jio'
       @idx += tokens[2].to_i - 1 if @registers[tokens[1]] == 1
     end

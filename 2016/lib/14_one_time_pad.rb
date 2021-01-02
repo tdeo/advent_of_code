@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'digest'
 require 'set'
 
@@ -43,9 +45,7 @@ class OneTimePad
     while found < 64
       idx += 1
       store_hash!(idx + 1000, hash2(idx + 1000))
-      if key?(idx)
-        found += 1
-      end
+      found += 1 if key?(idx)
     end
     idx
   end

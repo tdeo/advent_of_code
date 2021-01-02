@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UniversalOrbitMap
   def initialize(input)
     @input = input
@@ -40,6 +42,6 @@ class UniversalOrbitMap
     a = parents('YOU')
     b = parents('SAN')
     c = a & b
-    ((a-c).size + (b-c).size) - 2
+    ((a - c).size + (b - c).size) - 2
   end
 end

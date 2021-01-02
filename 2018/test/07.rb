@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/07_the_sumof_its_parts.rb')
+require_relative('../lib/07_the_sumof_its_parts')
 
 describe TheSumofItsParts do
   before { @k = TheSumofItsParts }

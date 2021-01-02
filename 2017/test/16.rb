@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/16_promenade.rb')
+require_relative('../lib/16_promenade')
 
 describe Promenade do
   before { @k = Promenade }

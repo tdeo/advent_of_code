@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/15_generators.rb')
+require_relative('../lib/15_generators')
 
 describe Generators do
   before { @k = Generators }

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 TILES = {
   0 => ' ',
-  1 => ?#,
-  2 => ?B,
-  3 => ?-,
-  4 => ?o,
-}
+  1 => '#',
+  2 => 'B',
+  3 => '-',
+  4 => 'o',
+}.freeze
 
 class CarePackage
   def initialize(input)
@@ -17,9 +19,10 @@ class CarePackage
   def part1
     c = 0
     @intcode.run_until_input
-    while true do
-      x, y, tile = 3.times.map { @intcode.getint }
+    loop do
+      x, _y, tile = Array.new(3) { @intcode.getint }
       break if x.nil?
+
       c += 1 if tile == 2
     end
     c
@@ -38,29 +41,18 @@ class CarePackage
   end
 
   def move
-    if @ball[1] <= @prev_ball[1]
-      # Ball going up, just go towards it
-      return @ball[0] <=> @paddle[0]
-      if @paddle[0] < @ball[0]
-        return 1
-      elsif @paddle[0] > @ball[0]
-        return -1
-      else
-        return 0
-      end
-    else
-      # Predict ball landing
-      dir = @ball[0] - @prev_ball[0]
-      future_ball = @ball.dup
-      while future_ball[1] > @paddle[1] + 1
-        if @map[[future_ball[0] + dir, future_ball[1] + 1]] == ?#
-          dir = -dir
-        end
-        future_ball[0] += dir
-        future_ball[1] += 1
-      end
-      return future_ball[0] <=> @paddle[0]
+    # Ball going up, just go towards it
+    return @ball[0] <=> @paddle[0] if @ball[1] <= @prev_ball[1]
+
+    # Predict ball landing
+    dir = @ball[0] - @prev_ball[0]
+    future_ball = @ball.dup
+    while future_ball[1] > @paddle[1] + 1
+      dir = -dir if @map[[future_ball[0] + dir, future_ball[1] + 1]] == '#'
+      future_ball[0] += dir
+      future_ball[1] += 1
     end
+    future_ball[0] <=> @paddle[0]
   end
 
   def part2
@@ -72,11 +64,12 @@ class CarePackage
     @prev_ball = @ball = nil
 
     score = 0
-    while true do
+    loop do
       @intcode.run_until_input
-      while true do
-        x, y, tile = 3.times.map { @intcode.getint }
+      loop do
+        x, y, tile = Array.new(3) { @intcode.getint }
         break if x.nil?
+
         if x == -1 && y == 0
           score = tile
         else
@@ -85,14 +78,13 @@ class CarePackage
             @ball = [x, y]
             @prev_ball ||= @ball
           end
-          if tile == 3
-            @paddle = [x, y]
-          end
+          @paddle = [x, y] if tile == 3
           @map[[x, y]] = TILES[tile]
         end
       end
       # print_map # if Random.rand() < 0.1
-      return score if @map.count { |k, v| v == ?B } == 0 # No more blocks
+      return score if @map.count { |_, v| v == 'B' } == 0 # No more blocks
+
       @intcode.sendint(move)
     end
   end

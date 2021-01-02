@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MazeTrampolines
   def initialize(input)
     @tramps = input.split("\n").map(&:strip).map(&:to_i)
@@ -9,7 +11,7 @@ class MazeTrampolines
 
   def part1
     steps = 0
-    while @idx >= 0 and @idx < @size
+    while (@idx >= 0) && (@idx < @size)
       diff = @tramps[@idx]
       @tramps[@idx] += 1
       @idx += diff
@@ -20,7 +22,7 @@ class MazeTrampolines
 
   def part2
     steps = 0
-    while @idx >= 0 and @idx < @size
+    while (@idx >= 0) && (@idx < @size)
       diff = @tramps[@idx]
       @tramps[@idx] += (diff >= 3 ? -1 : 1)
       @idx += diff

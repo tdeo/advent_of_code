@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CorruptionChecksum
   def initialize(input)
     @matrix = input.split("\n").map do |row|
@@ -19,10 +21,10 @@ class CorruptionChecksum
   end
 
   def part1
-    @matrix.map { |r| max_min(r) }.reduce(0, :+)
+    @matrix.sum { |r| max_min(r) }
   end
 
   def part2
-    @matrix.map { |r| division(r) }.reduce(0, :+)
+    @matrix.sum { |r| division(r) }
   end
 end

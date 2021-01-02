@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/08_space_image_format.rb')
+require_relative('../lib/08_space_image_format')
 
 describe SpaceImageFormat do
   before { @k = SpaceImageFormat }

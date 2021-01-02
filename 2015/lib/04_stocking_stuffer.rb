@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'digest'
 
 class StockingStuffer
@@ -11,17 +13,13 @@ class StockingStuffer
 
   def part1
     i = 1
-    while hash(i)[0..4] != '00000'
-      i += 1
-    end
+    i += 1 while hash(i)[0..4] != '00000'
     i
   end
 
   def part2
     i = 1
-    while hash(i)[0..5] != '000000'
-      i += 1
-    end
+    i += 1 while hash(i)[0..5] != '000000'
     i
   end
 end

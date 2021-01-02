@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/09_single_night.rb')
+require_relative('../lib/09_single_night')
 
 describe SingleNight do
   before { @k = SingleNight }

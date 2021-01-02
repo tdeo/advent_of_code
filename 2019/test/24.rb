@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/24_planetof_discord.rb')
+require_relative('../lib/24_planetof_discord')
 
 describe PlanetofDiscord do
   before { @k = PlanetofDiscord }
 
   def test_part1
-    assert_equal 2129920, @k.new('....#
+    assert_equal 2_129_920, @k.new('....#
 #..#.
 #..##
 ..#..

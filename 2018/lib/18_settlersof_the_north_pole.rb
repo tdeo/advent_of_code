@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SettlersofTheNorthPole
   def initialize(input)
     @input = input
@@ -6,11 +8,13 @@ class SettlersofTheNorthPole
 
   def neighbours(i, j)
     r = Hash.new { |h, k| h[k] = 0 }
-    (i - 1 .. i + 1).each do |ii|
+    (i - 1..i + 1).each do |ii|
       next if ii < 0 || ii >= @map.size
-      (j - 1 .. j + 1).each do |jj|
+
+      (j - 1..j + 1).each do |jj|
         next if jj < 0 || jj >= @map[i].size
         next if jj == j && ii == i
+
         r[@map[ii][jj]] += 1
       end
     end
@@ -20,27 +24,28 @@ class SettlersofTheNorthPole
   def round
     tmp = []
     @map.each_with_index do |row, i|
-      r = ''
+      r = +''
       row.each_char.each_with_index do |c, j|
         n = neighbours(i, j)
-        if c == '.'
-          if n['|'] >= 3
-            r << '|'
-          else
-            r << '.'
-          end
-        elsif c == '|'
-          if n['#'] >= 3
-            r << '#'
-          else
-            r << '|'
-          end
-        elsif c == '#'
-          if n['#'] >= 1 && n['|'] >= 1
-            r << '#'
-          else
-            r << '.'
-          end
+        case c
+        when '.'
+          r << if n['|'] >= 3
+                 '|'
+               else
+                 '.'
+               end
+        when '|'
+          r << if n['#'] >= 3
+                 '#'
+               else
+                 '|'
+               end
+        when '#'
+          r << if n['#'] >= 1 && n['|'] >= 1
+                 '#'
+               else
+                 '.'
+               end
         end
       end
       tmp << r
@@ -49,7 +54,7 @@ class SettlersofTheNorthPole
   end
 
   def count(c)
-    @map.map { |r| r.chars.count(c) }.sum
+    @map.sum { |r| r.chars.count(c) }
   end
 
   def print!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hex
   def initialize(input)
     @current = [0, 0]

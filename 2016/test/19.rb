@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/19_an_elephant_named_joseph.rb')
+require_relative('../lib/19_an_elephant_named_joseph')
 
 describe AnElephantNamedJoseph do
   before { @k = AnElephantNamedJoseph }

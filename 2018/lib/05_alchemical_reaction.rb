@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class AlchemicalReaction
   def initialize(input)
     @input = input.strip
   end
 
   def part1(delete: {})
-    @rest = ''
+    @rest = +''
     (0..@input.size - 1).each do |i|
       if delete.key?(@input[i])
         # Do nothing, used for part2

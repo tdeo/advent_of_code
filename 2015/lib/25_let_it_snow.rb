@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LetItSnow
   MOD = 33_554_393
   MULT = 252_533
@@ -35,4 +37,3 @@ class LetItSnow
     0
   end
 end
-

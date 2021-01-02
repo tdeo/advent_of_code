@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/17_reservoir_research.rb')
+require_relative('../lib/17_reservoir_research')
 
 describe ReservoirResearch do
   before { @k = ReservoirResearch }

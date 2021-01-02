@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/20_swarn.rb')
+require_relative('../lib/20_swarn')
 
 describe Swarn do
   before { @k = Swarn }

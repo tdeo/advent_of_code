@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ARegularMap
   def initialize(input)
     @input = input
@@ -12,24 +14,26 @@ class ARegularMap
     @map[0][0] = 'X'
 
     @input.each_char do |c|
-      if c == '|'
+      case c
+      when '|'
         pos = stack[-1].dup
-      elsif c == '('
+      when '('
         stack << pos.dup
-      elsif c == ')'
+      when ')'
         stack.pop
       end
       i, j = pos  # row, col
-      if c == 'N'
+      case c
+      when 'N'
         @map[i - 1][j] = '-'
         pos[0] -= 2
-      elsif c == 'W'
+      when 'W'
         @map[i][j - 1] = '|'
         pos[1] -= 2
-      elsif c == 'S'
+      when 'S'
         @map[i + 1][j] = '-'
         pos[0] += 2
-      elsif c == 'E'
+      when 'E'
         @map[i][j + 1] = '|'
         pos[1] += 2
       end
@@ -74,7 +78,7 @@ class ARegularMap
   def print!
     (@mini..@maxi).each do |i|
       (@minj..@maxj).each do |j|
-        print (@map[i][j] || ' ')
+        print(@map[i][j] || ' ')
       end
       puts ''
     end
@@ -82,7 +86,7 @@ class ARegularMap
 
   def part1
     visited = dfs([0, 0])
-    return visited.values.max
+    visited.values.max
   end
 
   def part2

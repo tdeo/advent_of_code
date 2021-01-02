@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/20_jurassic_jigsaw.rb')
+require_relative('../lib/20_jurassic_jigsaw')
 
 describe JurassicJigsaw do
   before { @k = JurassicJigsaw }
 
   def test_part1
-    assert_equal 20899048083289, @k.new(<<~INPUT).part1
+    assert_equal 20_899_048_083_289, @k.new(<<~INPUT).part1
       Tile 2311:
       ..##.#..#.
       ##..#.....

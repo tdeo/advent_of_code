@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 class SetandForget
@@ -7,9 +9,9 @@ class SetandForget
   end
 
   def generate_map!
-    @map = ""
+    @map = ''
     @intcode.run
-    @map << @intcode.getint.chr while @intcode.has_output?
+    @map << @intcode.getint.chr while @intcode.output?
     @map = @map.strip.split("\n")
     @height = @map.size
     @width = @map[0].size
@@ -20,22 +22,23 @@ class SetandForget
     generate_map!
     (1...@height - 1).each do |i|
       (1...@width - 1).each do |j|
-        if @map[i][j] == ?# &&
-           @map[i + 1][j] == ?# &&
-           @map[i - 1][j] == ?# &&
-           @map[i][j + 1] == ?# &&
-           @map[i][j - 1] == ?#
-          s += i * j
-        end
+        next unless @map[i][j] == '#' &&
+                    @map[i + 1][j] == '#' &&
+                    @map[i - 1][j] == '#' &&
+                    @map[i][j + 1] == '#' &&
+                    @map[i][j - 1] == '#'
+
+        s += i * j
       end
     end
     s
   end
 
   def find_robot
+    robots = %w[^ < > v]
     (0...@height).each do |i|
       (0...@width).each do |j|
-        return [i, j] if %w(^ < > v).include?(@map[i][j])
+        return [i, j] if robots.include?(@map[i][j])
       end
     end
   end
@@ -54,6 +57,7 @@ class SetandForget
 
   def at(pos)
     return nil if pos[0] < 0 || pos[1] < 0 || pos[0] >= @height || pos[1] >= @width
+
     @map[pos[0]][pos[1]]
   end
 
@@ -77,23 +81,23 @@ class SetandForget
   def part2
     generate_map!
     @robot = find_robot
-    @dir = case @map[@robot[0]][@robot[1]]
-          when ?^ then :U
-          when ?v then :D
-          when ?> then :R
-          when ?< then :L
-          end
+    @dir = {
+      '^' => :U,
+      'v' => :D,
+      '>' => :R,
+      '<' => :L,
+    }[@map[@robot[0]][@robot[1]]]
     @path = [[@dir, 0]]
 
-    while true do
-      if at(plus(@robot, @dir)) == ?#
+    loop do
+      if at(plus(@robot, @dir)) == '#'
         append(@dir)
         move!
-      elsif at(plus(@robot, turn_right(@dir))) == ?#
+      elsif at(plus(@robot, turn_right(@dir))) == '#'
         @dir = turn_right(@dir)
         append(@dir)
         move!
-      elsif at(plus(@robot, turn_left(@dir))) == ?#
+      elsif at(plus(@robot, turn_left(@dir))) == '#'
         @dir = turn_left(@dir)
         append(@dir)
         move!
@@ -104,12 +108,12 @@ class SetandForget
 
     clean = []
     (1...@path.size).each do |i|
-      if turn_right(@path[i-1][0]) == @path[i][0]
-        clean << ?R
-      elsif turn_left(@path[i-1][0]) == @path[i][0]
-        clean << ?L
+      if turn_right(@path[i - 1][0]) == @path[i][0]
+        clean << 'R'
+      elsif turn_left(@path[i - 1][0]) == @path[i][0]
+        clean << 'L'
       else
-        fail 'Cannot turn like that!'
+        raise 'Cannot turn like that!'
       end
       clean << @path[i][1]
     end
@@ -125,13 +129,13 @@ class SetandForget
 
     intcode = Intcode.new(@input)
     intcode.set(0, 2)
-    [final_path, a, b, c, "n"].each do |line|
+    [final_path, a, b, c, 'n'].each do |line|
       line.each_char { |ch| intcode.sendint(ch.ord) }
       intcode.sendint("\n".ord)
     end
     intcode.run
     a = nil
-    a = intcode.getint while intcode.has_output?
+    a = intcode.getint while intcode.output?
     a
   end
 end

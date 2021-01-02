@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/07_some_assembly_required.rb')
+require_relative('../lib/07_some_assembly_required')
 
 describe SomeAssemblyRequired do
   before { @k = SomeAssemblyRequired }
@@ -15,15 +17,15 @@ NOT x -> h
 NOT y -> i')
     i.part1
     assert_equal({
-        'd' => 72,
-        'e' => 507,
-        'f' => 492,
-        'g' => 114,
-        'h' => 65412,
-        'i' => 65079,
-        'x' => 123,
-        'y' => 456
-      },
-      i.instance_variable_get(:@gates))
+                   'd' => 72,
+                   'e' => 507,
+                   'f' => 492,
+                   'g' => 114,
+                   'h' => 65_412,
+                   'i' => 65_079,
+                   'x' => 123,
+                   'y' => 456,
+                 },
+                 i.instance_variable_get(:@gates),)
   end
 end

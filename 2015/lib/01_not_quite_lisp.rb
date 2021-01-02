@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotQuiteLisp
   def initialize(input)
     @input = input

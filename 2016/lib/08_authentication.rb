@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Authentication
   def initialize(input, rows = 6, cols = 50)
     @instructions = input.strip.split("\n").map(&:strip)
     @rows = rows
     @cols = cols
-    @grid = @rows.times.map { @cols.times.map { 0 } }
+    @grid = Array.new(@rows) { Array.new(@cols) { 0 } }
   end
 
   def apply!(instruction)
@@ -32,7 +34,7 @@ class Authentication
       (0...@rows).each do |k|
         copy[k] = @grid[(k - rot) % @rows][j]
       end
-      (0...@rows).each do |k|
+      (0...@rows).each do |k| # rubocop:disable Style/CombinableLoops
         @grid[k][j] = copy[k]
       end
     end
@@ -40,7 +42,7 @@ class Authentication
 
   def part1
     @instructions.each { |ins| apply!(ins) }
-    @grid.flat_map(&:dup).reduce(0, :+)
+    @grid.flat_map(&:dup).sum
   end
 
   def part2

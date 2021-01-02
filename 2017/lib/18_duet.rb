@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Duet
   def initialize(input)
     @instructions = input.split("\n").map(&:strip)
@@ -7,7 +9,7 @@ class Duet
   end
 
   def value_for(a)
-    a =~ /^-?\d+$/ ? a.to_i : @registers[a]
+    /^-?\d+$/.match?(a) ? a.to_i : @registers[a]
   end
 
   def apply!
@@ -41,11 +43,12 @@ class Duet
   end
 
   def value_for2(prog, a)
-    a =~ /^-?\d+$/ ? a.to_i : @regs[prog][a]
+    /^-?\d+$/.match?(a) ? a.to_i : @regs[prog][a]
   end
 
   def apply2!(prog)
     return 'finished' unless @instructions[@pos[prog]]
+
     tokens = @instructions[@pos[prog]].split(' ').map(&:strip)
     case tokens[0]
     when 'snd'
@@ -61,6 +64,7 @@ class Duet
       @regs[prog][tokens[1]] = @regs[prog][tokens[1]] % value_for2(prog, tokens[2])
     when 'rcv'
       return 'blocked' if @queues[prog].empty?
+
       @regs[prog][tokens[1]] = @queues[prog].shift
     when 'jgz'
       @pos[prog] += (value_for2(prog, tokens[2]) - 1) if value_for2(prog, tokens[1]) > 0
@@ -70,15 +74,15 @@ class Duet
   end
 
   def part2
-    @sent = 2.times.map { 0 }
-    @regs = 2.times.map { @registers.dup }
+    @sent = Array.new(2) { 0 }
+    @regs = Array.new(2) { @registers.dup }
     @regs[0]['p'] = 0
     @regs[1]['p'] = 1
-    @queues = 2.times.map { [] }
-    @pos = 2.times.map { 0 }
-    while true
+    @queues = Array.new(2) { [] }
+    @pos = Array.new(2) { 0 }
+    loop do
       status = [apply2!(0), apply2!(1)]
-      break if (status.uniq - %w(finished blocked)).empty?
+      break if (status.uniq - %w[finished blocked]).empty?
     end
     @sent[1]
   end

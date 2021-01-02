@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/05_binary_boarding.rb')
+require_relative('../lib/05_binary_boarding')
 
 describe BinaryBoarding do
   before { @k = BinaryBoarding }

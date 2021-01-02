@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/13_knights_of_the_dinner_table.rb')
+require_relative('../lib/13_knights_of_the_dinner_table')
 
 describe KnightsOfTheDinnerTable do
   before { @k = KnightsOfTheDinnerTable }

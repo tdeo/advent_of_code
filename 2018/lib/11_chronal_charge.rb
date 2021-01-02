@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 class ChronalCharge
   def initialize(input)
     @serial = input.to_i
     @size = 300
     @power = Hash.new do |h, x|
-      fail if x <= 0 || x > @size
+      raise if x <= 0 || x > @size
+
       h[x] = Hash.new do |h2, y|
-        fail if y <= 0 || y > @size
+        raise if y <= 0 || y > @size
+
         pow = (x + 10) * y
         pow += @serial
         pow *= (x + 10)
@@ -22,8 +26,8 @@ class ChronalCharge
     (1..@size - 2).each do |i|
       (1..@size - 2).each do |j|
         val = @power[i][j] + @power[i + 1][j] + @power[i + 2][j] +
-            @power[i][j + 1] + @power[i + 1][j + 1] + @power[i + 2][j + 1] +
-            @power[i][j + 2] + @power[i + 1][j + 2] + @power[i + 2][j + 2]
+              @power[i][j + 1] + @power[i + 1][j + 1] + @power[i + 2][j + 1] +
+              @power[i][j + 2] + @power[i + 1][j + 2] + @power[i + 2][j + 2]
         if val > best
           best = val
           cell = [i, j]

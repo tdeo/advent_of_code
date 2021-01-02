@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/iterate_with_cycle'
+
+# rubocop:disable Style/GlobalVars
 
 def inv(a)
   powmod(a, $n - 2) % $n
@@ -7,9 +11,10 @@ end
 def powmod(a, k)
   return a if k == 1
   return 1 if k == 0
+
   b = powmod(a, k / 2)
-  b = (b * b) % $n
-  b *= a if k % 2 == 1
+  b = b**2 % $n
+  b *= a if k.odd?
   b
 end
 
@@ -42,10 +47,11 @@ class Mat22
   end
 
   def pow(k)
-    return self.dup if k == 1
-    a = self.dup.pow(k / 2)
+    return dup if k == 1
+
+    a = dup.pow(k / 2)
     a.mul(a)
-    k % 2 == 0 ? a : a.mul(self)
+    k.even? ? a : a.mul(self)
   end
 end
 
@@ -56,14 +62,15 @@ class SlamShuffle
   end
 
   def shuffle!(step)
-    if step =~ /^deal with increment (-?\d+)$/
+    case step
+    when /^deal with increment (-?\d+)$/
       deal_with_increment($1.to_i)
-    elsif step == 'deal into new stack'
+    when 'deal into new stack'
       deal_into_new_stack
-    elsif step =~ /^cut (-?\d+)$/
+    when /^cut (-?\d+)$/
       cut($1.to_i)
     else
-      fail "Unrecognized step #{step}"
+      raise "Unrecognized step #{step}"
     end
   end
 
@@ -77,7 +84,7 @@ class SlamShuffle
 
   def deal_with_increment(n)
     s = @deck.size
-    new_deck  = (0...s).map { nil }
+    new_deck = (0...s).map { nil }
     pos = 0
     s.times do |i|
       new_deck[pos] = @deck[i]
@@ -86,7 +93,7 @@ class SlamShuffle
     @deck = new_deck
   end
 
-  def process!(n = 10007)
+  def process!(n = 10_007)
     @deck ||= (0...n).to_a
     @steps.each do |s|
       shuffle!(s)
@@ -94,30 +101,31 @@ class SlamShuffle
     @deck
   end
 
-  def part1(n = 10007)
+  def part1(n = 10_007)
     process!(n)
     @deck.find_index(2019)
   end
 
   def invmod(a, p)
-    (a ** (p - 2)) % p
+    (a**(p - 2)) % p
   end
 
   def reverse_matrix(step)
-    if step == 'deal into new stack'
-      return Mat22.new([-1, -1], [0, 1])
-    elsif step =~ /^cut (-?\d+)$/
+    case step
+    when 'deal into new stack'
+      Mat22.new([-1, -1], [0, 1])
+    when /^cut (-?\d+)$/
       c = $1.to_i * -1
-      return Mat22.new([1, -c], [0, 1])
-    elsif step =~ /^deal with increment (-?\d+)$/
+      Mat22.new([1, -c], [0, 1])
+    when /^deal with increment (-?\d+)$/
       c = $1.to_i
-      return Mat22.new([inv(c), 0], [0, 1])
+      Mat22.new([inv(c), 0], [0, 1])
     else
-      fail "Unrecognized step #{step}"
+      raise "Unrecognized step #{step}"
     end
   end
 
-  def part2(n = 119315717514047, pos = 2020, k = 101741582076661)
+  def part2(n = 119_315_717_514_047, pos = 2020, k = 101_741_582_076_661)
     $n = n
 
     m = Mat22.new([1, 0], [0, 1])
@@ -129,3 +137,5 @@ class SlamShuffle
     (m.a * pos + m.b) % $n
   end
 end
+
+# rubocop:enable Style/GlobalVars

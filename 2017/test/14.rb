@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/14_defrag.rb')
+require_relative('../lib/14_defrag')
 
 describe Defrag do
   before { @k = Defrag }

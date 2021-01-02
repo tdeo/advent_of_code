@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/25_four_dimensional_adventure.rb')
+require_relative('../lib/25_four_dimensional_adventure')
 
 describe FourDimensionalAdventure do
   before { @k = FourDimensionalAdventure }

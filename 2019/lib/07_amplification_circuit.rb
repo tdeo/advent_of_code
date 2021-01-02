@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 class AmplificationCircuit
@@ -7,23 +9,21 @@ class AmplificationCircuit
 
   def part1
     best = -1
-    opts = [0,1,2,3,4]
+    opts = [0, 1, 2, 3, 4]
     opts.permutation do |opt|
       a = Intcode.new(@input).sendint(opt[0]).sendint(0).run.getint
       b = Intcode.new(@input).sendint(opt[1]).sendint(a).run.getint
       c = Intcode.new(@input).sendint(opt[2]).sendint(b).run.getint
       d = Intcode.new(@input).sendint(opt[3]).sendint(c).run.getint
       e = Intcode.new(@input).sendint(opt[4]).sendint(d).run.getint
-      if e > best
-        best = e
-      end
+      best = e if e > best
     end
     best
   end
 
   def part2
     best = -1
-    opts = [5,6,7,8,9]
+    opts = [5, 6, 7, 8, 9]
     opts.permutation do |opt|
       last = nil
       a = Intcode.new(@input).sendint(opt[0]).sendint(0)
@@ -32,7 +32,7 @@ class AmplificationCircuit
       d = Intcode.new(@input).sendint(opt[3])
       e = Intcode.new(@input).sendint(opt[4])
       aa = bb = cc = dd = ee = nil
-      while true do
+      loop do
         a.run_until_input
         aa = a.getint
         b.sendint(aa) unless aa.nil?
@@ -49,11 +49,9 @@ class AmplificationCircuit
         ee = e.getint
         a.sendint(ee) unless ee.nil?
         last = ee unless ee.nil?
-        break if [aa,bb,cc,dd,ee].all?(&:nil?)
+        break if [aa, bb, cc, dd, ee].all?(&:nil?)
       end
-      if last > best
-        best = last
-      end
+      best = last if last > best
     end
     best
   end

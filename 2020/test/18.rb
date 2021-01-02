@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_operation_order.rb')
+require_relative('../lib/18_operation_order')
 
 describe OperationOrder do
   before { @k = OperationOrder }

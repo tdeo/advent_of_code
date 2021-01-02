@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ElectromagneticMoat
   def initialize(input)
     @bridges = Hash.new { |h, k| h[k] = [] }
@@ -11,6 +13,7 @@ class ElectromagneticMoat
   def highest_score(used, start)
     @bridges[start].map do |bridge|
       next if used.include?(bridge[:idx])
+
       bridge[:score] + highest_score(used + [bridge[:idx]], bridge[:to])
     end.compact.max || 0
   end
@@ -22,9 +25,10 @@ class ElectromagneticMoat
   def longest_highest_score(used, start)
     @bridges[start].map do |bridge|
       next if used.include?(bridge[:idx])
+
       rest = longest_highest_score(used + [bridge[:idx]], bridge[:to])
       [rest[0] + 1, bridge[:score] + rest[1]]
-    end.compact.sort.last || [0, 0]
+    end.compact.max || [0, 0]
   end
 
   def part2

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/01_chronal_calibration.rb')
+require_relative('../lib/01_chronal_calibration')
 
 describe ChronalCalibration do
   before { @k = ChronalCalibration }

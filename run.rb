@@ -1,16 +1,17 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'benchmark'
 require 'pathname'
 require 'fileutils'
 
-dir = File.expand_path(File.dirname(__FILE__))
+dir = __dir__
 Dir.chdir dir
 
-$session = File.read('./session_cookie').strip
+@session = File.read('./session_cookie').strip
 
-$post_to_aoc = ARGV.delete('--post')
-$skip_tests = ARGV.delete('--no-test')
+@post_to_aoc = ARGV.delete('--post')
+@skip_tests = ARGV.delete('--no-test')
 
 unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && (ARGV[1] =~ /\d+/ || ARGV[1] == 'benchmark')
   puts <<~HELP
@@ -26,7 +27,7 @@ unless ARGV.size > 1 && ARGV[0] =~ /\d+/ && (ARGV[1] =~ /\d+/ || ARGV[1] == 'ben
         can be instantiated with a puzzle input and implements the 2 instance
         methods `part1` and `part2` which returns the result of part1 and
         part2 of the problem.
-HELP
+  HELP
   exit 1
 end
 
@@ -40,10 +41,10 @@ end
 
 def input(year, day)
   init_year(year)
-  day = day.to_s.rjust(2, ?0)
+  day = day.to_s.rjust(2, '0')
   file = "#{year}/inputs/#{day}.input"
   unless File.exist?(file)
-    input = `curl -sS --cookie "session=#{$session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+    input = `curl -sS --cookie "session=#{@session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
     File.open(file, 'w') { |f| f.write(input) }
   end
   File.read(file)
@@ -54,7 +55,7 @@ def run(year, day, parts)
   day = day.to_s.rjust(2, '0')
 
   test_file = "#{year}/test/#{day}.rb"
-  if File.exists?(test_file) && !$skip_tests
+  if File.exist?(test_file) && !@skip_tests
     test_cmd = "ruby #{test_file}"
     test_cmd += " -n /test_part#{parts}/" if parts
     test_output = `#{test_cmd}`
@@ -62,9 +63,7 @@ def run(year, day, parts)
     puts "\n******* Tests #{year}-#{day} *******\n\n"
     puts test_output
 
-    if !test_output.include?(' 0 failures') || test_output.include?('\n0 runs')
-      exit 1
-    end
+    exit 1 if !test_output.include?(' 0 failures') || test_output.include?('\n0 runs')
   end
 
   parts = [parts || [1, 2]].flatten.map(&:to_i)
@@ -82,12 +81,13 @@ def run(year, day, parts)
   parts.map do |part|
     m = :"part#{part}"
     next unless klass.instance_methods.include?(m)
+
     puts "\n******* Running part #{part} *******\n\n"
     res = nil
     real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
     puts res
-    if $post_to_aoc
-      resp = `curl -sSL --cookie \"session=#{$session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"`
+    if @post_to_aoc
+      resp = `curl -sSL --cookie \"session=#{@session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"` # rubocop:disable Layout/LineLength
       puts resp[%r{<main>(.*)</main>}m]
     end
     puts "\n\tRun in #{real.round(2)} seconds"
@@ -95,12 +95,11 @@ def run(year, day, parts)
   end
 end
 
-
 def benchmark(year)
-  $skip_tests = true
+  @skip_tests = true
   '01'.upto('25').each do |day|
     times = run(year, day, [1, 2])
-    STDERR.puts "#{year} - #{day}: #{times[0].round(4).to_s.rjust(10)} #{times[1].round(4).to_s.rjust(10)}"
+    warn "#{year} - #{day}: #{times[0].round(4).to_s.rjust(10)} #{times[1].round(4).to_s.rjust(10)}"
   end
 end
 

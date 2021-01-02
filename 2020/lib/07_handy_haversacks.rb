@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HandyHaversacks
   def initialize(input)
     @input = input
@@ -9,7 +11,7 @@ class HandyHaversacks
       container = container.gsub(/\bbag.*/, '').strip
       containees = contained.split(',').map do
         [
-          _1.gsub(/\bbag.*/, '').gsub(/.*\d+/, '').strip ,
+          _1.gsub(/\bbag.*/, '').gsub(/.*\d+/, '').strip,
           _1.strip.to_i,
         ]
       end
@@ -24,7 +26,7 @@ class HandyHaversacks
     queue = [target]
     visited = {}
 
-    while !queue.empty? do
+    until queue.empty?
       a = queue.pop
 
       @contained[a].each do |b|

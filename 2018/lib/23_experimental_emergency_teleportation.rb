@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExperimentalEmergencyTeleportation
   def initialize(input)
     @input = input
@@ -8,7 +10,7 @@ class ExperimentalEmergencyTeleportation
   end
 
   def dist(b1, b2)
-    b1.zip(b2)[0..2].map { |a, b| (a - b).abs }.sum
+    b1.zip(b2)[0..2].sum { |a, b| (a - b).abs }
   end
 
   def part1
@@ -30,6 +32,7 @@ class ExperimentalEmergencyTeleportation
 
   def connected?(i1, i2)
     return true if i1 == i2
+
     @connected ||= Hash.new { |h, k| h[k] = {} }
     @connected[i1][i2] ||= (dist(@bots[i1], @bots[i2]) <= @bots[i1][-1] + @bots[i2][-1])
   end
@@ -40,7 +43,7 @@ class ExperimentalEmergencyTeleportation
     a = idxs.first
     c = []
     nc = []
-    idxs[1..-1].each do |i|
+    idxs[1..].each do |i|
       connected?(a, i) ? (c << i) : (nc << i)
     end
 
@@ -64,13 +67,13 @@ class ExperimentalEmergencyTeleportation
     end
 
     comp = strongly_connected (0...@bots.size).to_a
-    fail if comp.size != 1 # Edge case not handled
+    raise if comp.size != 1 # Edge case not handled
 
     r = 0
     comp[0].each do |i|
       r = [
         r,
-        @bots[i][0..2].map(&:abs).sum - @bots[i][-1],
+        @bots[i][0..2].sum(&:abs) - @bots[i][-1],
       ].max
     end
     r

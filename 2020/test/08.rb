@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/08_handheld_halting.rb')
+require_relative('../lib/08_handheld_halting')
 
 describe HandheldHalting do
   before { @k = HandheldHalting }

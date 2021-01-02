@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/12_leonardo_monorail.rb')
+require_relative('../lib/12_leonardo_monorail')
 
 describe LeonardoMonorail do
   before { @k = LeonardoMonorail }
@@ -13,4 +15,3 @@ jnz a 2
 dec a').part1
   end
 end
-

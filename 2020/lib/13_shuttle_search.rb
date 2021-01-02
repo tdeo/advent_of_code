@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class ShuttleSearch
   def initialize(input)
     @input = input
     @earliest = @input.split("\n")[0].to_i
-    @buses = (@input.split("\n")[1].split(',') - ['x']).map(&:to_i)
+    @buses = (@input.split("\n")[1].split(',') - %w[x]).map(&:to_i)
   end
 
   def part1
@@ -11,7 +13,7 @@ class ShuttleSearch
       t += bus if t < @earliest
       [
         bus,
-        t
+        t,
       ]
     end
     best = next_departures.min_by(&:last)
@@ -25,10 +27,12 @@ class ShuttleSearch
 
     @input.split("\n")[1].split(',').each_with_index do |bus, idx|
       next if bus == 'x'
+
       bus = bus.to_i
 
-      while true do
+      loop do
         break if (idx + t) % bus == 0
+
         t += lcm
       end
 

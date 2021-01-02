@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'set'
 
 class JurassicJigsaw
   ORIENTATIONS = (0...8).to_a
-
+  SIDES = %i[top left bottom right].freeze
   MONSTER = [
     '                  # ',
     '#    ##    ##    ###',
     ' #  #  #  #  #  #   ',
-  ]
+  ].freeze
 
   class Tile
     attr_reader :id
@@ -15,25 +17,26 @@ class JurassicJigsaw
 
     def initialize(input)
       @id = input.split("\n")[0].match(/\d+/)[0].to_i
-      @original = input.split("\n")[1..-1]
-      @orientation = 0
+      @original = input.split("\n")[1..]
+      @view_orientation = @orientation = 0
       # 0-3 : rotations clockwise
       # 4-7: same starting with vertical symmetry
     end
 
     def view
+      @view ||= nil
       @view = nil if @view_orientation != @orientation
       @view_orientation = @orientation
       return @view if @view
 
       lines = if @orientation >= 4
-        @original.map(&:reverse)
-      else
-        @original.map(&:dup)
-      end
+                @original.map(&:reverse)
+              else
+                @original.map(&:dup)
+              end
 
       # rotate 90 deg clockwise
-      if orientation % 2 == 1
+      if orientation.odd?
         lines = (0...lines.size).map do |i|
           (0...lines.size).map do |j|
             lines[lines.size - j - 1][i]
@@ -42,9 +45,7 @@ class JurassicJigsaw
       end
 
       # Rotate 180deg
-      if (orientation % 4) > 1
-        lines = lines.reverse.map(&:reverse)
-      end
+      lines = lines.reverse.map(&:reverse) if (orientation % 4) > 1
 
       @view = lines
     end
@@ -75,7 +76,7 @@ class JurassicJigsaw
 
       ORIENTATIONS.each do |orientation|
         tile.orientation = orientation
-        %i[top left bottom right].each do |side|
+        SIDES.each do |side|
           @borders[tile.border(side)] << tile.id
         end
       end
@@ -95,19 +96,20 @@ class JurassicJigsaw
   end
 
   def part1
-    corners = @fits.select { |k, v| v.size == 2 }.map(&:first)
-    fail "Found #{corners.size} corners" unless corners.size == 4
+    corners = @fits.select { |_, v| v.size == 2 }.map(&:first)
+    raise "Found #{corners.size} corners" unless corners.size == 4
 
     corners.reduce(1, :*)
   end
 
   def build_map
+    @map ||= nil
     return @map unless @map.nil?
 
     map = []
 
     used = {}
-    corner_id = @fits.find { |k, v| v.size == 2 }.first
+    corner_id = @fits.find { |_, v| v.size == 2 }.first
     corner = @tiles[corner_id]
     ORIENTATIONS.find do |orientation|
       corner.orientation = orientation
@@ -118,8 +120,8 @@ class JurassicJigsaw
     map << [corner]
     used[corner.id] = true
 
-    while true do
-      while true do
+    loop do
+      while true
         prev = map[-1][-1]
         tile_id = @borders[prev.border(:right)].find { !used.key? _1 }
         break if tile_id.nil?
@@ -153,7 +155,7 @@ class JurassicJigsaw
     monster_pos = []
     MONSTER.each_with_index do |row, i|
       row.each_char.each_with_index do |char, j|
-        monster_pos << [i, j] if char == ?#
+        monster_pos << [i, j] if char == '#'
       end
     end
 
@@ -161,7 +163,7 @@ class JurassicJigsaw
     (0...tile.view.size - MONSTER.size).each do |i|
       row = tile.view[i]
       (0...row.size - MONSTER[0].size).each do |j|
-        next unless monster_pos.all? { |ii, jj| tile.view[i+ii][j+jj] == ?# }
+        next unless monster_pos.all? { |ii, jj| tile.view[i + ii][j + jj] == '#' }
 
         monster_pos.each do |ii, jj|
           habitat_used[[i + ii, j + jj]] = true
@@ -172,7 +174,7 @@ class JurassicJigsaw
     r = 0
     tile.view.each_with_index do |row, i|
       row.each_char.each_with_index do |char, j|
-        next unless char == ?#
+        next unless char == '#'
         next if habitat_used.key?([i, j])
 
         r += 1
@@ -187,7 +189,7 @@ class JurassicJigsaw
 
     tile_size = @tiles.values.first.view.size
     map_entry = []
-    map_entry << "Map 0"
+    map_entry << 'Map 0'
     @map.each do |row|
       (1...tile_size - 1).each do |i|
         map_entry << row.map { _1.view[i][1..-2] }.join

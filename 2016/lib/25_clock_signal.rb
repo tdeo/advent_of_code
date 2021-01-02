@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClockSignal
   def initialize(input)
     @input = input
@@ -12,19 +14,21 @@ class ClockSignal
   def code
     d = a + 7 * 362
     b = c = 0
-    while true
+    loop do
       a = d
       while a != 0
         b = a
         a = 0
-        while true
+        loop do
           c = 2
           while c != 0
             break if b == 0
+
             b -= 1
             c -= 1
           end
           break if b == 0
+
           a += 1
         end
         b = 2 - c
@@ -34,14 +38,11 @@ class ClockSignal
     end
   end
 
-
   def part1
     x = @input.split("\n")[1].split(' ')[1].to_i
     y = @input.split("\n")[2].split(' ')[1].to_i
     i = 2
-    while i < x * y
-      i = i * 4 + 2
-    end
+    i = i * 4 + 2 while i < x * y
     i - x * y
   end
 

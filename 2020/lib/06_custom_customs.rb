@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CustomCustoms
   def initialize(input)
     @input = input

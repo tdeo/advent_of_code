@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SingleNight
   def initialize(input)
     @distances = Hash.new { |h, k| h[k] = {} }
@@ -9,9 +11,9 @@ class SingleNight
   end
 
   def distance(perm)
-    perm.each_cons(2).map do |a, b|
+    perm.each_cons(2).sum do |a, b|
       @distances[a][b]
-    end.reduce(:+)
+    end
   end
 
   def part1

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/08_matchsticks.rb')
+require_relative('../lib/08_matchsticks')
 
 describe Matchsticks do
   before { @k = Matchsticks }

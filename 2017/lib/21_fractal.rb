@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Fractal
   def initialize(input, times = 5)
     @grid = '.#. ..# ###'.split(' ').map(&:chars)
@@ -7,7 +9,7 @@ class Fractal
   end
 
   def print_grid
-    puts @grid.map { |r| r.join('') }
+    puts(@grid.map { |r| r.join('') })
   end
 
   def expand_rules(input)
@@ -19,33 +21,34 @@ class Fractal
   end
 
   def variants(pattern)
-    if pattern.size == 5 # 2 by 2
-      ['abcd', 'bdac', 'dcba', 'cadb',
-       'badc', 'dbca', 'cdab', 'acbd'].map do |v|
-        str = v[0..1] + '/' + v[2..3]
+    case pattern.size
+    when 5 # 2 by 2
+      %w[abcd bdac dcba cadb
+         badc dbca cdab acbd].map do |v|
+        str = "#{v[0..1]}/#{v[2..3]}"
         str.tr('a', pattern[0]).tr('b', pattern[1]).tr('c', pattern[3]).tr('d', pattern[4])
       end
-    elsif pattern.size == 11 # 3 by 3
-      ['abcdefghi', 'cfibehadg', 'ihgfedcba', 'gdahebifc',
-       'cbafedihg', 'ifchebgda', 'ghidefabc', 'adgbehcfi'].map do |v|
-        str = v[0..2] + '/' + v[3..5] + '/' + v[6..8]
+    when 11 # 3 by 3
+      %w[abcdefghi cfibehadg ihgfedcba gdahebifc
+         cbafedihg ifchebgda ghidefabc adgbehcfi].map do |v|
+        str = "#{v[0..2]}/#{v[3..5]}/#{v[6..8]}"
         str.tr('a', pattern[0]).tr('b', pattern[1]).tr('c', pattern[2])
-          .tr('d', pattern[4]).tr('e', pattern[5]).tr('f', pattern[6])
-          .tr('g', pattern[8]).tr('h', pattern[9]).tr('i', pattern[10])
+           .tr('d', pattern[4]).tr('e', pattern[5]).tr('f', pattern[6])
+           .tr('g', pattern[8]).tr('h', pattern[9]).tr('i', pattern[10])
       end
     else
-      fail 'wrong pattern size'
+      raise 'wrong pattern size'
     end
   end
 
   def split(grid)
     parts = []
-    if grid.size % 2 == 0
+    if grid.size.even?
       size = 2
     elsif grid.size % 3 == 0
       size = 3
     else
-      fail 'Grid can\'t be split'
+      raise 'Grid can\'t be split'
     end
     i = 0
     while @grid[i]
@@ -84,7 +87,7 @@ class Fractal
     @times.times do
       @grid = aggregate(replace(split(@grid)))
     end
-    @grid.map { |row| row.count { |c| c == '#' } }.reduce(0, :+)
+    @grid.sum { |row| row.count { |c| c == '#' } }
   end
 
   def part2
@@ -92,6 +95,6 @@ class Fractal
     @times.times do
       @grid = aggregate(replace(split(@grid)))
     end
-    @grid.map { |row| row.count { |c| c == '#' } }.reduce(0, :+)
+    @grid.sum { |row| row.count { |c| c == '#' } }
   end
 end

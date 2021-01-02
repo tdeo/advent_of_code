@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RainRisk
   EAST = 'E'
   WEST = 'W'
@@ -7,30 +9,30 @@ class RainRisk
   def initialize(input)
     @input = input
     @moves = @input.each_line.map do |l|
-      [l[0], l[1..-1].to_i]
+      [l[0], l[1..].to_i]
     end
     @pos = [0, 0] # east, north
     @wp = [10, 1]
     @dir = EAST
   end
 
-  def N(count)
+  def n(count)
     @pos[1] += count
   end
 
-  def S(count)
+  def s(count)
     @pos[1] -= count
   end
 
-  def E(count)
+  def e(count)
     @pos[0] += count
   end
 
-  def W(count)
+  def w(count)
     @pos[0] -= count
   end
 
-  def R(count)
+  def r(count)
     dirs = [NORTH, EAST, SOUTH, WEST]
     idx = dirs.index(@dir)
     idx += (count / 90)
@@ -38,25 +40,25 @@ class RainRisk
     @dir = dirs[idx]
   end
 
-  def L(count)
-    R(-count)
+  def l(count)
+    r(-count)
   end
 
-  def F(count)
+  def f(count)
     case @dir
-    when EAST then E(count)
-    when WEST then W(count)
-    when NORTH then N(count)
-    when SOUTH then S(count)
+    when EAST then e(count)
+    when WEST then w(count)
+    when NORTH then n(count)
+    when SOUTH then s(count)
     end
   end
 
   def perform(dir, count)
-    send(dir.to_sym, count)
+    send(dir.downcase.to_sym, count)
   end
 
   def manhattan
-    @pos.map(&:abs).sum
+    @pos.sum(&:abs)
   end
 
   def part1
@@ -66,42 +68,42 @@ class RainRisk
     manhattan
   end
 
-  def N2(count)
+  def n2(count)
     @wp[1] += count
   end
 
-  def S2(count)
+  def s2(count)
     @wp[1] -= count
   end
 
-  def E2(count)
+  def e2(count)
     @wp[0] += count
   end
 
-  def W2(count)
+  def w2(count)
     @wp[0] -= count
   end
 
-  def F2(count)
+  def f2(count)
     @pos[0] += count * @wp[0]
     @pos[1] += count * @wp[1]
   end
 
-  def L2(count)
-    return L2(count + 360) if count < 0
+  def l2(count)
+    return l2(count + 360) if count < 0
     return if count == 0
 
     @wp = [-@wp[1], @wp[0]]
-    L2(count - 90)
+    l2(count - 90)
   end
 
-  def R2(count)
-    L2(-count)
+  def r2(count)
+    l2(-count)
   end
 
   def part2
     @moves.each do |dir, count|
-      send(:"#{dir}2", count)
+      send(:"#{dir.downcase}2", count)
     end
     # puts @pos.inspect, @wp.inspect
     manhattan

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/17_conway_cubes.rb')
+require_relative('../lib/17_conway_cubes')
 
 describe ConwayCubes do
   before { @k = ConwayCubes }

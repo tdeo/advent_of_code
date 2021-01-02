@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RpgSimulator
   def initialize(input)
     @boss = {
@@ -28,7 +30,7 @@ class RpgSimulator
     { cost: 25, damage: 6 },
     { cost: 40, damage: 7 },
     { cost: 74, damage: 8 },
-  ]
+  ].freeze
 
   ARMORS = [
     {}, # No armor
@@ -37,7 +39,7 @@ class RpgSimulator
     { cost: 53, armor: 3 },
     { cost: 75, armor: 4 },
     { cost: 102, armor: 5 },
-  ]
+  ].freeze
 
   RINGS = [
     {},
@@ -48,7 +50,7 @@ class RpgSimulator
     { cost: 20, armor: 1 },
     { cost: 40, armor: 2 },
     { cost: 80, armor: 3 },
-  ]
+  ].freeze
 
   def part1
     cheapest = 1 << 20

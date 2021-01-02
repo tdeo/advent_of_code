@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/20_firewall_rules.rb')
+require_relative('../lib/20_firewall_rules')
 
 describe FirewallRules do
   before { @k = FirewallRules }

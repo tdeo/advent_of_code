@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdapterArray
   def initialize(input)
     @input = input

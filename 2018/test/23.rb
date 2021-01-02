@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/23_experimental_emergency_teleportation.rb')
+require_relative('../lib/23_experimental_emergency_teleportation')
 
 describe ExperimentalEmergencyTeleportation do
   before { @k = ExperimentalEmergencyTeleportation }

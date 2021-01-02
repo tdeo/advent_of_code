@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MemoryManeuver
   def initialize(input)
     @input = input.split(' ').map(&:to_i)
@@ -40,8 +42,10 @@ class MemoryManeuver
 
   def value(node)
     return node.metadata.sum if node.n_children == 0
+
     node.metadata.map do |i|
       next if i <= 0 || i > node.n_children
+
       value(node.children[i - 1])
     end.compact.sum
   end

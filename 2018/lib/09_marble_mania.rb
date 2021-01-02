@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MarbleMania
   def initialize(input)
     @input = input
@@ -7,16 +9,14 @@ class MarbleMania
   end
 
   class Node
-    attr_accessor :val
-    attr_accessor :before
-    attr_accessor :after
+    attr_accessor :val, :before, :after
 
     def initialize(val)
       self.val = val
     end
 
     def insert_after(node)
-      a = self.after
+      a = after
       a.before = node
       self.after = node
       node.after = a
@@ -24,13 +24,13 @@ class MarbleMania
     end
 
     def delete_after
-      self.after = self.after.after
-      self.after.before = self
+      self.after = after.after
+      after.before = self
     end
 
     def delete_before
-      self.before = self.before.before
-      self.before.after = self
+      self.before = before.before
+      before.after = self
     end
   end
 
@@ -53,26 +53,23 @@ class MarbleMania
   end
 
   def play!
-    if (@next_val % 23) != 0
-      @current = @current.after
-      @current.insert_after(Node.new(@next_val))
-      @current = @current.after
-    else
+    if (@next_val % 23) == 0
       player = (@next_val - 1) % @players
       @scores[player] += @next_val
       6.times { @current = @current.before }
       @scores[player] += @current.before.val
       @current.delete_before
+    else
+      @current = @current.after
+      @current.insert_after(Node.new(@next_val))
+      @current = @current.after
     end
     @next_val += 1
   end
 
-
   def part1
     init!
-    while @next_val <= @marbles
-      play!
-    end
+    play! while @next_val <= @marbles
     @scores.values.max
   end
 

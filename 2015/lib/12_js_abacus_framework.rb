@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 class JsAbacusFramework
@@ -6,13 +8,14 @@ class JsAbacusFramework
   end
 
   def part1
-    @input.scan(/(-?\d+)/).map { |m| m[0].to_i }.reduce(0, :+)
+    @input.scan(/(-?\d+)/).sum { |m| m[0].to_i }
   end
 
   def rec_sum(object)
-    return 0 if object.is_a?(Hash) && object.values.include?('red')
+    return 0 if object.is_a?(Hash) && object.value?('red')
     return object.each_value.sum { |v| rec_sum(v) } if object.is_a?(Hash)
     return object.sum { |v| rec_sum(v) } if object.is_a?(Array)
+
     object.is_a?(Integer) ? object : 0
   end
 

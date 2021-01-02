@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/01_taxicab.rb')
+require_relative('../lib/01_taxicab')
 
 describe Taxicab do
   before { @k = Taxicab }

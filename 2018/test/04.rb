@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/04_repose_record.rb')
+require_relative('../lib/04_repose_record')
 
 describe ReposeRecord do
   before { @k = ReposeRecord }

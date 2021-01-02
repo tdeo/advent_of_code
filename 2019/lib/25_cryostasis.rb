@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'intcode'
 
 class Cryostasis
+  DIRS = %w[north east south west].freeze
+
   def initialize(input)
     @input = input
     @intcode = Intcode.new(input)
@@ -17,17 +21,18 @@ class Cryostasis
     @current_room = room
     items = []
     output.scan(/^- (.*)$/).each do |l|
-      if %w(north east south west).include?(l[0])
+      if DIRS.include?(l[0])
         @map[room][l[0]] ||= nil
       else
         items << l[0]
       end
     end
-    return items
+    items
   end
 
   def take(item)
     return nil if ['infinite loop', 'photons', 'molten lava', 'giant electromagnet', 'escape pod'].include?(item)
+
     @inventory << item unless @inventory.include?(item)
     "take #{item}"
   end
@@ -35,18 +40,19 @@ class Cryostasis
   def dest
     viewed = { @current_room => [] }
     q = [@current_room]
-    while !q.empty? do
+    until q.empty?
       room = q.shift
       path = viewed[room]
 
       @map[room].each do |dir, n_room|
         return path + [dir] if n_room.nil?
         next if viewed[n_room]
+
         viewed[n_room] = path + [dir]
         q << n_room
       end
     end
-    return nil
+    nil
   end
 
   def process_security_checkpoint(output)
@@ -54,9 +60,8 @@ class Cryostasis
     @map['Security Checkpoint'] = { 'north' => 'Engineering' }
     d = dest
     puts d.inspect
-    if d
-      return "#{d[0]}\n"
-    end
+    return "#{d[0]}\n" if d
+
     items = @inventory.dup
     puts items.inspect
     r = []
@@ -65,44 +70,38 @@ class Cryostasis
       (@inventory - comb).each { |i| r << "drop #{i}" }
       (comb - @inventory).each { |i| r << "take #{i}" }
       @inventory = comb
-      r << "east"
+      r << 'east'
     end
     r.map { |l| "#{l}\n" }.join
   end
 
   def process(output)
-    if output.include?('== Security Checkpoint ==')
-      return process_security_checkpoint(output)
-    end
+    return process_security_checkpoint(output) if output.include?('== Security Checkpoint ==')
+
     res = []
     items = parse(output)
     items.each { |item| res << take(item) unless take(item).nil? }
-    path = dest()
+    path = dest
     if path.nil? && !@map['Security Checkpoint'].key?('east')
       @map['Security Checkpoint']['east'] = nil
-      path = dest()
+      path = dest
     end
 
     res << path[0]
     @prev_dir = path[0]
-    return res.map { |l| "#{l}\n"}.join
+    res.map { |l| "#{l}\n" }.join
   end
 
-
   def part1
-    while true do
+    loop do
       @intcode.run_until_input
       output = ''
-      while @intcode.has_output? do
-        output += @intcode.getint.chr
-      end
-      puts output
+      output += @intcode.getint.chr while @intcode.output?
       break if @intcode.finished?
+
       line = process(output)
-      pp @map
-      if line.nil?
-        break
-      end
+      break if line.nil?
+
       line.each_char { |c| @intcode.sendint(c.ord) }
     end
   end

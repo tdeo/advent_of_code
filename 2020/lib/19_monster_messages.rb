@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MonsterMessages
   def initialize(input)
     @input = input
@@ -11,26 +13,22 @@ class MonsterMessages
   end
 
   def matches?(rules, string)
-    if rules.empty?
-      return string.empty?
-    end
+    return string.empty? if rules.empty?
 
     first = @rules[rules[0]]
 
-    if first =~ /\"(.*)\"/
-      if string.start_with?($1)
-        return matches?(rules[1..-1], string[$1.size .. -1])
-      else
-        return false
-      end
+    if first =~ /"(.*)"/
+      return matches?(rules[1..], string[$1.size..]) if string.start_with?($1)
+
+      return false
     end
 
-    options = first.split("|")
+    options = first.split('|')
 
     options.any? do |option|
       subrules = option.split(' ').map(&:to_i)
 
-      matches?(subrules + rules[1..-1], string)
+      matches?(subrules + rules[1..], string)
     end
   end
 

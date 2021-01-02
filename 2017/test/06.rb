@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/06_memory.rb'
+require_relative '../lib/06_memory'
 
 describe Memory do
   def test_part1

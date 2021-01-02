@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SeatingSystem
   OCCUPIED = '#'
   EMPTY = 'L'
@@ -5,7 +7,7 @@ class SeatingSystem
     [-1, -1], [-1, 0], [-1, 1],
     [0, -1], [0, 1],
     [1, -1], [1, 0], [1, 1],
-  ]
+  ].freeze
 
   def initialize(input)
     @input = input
@@ -20,7 +22,8 @@ class SeatingSystem
     return @neighbours[i][j] if @neighbours[i].key?(j)
 
     DIRS.each do |di, dj|
-      ii, jj = i + di, j + dj
+      ii = i + di
+      jj = j + dj
       next unless ii >= 0 && jj >= 0 && ii < @height && jj < @width
 
       @neighbours[i][j] << [ii, jj]
@@ -34,9 +37,10 @@ class SeatingSystem
     return @visible_from[i][j] if @visible_from[i].key?(j)
 
     DIRS.each do |di, dj|
-      ii, jj = i + di, j + dj
+      ii = i + di
+      jj = j + dj
 
-      while true do
+      loop do
         break if ii < 0 || jj < 0 || ii >= @height || jj >= @width
 
         if @maze[ii][jj] == OCCUPIED || @maze[ii][jj] == EMPTY
@@ -82,16 +86,12 @@ class SeatingSystem
   end
 
   def part1
-    while true do
-      break unless step!(neighbours: :neighbours, visible_limit: 4)
-    end
+    loop { break unless step!(neighbours: :neighbours, visible_limit: 4) }
     occupied
   end
 
   def part2
-    while true do
-      break unless step!(neighbours: :visible_from, visible_limit: 5)
-    end
+    loop { break unless step!(neighbours: :visible_from, visible_limit: 5) }
     occupied
   end
 end

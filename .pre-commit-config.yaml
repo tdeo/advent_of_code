@@ -1,0 +1,11 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: rubocop
+        name: Rubocop
+        language: system
+        files: \.(rb)$
+        entry: bundle exec rubocop
+        args:
+          - --auto-correct
+          - --color

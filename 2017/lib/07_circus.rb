@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Circus
   def initialize(input)
     @programs = input.split("\n").map do |line|
@@ -8,7 +10,7 @@ class Circus
           name: m[1],
           weight: m[2].to_i,
           children: m[4] ? m[4].split(',').map(&:strip) : [],
-        }
+        },
       ]
     end.to_h
     @weights = {}
@@ -21,7 +23,7 @@ class Circus
       prog[:children].each { |c| has_parent[c] = true }
     end
 
-    has_parent.find { |k, v| !v }.first
+    has_parent.find { |_, v| !v }.first
   end
 
   def part1
@@ -30,7 +32,8 @@ class Circus
 
   def weight(program)
     return @weights[program] if @weights.key? program
-    @weights[program] = @programs[program][:weight] + @programs[program][:children].map { |c| weight(c) }.reduce(0, :+)
+
+    @weights[program] = @programs[program][:weight] + @programs[program][:children].sum { |c| weight(c) }
   end
 
   def compute_weights!
@@ -42,7 +45,7 @@ class Circus
   end
 
   def parent(program)
-    @programs.find { |prog_name, prog| prog[:children].include?(program) }
+    @programs.find { |_, prog| prog[:children].include?(program) }
   end
 
   def part2

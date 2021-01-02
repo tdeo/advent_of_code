@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/04_high_entropy_passphrases.rb'
+require_relative '../lib/04_high_entropy_passphrases'
 
 class HighEntropyPassphrasesTest < MiniTest::Test
   def test_part1_1

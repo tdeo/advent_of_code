@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/05_nice_strings.rb')
+require_relative('../lib/05_nice_strings')
 
 describe NiceStrings do
   before { @k = NiceStrings }

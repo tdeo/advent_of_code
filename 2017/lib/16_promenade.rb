@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Promenade
   def initialize(input, size = 16)
     @moves = input.strip.split(',')
-    @pos = size.times.map { |i| ('a'.ord + i).chr }
+    @pos = Array.new(size) { |i| ('a'.ord + i).chr }
   end
 
   def apply!(move)
@@ -9,14 +11,14 @@ class Promenade
     when /^s/
       m = /^s(\d+)$/.match(move)
       size = m[1].to_i
-      @pos = @pos[-size..-1] + @pos[0...-size]
+      @pos = @pos[-size..] + @pos[0...-size]
     when /^x/
-      m = /^x(\d+)\/(\d+)$/.match(move)
+      m = %r{^x(\d+)/(\d+)$}.match(move)
       c = @pos[m[1].to_i]
       @pos[m[1].to_i] = @pos[m[2].to_i]
       @pos[m[2].to_i] = c
     when /^p/
-      m = /^p(.*)\/(.*)$/.match(move)
+      m = %r{^p(.*)/(.*)$}.match(move)
       @pos.each_with_index do |k, i|
         if k == m[1]
           @pos[i] = m[2]

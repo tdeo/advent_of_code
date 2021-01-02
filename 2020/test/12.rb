@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/12_rain_risk.rb')
+require_relative('../lib/12_rain_risk')
 
 describe RainRisk do
   before { @k = RainRisk }

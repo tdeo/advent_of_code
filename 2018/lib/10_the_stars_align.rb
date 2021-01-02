@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TheStarsAlign
   def initialize(input)
     @input = input
@@ -32,7 +34,7 @@ class TheStarsAlign
     w = @stars.map { |e| e[0] }.minmax
     h = @stars.map { |e| e[1] }.minmax
 
-    view = (h[0]..h[1]).map do |i|
+    view = (h[0]..h[1]).map do
       '.' * (w[1] - w[0] + 1)
     end
 
@@ -45,10 +47,11 @@ class TheStarsAlign
 
   def part1
     a = Float::INFINITY
-    while true
+    loop do
       move!
       b = area
       break if b > a
+
       a = b
     end
     reverse_move!
@@ -58,11 +61,12 @@ class TheStarsAlign
   def part2
     a = Float::INFINITY
     time = 0
-    while true
+    loop do
       move!
       time += 1
       b = area
       break if b > a
+
       a = b
     end
     time - 1

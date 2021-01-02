@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Plumber
   def initialize(input)
     @pipes = Hash.new { |h, k| h[k] = {} }
@@ -14,9 +16,10 @@ class Plumber
   def part1
     visited = {}
     queue = [0]
-    until queue.empty? do
+    until queue.empty?
       e = queue.shift
       next if visited[e]
+
       visited[e] = true
       @pipes[e].each_key do |k|
         queue << k
@@ -30,10 +33,11 @@ class Plumber
     visited = {}
     queue = [0]
     components = 0
-    while true
-      until queue.empty? do
+    loop do
+      until queue.empty?
         e = queue.shift
         next if visited[e]
+
         visited[e] = true
         @pipes[e].each_key do |k|
           queue << k
@@ -42,6 +46,7 @@ class Plumber
       end
       components += 1
       break if visited.size == @pipes.size
+
       unknown = @pipes.keys.find { |k| visited[k].nil? }
       queue << unknown
     end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/14_space_stoichiometry.rb')
+require_relative('../lib/14_space_stoichiometry')
 
 describe SpaceStoichiometry do
   before { @k = SpaceStoichiometry }
@@ -24,7 +26,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part1c
-    assert_equal 13312, @k.new('157 ORE => 5 NZVS
+    assert_equal 13_312, @k.new('157 ORE => 5 NZVS
 165 ORE => 6 DCFZ
 44 XJWVT, 5 KHKGT, 1 QDVJ, 29 NZVS, 9 GPVTF, 48 HKGWZ => 1 FUEL
 12 HKGWZ, 1 GPVTF, 8 PSHF => 9 QDVJ
@@ -36,7 +38,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part1d
-    assert_equal 180697, @k.new('2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
+    assert_equal 180_697, @k.new('2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
 17 NVRVD, 3 JNWZP => 8 VPVL
 53 STKFG, 6 MNCFX, 46 VJHF, 81 HVMC, 68 CXFTF, 25 GNMV => 1 FUEL
 22 VJHF, 37 MNCFX => 5 FWMGM
@@ -51,7 +53,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part1e
-    assert_equal 2210736, @k.new('171 ORE => 8 CNZTR
+    assert_equal 2_210_736, @k.new('171 ORE => 8 CNZTR
 7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP => 4 PLWSL
 114 ORE => 4 BHXH
 14 VRPVC => 6 BMBT
@@ -71,7 +73,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part2
-    assert_equal 82892753, @k.new('157 ORE => 5 NZVS
+    assert_equal 82_892_753, @k.new('157 ORE => 5 NZVS
 165 ORE => 6 DCFZ
 44 XJWVT, 5 KHKGT, 1 QDVJ, 29 NZVS, 9 GPVTF, 48 HKGWZ => 1 FUEL
 12 HKGWZ, 1 GPVTF, 8 PSHF => 9 QDVJ
@@ -83,7 +85,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part2b
-    assert_equal 5586022, @k.new('2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
+    assert_equal 5_586_022, @k.new('2 VPVL, 7 FWMGM, 2 CXFTF, 11 MNCFX => 1 STKFG
 17 NVRVD, 3 JNWZP => 8 VPVL
 53 STKFG, 6 MNCFX, 46 VJHF, 81 HVMC, 68 CXFTF, 25 GNMV => 1 FUEL
 22 VJHF, 37 MNCFX => 5 FWMGM
@@ -98,7 +100,7 @@ describe SpaceStoichiometry do
   end
 
   def test_part2c
-    assert_equal 460664, @k.new('171 ORE => 8 CNZTR
+    assert_equal 460_664, @k.new('171 ORE => 8 CNZTR
 7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP => 4 PLWSL
 114 ORE => 4 BHXH
 14 VRPVC => 6 BMBT

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/16_flawed_frequency_transmission.rb')
+require_relative('../lib/16_flawed_frequency_transmission')
 
 describe FlawedFrequencyTransmission do
   before { @k = FlawedFrequencyTransmission }

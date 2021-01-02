@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/03_toboggan_trajectory.rb')
+require_relative('../lib/03_toboggan_trajectory')
 
 describe TobogganTrajectory do
   before { @k = TobogganTrajectory }

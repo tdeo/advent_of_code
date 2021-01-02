@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuntSue
   def initialize(input)
     @aunts = {}
@@ -23,9 +25,11 @@ class AuntSue
     @aunts.find { |_, v| @result.merge(v) == @result }.first
   end
 
+  EXACT_NUMBERS = %w[children samoyeds akitas vizslas cars perfumes].freeze
+
   def part2
     @aunts.find do |_, v|
-      %w(children samoyeds akitas vizslas cars perfumes).all? { |k| v[k].nil? || v[k] == @result[k]  } &&
+      EXACT_NUMBERS.all? { |k| v[k].nil? || v[k] == @result[k] } &&
         (v['cats'].nil? || v['cats'] > @result['cats']) &&
         (v['trees'].nil? || v['trees'] > @result['trees']) &&
         (v['pomeranians'].nil? || v['pomeranians'] < @result['pomeranians']) &&

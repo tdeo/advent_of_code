@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordPhilosophy
   def initialize(input)
     @input = input
@@ -26,7 +28,7 @@ class PasswordPhilosophy
   end
 
   def valid2?(password, policy)
-    (password[policy[1][0] - 1]  == policy[0]) ^ (password[policy[1][1] - 1] == policy[0])
+    (password[policy[1][0] - 1] == policy[0]) ^ (password[policy[1][1] - 1] == policy[0])
   end
 
   def part2

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/15_beverage_bandits.rb')
+require_relative('../lib/15_beverage_bandits')
 
 describe BeverageBandits do
   before { @k = BeverageBandits }
@@ -46,7 +48,7 @@ describe BeverageBandits do
 #.......#
 #########', k.repr(life: false)
     k.round
-assert_equal '#########
+    assert_equal '#########
 #.......#
 #..GGG..#
 #..GEG..#
@@ -66,7 +68,7 @@ assert_equal '#########
 #..G#E#
 #.....#
 #######
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 
   def test_part1_2
@@ -78,7 +80,7 @@ assert_equal '#########
 #...#E#
 #...E.#
 #######
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 
   def test_part1_3
@@ -90,7 +92,7 @@ assert_equal '#########
 #G..#.#
 #..E#.#
 #######
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 
   def test_part1_4
@@ -102,7 +104,7 @@ assert_equal '#########
 #G..#.#
 #...E.#
 #######
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 
   def test_part1_5
@@ -114,7 +116,7 @@ assert_equal '#########
 #E#G#G#
 #...#G#
 #######
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 
   def test_part1_6
@@ -128,6 +130,6 @@ assert_equal '#########
 #.G...G.#
 #.....G.#
 #########
-'.strip).part1(false)
+'.strip).part1(final_result: false)
   end
 end

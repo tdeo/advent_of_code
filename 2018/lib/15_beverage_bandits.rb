@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Array
-  def <(o)
-    self[0] < o[0] || (self[0] == o[0] && self[1] < o[1])
+  def <(other)
+    self[0] < other[0] || (self[0] == other[0] && self[1] < other[1])
   end
 end
 
@@ -9,21 +11,21 @@ class BeverageBandits
     attr_reader :units, :grid
 
     def initialize(input, elf_attack)
-
       @grid = []
       @units = []
 
       input.split("\n").each_with_index do |l, i|
         r = []
         l.each_char.each_with_index do |c, j|
-          if c == '#'
+          case c
+          when '#'
             r << false
-          elsif c == '.'
+          when '.'
             r << true
-          elsif c === 'G'
+          when 'G'
             r << Unit.new(i, j, :G, self)
             @units << r[-1]
-          elsif c == 'E'
+          when 'E'
             r << Unit.new(i, j, :E, self)
             r[-1].attack = elf_attack
             @units << r[-1]
@@ -50,15 +52,18 @@ class BeverageBandits
     def dist(i, j, i2, j2, bound: nil)
       return nil if bound && (i2 - i).abs + (j2 - j).abs > bound
       return 0 if i == i2 && j == j2
+
       q = [[i, j, 0]]
       vis = { [i, j] => true }
-      while !q.empty?
+      until q.empty?
         cur = q.shift
         next if bound && cur[2] > bound
+
         neighbours(cur[0], cur[1], free: true).each do |n|
           return cur[2] + 1 if n == [i2, j2]
           next unless free?(*n)
           next if vis[n]
+
           q << [n[0], n[1], cur[2] + 1]
           vis[n] = true
         end
@@ -79,9 +84,11 @@ class BeverageBandits
           case u
           when true then '.'
           when false then '#'
-          when Unit then healths << u.health; u.type.to_s
+          when Unit
+            healths << u.health
+            u.type.to_s
           end
-        end.join + (life ? " " + healths.join(', ') : '')
+        end.join + (life ? " #{healths.join(', ')}" : '')
       end.join("\n")
     end
   end
@@ -127,6 +134,7 @@ class BeverageBandits
       attack_points.each do |a|
         d = dist(*a, bound: best)
         next if d.nil?
+
         if d < (best || Float::INFINITY) || (d == best && a < closest)
           best = d
           closest = a
@@ -138,11 +146,13 @@ class BeverageBandits
     def best_move
       dest = destination
       return nil if dest.nil?
+
       best = closest = nil
 
       @map.neighbours(i, j).each do |n|
         d = @map.dist(*n, *dest, bound: best)
         next if d.nil?
+
         if d < (best || Float::INFINITY) || (d == best && n < closest)
           best = d
           closest = n
@@ -173,14 +183,12 @@ class BeverageBandits
 
     def damage(dmg)
       @health -= dmg
-      if @health <= 0
-        @map.grid[@i][@j] = true
-      end
+      @map.grid[@i][@j] = true if @health <= 0
     end
-
 
     def play!
       return if @health <= 0
+
       m = best_move
       move_to(*m) unless in_range? || m.nil?
       attack(ennemy)
@@ -201,16 +209,16 @@ class BeverageBandits
     @map.repr(life: life)
   end
 
-  def part1(final_result = true)
+  def part1(final_result: true)
     i = 0
     while @map.units.map(&:type).uniq.size > 1
       round
       i += 1
-      puts i
-      puts repr if i % 10 == 0 || i >= 90
+      # puts i
+      # puts repr if i % 10 == 0 || i >= 90
     end
-    r = [i - 1, @map.units.map { |u| u.health }.sum]
-    puts r.inspect
+    r = [i - 1, @map.units.sum(&:health)]
+    # puts r.inspect
     final_result ? r.reduce(:*) : r
   end
 
@@ -222,7 +230,7 @@ class BeverageBandits
     while up > low + 1
       m = (up + low) / 2
       @map = Map.new(@input, m)
-      while true
+      loop do
         round
         if @map.units.count { |u| u.type == :E } < elves_count
           low = m

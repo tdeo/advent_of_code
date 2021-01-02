@@ -1,17 +1,22 @@
+# frozen_string_literal: true
+
 class Balance
   def initialize(input)
     @packages = input.split("\n").map(&:to_i).sort
     @total_weight = @packages.sum
   end
 
-  def weight(i) # i is an bitmap integer
-    (0...@packages.size).map { |j| i[j] == 1 ? @packages[j] : 0 }.sum
+  # i is an bitmap integer
+  def weight(i)
+    (0...@packages.size).sum { |j| i[j] == 1 ? @packages[j] : 0 }
   end
 
-  def groups_weighting(target, from = 0) # assumes it's sorted
+  # assumes it's sorted
+  def groups_weighting(target, from = 0)
     return [[]] if target == 0
     return [] if from >= @packages.size
     return [] if @packages[from] > target
+
     groups_weighting(target, from + 1) +
       groups_weighting(target - @packages[from], from + 1).map { |g| g.unshift(from) }
   end
@@ -22,7 +27,6 @@ class Balance
 
   def part1
     groups = groups_weighting(@total_weight / 3)
-    puts groups.size
     groups.sort_by! { |g| [g.size, entanglement(g)] }
     best = groups.find { |a| groups.any? { |b| (a & b).empty? } }
     entanglement(best)

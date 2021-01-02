@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SporificaVirus
   def initialize(input)
     @position = [0, 0] # row, column towards bottom and right
@@ -13,7 +15,7 @@ class SporificaVirus
                        end
       end
     end
-    @position = [input.split("\n").size / 2, input.split("\n").first.chars.size / 2]
+    @position = [input.split("\n").size / 2, input.split("\n").first.size / 2]
     @infections = 0
   end
 
@@ -72,12 +74,15 @@ class SporificaVirus
 
   def burst2!
     turn!
-    @nodes[@position[0]][@position[1]] = case @nodes[@position[0]][@position[1]]
-                                         when 0 then 3
-                                         when 3 then @infections += 1; 1
-                                         when 1 then 2
-                                         when 2 then 0
-                                         end
+    @nodes[@position[0]][@position[1]] =
+      case @nodes[@position[0]][@position[1]]
+      when 0 then 3
+      when 3
+        @infections += 1
+        1
+      when 1 then 2
+      when 2 then 0
+      end
     move!
   end
 

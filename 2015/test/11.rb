@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/11_corporate_policy.rb')
+require_relative('../lib/11_corporate_policy')
 
 describe CorporatePolicy do
   before { @k = CorporatePolicy }

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/11_hex.rb')
+require_relative('../lib/11_hex')
 
 describe Hex do
   before { @k = Hex }

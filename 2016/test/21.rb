@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/21_scrambled_letters_and_hash.rb')
+require_relative('../lib/21_scrambled_letters_and_hash')
 
 describe ScrambledLettersAndHash do
   before { @k = ScrambledLettersAndHash }

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Internet
   def initialize(input)
     @ips = input.strip.split("\n").map(&:strip)
   end
 
   def tls?(ip)
-    !(ip =~ /\[[a-z]*([^\[\]])((?!\1).)\2\1/) &&
+    ip !~ /\[[a-z]*([^\[\]])((?!\1).)\2\1/ &&
       ip =~ /([^\[\]])((?!\1).)\2\1/
   end
 
@@ -21,6 +23,7 @@ class Internet
       next unless a == c
       next if a == '[' || b == '[' || a == ']' || b == ']'
       next unless inside.include?(b + a + b)
+
       return true
     end
     false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'prime'
 
 class InfiniteElves
@@ -12,31 +14,27 @@ class InfiniteElves
 
   def part1
     k = 1
-    while divisor_sum(k) * 10 < @target
-      k += 1
-    end
+    k += 1 while divisor_sum(k) * 10 < @target
     k
   end
 
   def presents_part2(n)
     i = 1
     sum = 0
-    while i * i < n && i <= 50
+    while i**2 < n && i <= 50
       if n % i == 0
         sum += n / i
         sum += i if n / i <= 50
       end
       i += 1
     end
-    sum += i if i * i == n && i <= 50
+    sum += i if i**2 == n && i <= 50
     sum * 11
   end
 
   def part2
     k = 1
-    while presents_part2(k) < @target
-      k += 1
-    end
+    k += 1 while presents_part2(k) < @target
     k
   end
 end

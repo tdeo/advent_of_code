@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/05_maze_trampolines.rb'
+require_relative '../lib/05_maze_trampolines'
 
 class MazeTrampolinesTest < MiniTest::Test
   def test_part1_1

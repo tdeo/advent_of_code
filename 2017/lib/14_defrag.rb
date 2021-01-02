@@ -1,4 +1,6 @@
-require_relative '10_knot.rb'
+# frozen_string_literal: true
+
+require_relative '10_knot'
 
 class Defrag
   def initialize(input)
@@ -10,11 +12,11 @@ class Defrag
   end
 
   def print
-    puts @grid.first(8).map { |r| r.first(8).join('').tr('0', '.') }
+    puts(@grid.first(8).map { |r| r.first(8).join('').tr('0', '.') })
   end
 
   def part1
-    @grid.flat_map { |r| r }.reduce(0, :+)
+    @grid.flat_map { |r| r }.sum
   end
 
   def find_bit
@@ -29,7 +31,7 @@ class Defrag
   def clear_neighbours!(r, c, fillval = 0)
     todo = [[r, c]]
     @grid[r][c] = fillval
-    while !todo.empty?
+    until todo.empty?
       a, b = todo.pop
       [
         [a - 1, b],
@@ -39,6 +41,7 @@ class Defrag
       ].each do |i, j|
         next if i >= @size || j >= @size || i < 0 || j < 0
         next unless @grid[i][j] == 1
+
         @grid[i][j] = fillval
         todo << [i, j]
       end
@@ -47,9 +50,10 @@ class Defrag
 
   def part2
     regions = 0
-    while true do
+    loop do
       r, c = find_bit
       break if r.nil?
+
       regions += 1
       clear_neighbours!(r, c, 0)
     end

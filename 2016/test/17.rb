@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/17_two_steps_forward.rb')
+require_relative('../lib/17_two_steps_forward')
 
 describe TwoStepsForward do
   before { @k = TwoStepsForward }
@@ -32,4 +34,3 @@ describe TwoStepsForward do
     assert_equal 830, @k.new('ulqzkmiv').part2
   end
 end
-

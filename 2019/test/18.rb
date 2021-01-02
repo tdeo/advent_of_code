@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/18_many_worlds_interpretation.rb')
+require_relative('../lib/18_many_worlds_interpretation')
 
 describe ManyWorldsInterpretation do
   before { @k = ManyWorldsInterpretation }
@@ -8,14 +10,14 @@ describe ManyWorldsInterpretation do
     assert_equal false, @k.new('
 #########
 #b.A.@.a#
-#########').has_cycle?
+#########').cycles?
 
     assert_equal true, @k.new('
 #####
 # @ #
 # # #
 #   #
-#####').has_cycle?
+#####').cycles?
   end
 
   def test_part1

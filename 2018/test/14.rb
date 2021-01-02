@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/14_chocolate_charts.rb')
+require_relative('../lib/14_chocolate_charts')
 
 describe ChocolateCharts do
   before { @k = ChocolateCharts }

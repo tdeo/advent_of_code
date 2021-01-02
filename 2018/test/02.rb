@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/02_inventory_management_system.rb')
+require_relative('../lib/02_inventory_management_system')
 
 describe InventoryManagementSystem do
   before { @k = InventoryManagementSystem }

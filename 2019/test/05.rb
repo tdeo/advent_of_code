@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/05_sunnywitha_chanceof_asteroids.rb')
+require_relative('../lib/05_sunnywitha_chanceof_asteroids')
 
 describe SunnywithaChanceofAsteroids do
   before { @k = SunnywithaChanceofAsteroids }

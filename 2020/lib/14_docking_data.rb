@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DockingData
   def initialize(input)
     @input = input
@@ -31,7 +33,7 @@ class DockingData
   end
 
   def indices(value, mask = @mask)
-    if mask.size == 0
+    if mask.empty?
       yield value
     elsif mask[-1] == '0'
       indices(value, mask[0..-2]) { yield _1 }
@@ -41,7 +43,7 @@ class DockingData
       indices(value.dup.tap { _1[mask.size - 1] = '0' }, mask[0..-2]) { yield _1 }
       indices(value.dup.tap { _1[mask.size - 1] = '1' }, mask[0..-2]) { yield _1 }
     else
-      fail "Invalid mask char #{mask[-1]}"
+      raise "Invalid mask char #{mask[-1]}"
     end
   end
 

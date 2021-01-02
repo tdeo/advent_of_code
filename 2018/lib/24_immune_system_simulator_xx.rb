@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class ImmuneSystemSimulatorXx
   class Group
     attr_accessor :n, :hp, :attack, :type, :initiative, :weaknesses, :immunities, :idx, :cat
 
     def initialize(str, idx, cat)
-      m = str.match(/^(\d+) units each with (\d+) hit points (\([^)]+\) )?with an attack that does (\d+) ([^\s]+) damage at initiative (\d+)$/)
-      fail "Unrecognized group: #{str}" if m.nil?
+      m = str.match(/^(\d+) units each with (\d+) hit points (\([^)]+\) )?with an attack that does (\d+) ([^\s]+) damage at initiative (\d+)$/) # rubocop:disable Layout/LineLength
+      raise "Unrecognized group: #{str}" if m.nil?
 
       @cat = cat
       @idx = idx + 1
       @n = m[1].to_i
       @hp = m[2].to_i
-
 
       extra = m[3]
       @immunities = []
@@ -51,20 +52,21 @@ class ImmuneSystemSimulatorXx
 
   def parse(input)
     @immune = []
-    @infection =[]
+    @infection = []
 
     cur = nil
 
     input.split("\n").each do |l|
-      if l.empty?
-        next
-      elsif l == 'Immune System:'
+      next if l.empty?
+
+      case l
+      when 'Immune System:'
         cur = :@immune
-      elsif l == 'Infection:'
+      when 'Infection:'
         cur = :@infection
-      elsif l =~ /^\d+ units each with/
+      when /^\d+ units each with/
         instance_variable_get(cur) << Group.new(
-          l, instance_variable_get(cur).size, cur
+          l, instance_variable_get(cur).size, cur,
         )
       end
     end
@@ -78,7 +80,7 @@ class ImmuneSystemSimulatorXx
     taken = {}
 
     groups.each do |g|
-      ennemies = (g.cat == :@immune) ? @infection : @immune
+      ennemies = g.cat == :@immune ? @infection : @immune
       ennemies = ennemies.reject { |e| taken[e] }
       target = ennemies.max_by { |e| [g.damage_to(e), e.effective_power, e.initiative] }
 
@@ -97,18 +99,20 @@ class ImmuneSystemSimulatorXx
 
     groups.each do |g|
       next if g.n <= 0
+
       t = targets[g]
       next if t.nil?
+
       t.take_dmg(g.damage_to(t))
     end
   end
 
   def print!
-    puts "Immune System:"
+    puts 'Immune System:'
     @immune.each { |g| puts "Group #{g.idx} contains #{g.n} units" }
-    puts "Infection:"
+    puts 'Infection:'
     @infection.each { |g| puts "Group #{g.idx} contains #{g.n} units" }
-    puts ""
+    puts ''
   end
 
   def round!
@@ -118,14 +122,15 @@ class ImmuneSystemSimulatorXx
   end
 
   def alive
-    [@immune, @infection].map { |groups| groups.map(&:n).sum }.sum
+    [@immune, @infection].sum { |groups| groups.sum(&:n) }
   end
 
   def part1
     prev = nil
-    while @immune.size > 0 && @infection.size > 0
+    while !@immune.empty? && !@infection.empty?
       round!
       return nil if alive == prev # We're in a loop
+
       prev = alive
     end
     alive
@@ -133,12 +138,12 @@ class ImmuneSystemSimulatorXx
 
   def part2
     boost = 0
-    while true
+    loop do
       parse(@input)
       @immune.each { |g| g.attack = g.attack + boost }
       res = part1
       boost += 1
-      return res if @infection.size == 0
+      return res if @infection.empty?
     end
   end
 end

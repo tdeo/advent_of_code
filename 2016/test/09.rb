@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/09_explosives.rb')
+require_relative('../lib/09_explosives')
 
 describe Explosives do
   before { @k = Explosives }
@@ -37,7 +39,7 @@ describe Explosives do
   end
 
   def test_part2_3
-    assert_equal 241920, @k.new('(27x12)(20x12)(13x14)(7x10)(1x12)A').part2
+    assert_equal 241_920, @k.new('(27x12)(20x12)(13x14)(7x10)(1x12)A').part2
   end
 
   def test_part2_4

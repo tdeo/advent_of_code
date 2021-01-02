@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IterateWithCycle
   def initialize(initial = 0, &succ)
     @initial = initial
@@ -19,6 +21,6 @@ class IterateWithCycle
       end
       v[@current] ||= i
     end
-    return @current
+    @current
   end
 end

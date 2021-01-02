@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative '../lib/07_circus.rb'
+require_relative '../lib/07_circus'
 
 describe Circus do
   def test_part1

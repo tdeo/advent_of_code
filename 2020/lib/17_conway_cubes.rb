@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConwayCubes
   ACTIVE = '#'
   INACTIVE = '.'
@@ -8,10 +10,11 @@ class ConwayCubes
   end
 
   def parse
-    fail unless @dimension
+    raise unless @dimension
+
     @map = {}
 
-    @ranges = @dimension.times.map { [0, 0] }
+    @ranges = Array.new(@dimension) { [0, 0] }
     @active = 0
 
     @input.each_line.each_with_index do |line, x|
@@ -34,7 +37,7 @@ class ConwayCubes
     flat = pos.map { |c| [c - 1, c, c + 1] }
 
     r = 0
-    flat[0].product(*flat[1..-1]).each do |pos2|
+    flat[0].product(*flat[1..]).each do |pos2|
       r += 1 if @map[pos2]
     end
 
@@ -59,17 +62,17 @@ class ConwayCubes
 
   def step!
     succ = {}
-    succ_ranges = @dimension.times.map { [nil, nil] }
+    succ_ranges = Array.new(@dimension) { [nil, nil] }
     succ_active = 0
 
     flat = @ranges.map { |r| (r[0] - 1..r[1] + 1) }
 
     iterate_many(*flat) do |pos|
       succ[pos] = if @map[pos]
-        (2..3).include?(active_neighbours(pos))
-      else
-        active_neighbours(pos) == 3
-      end
+                    (2..3).cover?(active_neighbours(pos))
+                  else
+                    active_neighbours(pos) == 3
+                  end
 
       next unless succ[pos]
 
@@ -80,7 +83,9 @@ class ConwayCubes
       end
     end
 
-    @ranges, @active, @map = succ_ranges, succ_active, succ
+    @ranges = succ_ranges
+    @active = succ_active
+    @map = succ
   end
 
   def part1

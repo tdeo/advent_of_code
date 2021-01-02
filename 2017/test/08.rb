@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/08_registers.rb')
+require_relative('../lib/08_registers')
 
 describe Registers do
   before { @k = Registers }

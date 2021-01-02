@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlanetofDiscord
   def initialize(input)
     @input = input.strip
@@ -7,7 +9,7 @@ class PlanetofDiscord
 
   def neighbours(i, j)
     [[i, j + 1], [i, j - 1], [i + 1, j], [i - 1, j]].count do |ii, jj|
-      ii >= 0 && jj >= 0 && ii < @n && jj < @n && @grid[ii][jj] == ?#
+      ii >= 0 && jj >= 0 && ii < @n && jj < @n && @grid[ii][jj] == '#'
     end
   end
 
@@ -15,13 +17,13 @@ class PlanetofDiscord
     next_grid = @grid.map(&:dup)
     (0...@n).each do |i|
       (0...@n).each do |j|
-        if @grid[i][j] == ?# && neighbours(i, j) != 1
-          next_grid[i][j] = ?.
-        elsif @grid[i][j] == ?. && (1..2) === neighbours(i, j)
-          next_grid[i][j] = ?#
-        else
-          next_grid[i][j] = @grid[i][j]
-        end
+        next_grid[i][j] = if @grid[i][j] == '#' && neighbours(i, j) != 1
+                            '.'
+                          elsif @grid[i][j] == '.' && (1..2).cover?(neighbours(i, j))
+                            '#'
+                          else
+                            @grid[i][j]
+                          end
       end
     end
     @grid = next_grid
@@ -30,7 +32,7 @@ class PlanetofDiscord
   def biovalue
     val = 0
     @grid.join.chars.each_with_index do |c, i|
-      val |= (1 << i) if c == ?#
+      val |= (1 << i) if c == '#'
     end
     val
   end
@@ -42,9 +44,10 @@ class PlanetofDiscord
 
   def part1
     v = {}
-    while true
+    loop do
       val = biovalue
       return val if v[val]
+
       v[val] = true
       step!
     end
@@ -79,21 +82,22 @@ class PlanetofDiscord
   }.freeze
 
   def part2_step(grid)
-    next_grid = Hash.new { |h, k| h[k] = Hash.new(?.) }
-    (grid.keys.min - 1 .. grid.keys.max + 1).each do |level|
+    next_grid = Hash.new { |h, k| h[k] = Hash.new('.') }
+    (grid.keys.min - 1..grid.keys.max + 1).each do |level|
       (1..25).each do |cell|
         next if cell == 13
+
         val = NEIGHBOURS[cell].count do |n|
           if n.is_a?(Array)
-            grid[level + n[0]][n[1]] == ?#
+            grid[level + n[0]][n[1]] == '#'
           else
-            grid[level][n] == ?#
+            grid[level][n] == '#'
           end
         end
-        if grid[level][cell] == ?. && (1..2) === val
-          next_grid[level][cell] = ?#
-        elsif grid[level][cell] == ?# && val == 1
-          next_grid[level][cell] = ?#
+        if grid[level][cell] == '.' && (1..2).cover?(val)
+          next_grid[level][cell] = '#'
+        elsif grid[level][cell] == '#' && val == 1
+          next_grid[level][cell] = '#'
         end
       end
     end
@@ -101,19 +105,19 @@ class PlanetofDiscord
   end
 
   def print_level(grid)
-    puts "**"
+    puts '**'
     (1..25).each_slice(5) do |s|
       puts s.map { |e| grid[e] }.join
     end
-    puts "**"
+    puts '**'
   end
 
   def part2(minutes = 200)
-    grid = Hash.new { |h, k| h[k] = Hash.new(?.) }
-    grid[13] = ??
+    grid = Hash.new { |h, k| h[k] = Hash.new('.') }
+    grid[13] = '?'
 
     @grid.join.chars.each_with_index do |c, i|
-      grid[0][i + 1] = c if c != ?.
+      grid[0][i + 1] = c if c != '.'
     end
 
     minutes.times do
@@ -121,7 +125,7 @@ class PlanetofDiscord
     end
 
     grid.sum do |_, v|
-      v.values.count(?#)
+      v.values.count('#')
     end
   end
 end

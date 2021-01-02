@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CrossedWires
   def initialize(input)
     @input = input
-    @u, @v = @input.split("\n").map { |l| l.split(?,) }
+    @u, @v = @input.split("\n").map { |l| l.split(',') }
   end
 
   def path(wire)
@@ -9,12 +11,12 @@ class CrossedWires
     y = 0
     wire.each do |step|
       dir = step[0]
-      count = step[1..-1].to_i
+      count = step[1..].to_i
       count.times do
-        y += 1 if dir == ?U
-        y -= 1 if dir == ?D
-        x -= 1 if dir == ?L
-        x += 1 if dir == ?R
+        y += 1 if dir == 'U'
+        y -= 1 if dir == 'D'
+        x -= 1 if dir == 'L'
+        x += 1 if dir == 'R'
         yield [x, y]
       end
     end
@@ -28,6 +30,7 @@ class CrossedWires
     best = 1e14
     path(@v) do |x, y|
       next unless vis[x][y]
+
       best = x.abs + y.abs if x.abs + y.abs < best
     end
     best
@@ -46,6 +49,7 @@ class CrossedWires
     path(@v) do |x, y|
       i += 1
       next unless vis[x][y]
+
       best = i + vis[x][y] if i + vis[x][y] < best
     end
     best

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 class ThermoelectricGenerators
@@ -35,6 +37,7 @@ class ThermoelectricGenerators
 
   def queue!(opt, ele, moves)
     return if queued?(opt, ele)
+
     @queue << [opt, ele, moves] if valid?(opt)
     @queued << hash(opt, ele)
   end
@@ -53,6 +56,7 @@ class ThermoelectricGenerators
       situation.size.times do |i|
         situation.size.times do |j|
           next unless situation[i] == ele && situation[j] == ele
+
           option = situation.dup
           option[i] = d
           option[j] = d
@@ -63,9 +67,10 @@ class ThermoelectricGenerators
   end
 
   def execute!
-    while !@queue.empty?
+    until @queue.empty?
       sit, ele, moves = @queue.shift
       return moves if win?(sit)
+
       moves(sit, ele) { |a, b| queue!(a, b, moves + 1) }
     end
     nil

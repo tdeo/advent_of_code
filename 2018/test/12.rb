@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/12_subterranean_sustainability.rb')
+require_relative('../lib/12_subterranean_sustainability')
 
 describe SubterraneanSustainability do
   before { @k = SubterraneanSustainability }

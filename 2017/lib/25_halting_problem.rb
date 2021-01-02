@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HaltingProblem
   def initialize(input)
     @steps = input.match(/Perform a diagnostic checksum after (\d+) steps./)[1].to_i
@@ -17,23 +19,24 @@ class HaltingProblem
         cur_value = line.match(/If the current value is (\d+):/)[1].to_i
         next
       end
-      if line.start_with? '- '
-        if line.start_with? '- Write the value '
-          @state_actions[cur_state][cur_value][:write] = \
-            line.match(/- Write the value (\d)\./)[1].to_i
-        end
-        if line.start_with? '- Move one slot to the '
-          dir = line.match(/- Move one slot to the (.*)\./)[1]
-          @state_actions[cur_state][cur_value][:move] = if dir == 'left'
-                                                          -1
-                                                        elsif dir == 'right'
-                                                          1
-                                                        end
-        end
-        if line.start_with? '- Continue with state '
-          @state_actions[cur_state][cur_value][:continue] = \
-            line.match(/- Continue with state (.*)\./)[1]
-        end
+      next unless line.start_with? '- '
+
+      if line.start_with? '- Write the value '
+        @state_actions[cur_state][cur_value][:write] = \
+          line.match(/- Write the value (\d)\./)[1].to_i
+      end
+      if line.start_with? '- Move one slot to the '
+        dir = line.match(/- Move one slot to the (.*)\./)[1]
+        @state_actions[cur_state][cur_value][:move] = case dir
+                                                      when 'left'
+                                                        -1
+                                                      when 'right'
+                                                        1
+                                                      end
+      end
+      if line.start_with? '- Continue with state '
+        @state_actions[cur_state][cur_value][:continue] = \
+          line.match(/- Continue with state (.*)\./)[1]
       end
     end
   end
@@ -66,11 +69,11 @@ class HaltingProblem
   end
 
   def ones
-    @tape.count { |k, v| v == 1 }
+    @tape.count { |_, v| v == 1 }
   end
 
   def part1
-    @steps.times do |i|
+    @steps.times do
       execute_state!
     end
     ones

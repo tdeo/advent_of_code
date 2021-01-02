@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InverseCapcha
   def initialize(input)
     @input = input.strip

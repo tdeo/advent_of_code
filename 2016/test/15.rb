@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/15_timing.rb')
+require_relative('../lib/15_timing')
 
 describe Timing do
   before { @k = Timing }
@@ -9,4 +11,3 @@ describe Timing do
 Disc #2 has 2 positions; at time=0, it is at position 1.').part1
   end
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpaceStoichiometry
   def initialize(input)
     @input = input
@@ -17,7 +19,7 @@ class SpaceStoichiometry
     needs = Hash.new { |h, k| h[k] = 0 }
     needs['FUEL'] = target
 
-    while true do
+    loop do
       k, v = needs.find { |kk, vv| kk != 'ORE' && vv > 0 }
       return needs['ORE'] if k.nil?
 
@@ -37,7 +39,7 @@ class SpaceStoichiometry
     can = 0
     cannot = trillion + 1
 
-    while cannot > can + 1 do
+    while cannot > can + 1
       middle = (cannot + can) / 2
       v = part1(middle)
       if v > trillion

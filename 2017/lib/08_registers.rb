@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Registers
   def initialize(input)
     @commands = []
@@ -7,7 +9,8 @@ class Registers
 
   def parse_command(command)
     m = /^([a-z]+) (inc|dec) (-?\d+) if ([a-z]+) ([!=<>]+) (-?\d+)$/.match(command.strip)
-    fail "Can't parse command: #{command}" if m.nil?
+    raise "Can't parse command: #{command}" if m.nil?
+
     {
       var: m[1],
       action: m[2] == 'dec' ? :- : :+,
@@ -24,6 +27,7 @@ class Registers
 
   def run!(command)
     return unless met?(command)
+
     @vars[command[:var]] = @vars[command[:var]].send(command[:action], command[:amount])
   end
 

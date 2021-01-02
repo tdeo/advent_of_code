@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spinlock
   def initialize(input)
     @pos = 0

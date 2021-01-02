@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/22_sporifica_virus.rb')
+require_relative('../lib/22_sporifica_virus')
 
 describe SporificaVirus do
   before { @k = SporificaVirus }
@@ -11,7 +13,7 @@ describe SporificaVirus do
   end
 
   def test_part2
-    assert_equal 2511944, @k.new('..#
+    assert_equal 2_511_944, @k.new('..#
 #..
 ...').part2
   end

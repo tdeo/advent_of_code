@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/24_air_duct.rb')
+require_relative('../lib/24_air_duct')
 
 describe AirDuct do
   before { @k = AirDuct }

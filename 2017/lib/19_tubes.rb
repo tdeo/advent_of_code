@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tubes
   def initialize(input)
     @grid = input.split("\n").map(&:chars)
@@ -56,19 +58,17 @@ class Tubes
     else
       return 'end'
     end
-    @letters << cell(*@pos)[0] if cell(*@pos)[0] =~ /^[A-Z]$/
+    @letters << cell(*@pos)[0] if /^[A-Z]$/.match?(cell(*@pos)[0])
   end
 
   def part1
-    while true
-      break if move! == 'end'
-    end
+    loop { break if move! == 'end' }
     @letters.join
   end
 
   def part2
     i = 0
-    while true
+    loop do
       i += 1
       break if move! == 'end'
     end

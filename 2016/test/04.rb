@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require_relative('../lib/04_security.rb')
+require_relative('../lib/04_security')
 
 describe Security do
   before { @k = Security }
