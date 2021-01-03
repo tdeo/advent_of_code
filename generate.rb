@@ -24,7 +24,7 @@ year = args[0]
 day = args[1].to_s.rjust(2, '0')
 
 filename = args[2] || begin
-  page = `curl -sS --cookie "session=#{@session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}`
+  page = `curl -sS -XGET https://adventofcode.com/#{year}/day/#{day.to_i}`
   filename = page[%r{<h2[^>]*>.*Day\s*\d+:(.*)\s-*</h2>}, 1]
 end
 
