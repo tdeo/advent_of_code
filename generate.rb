@@ -58,7 +58,7 @@ unless File.exist?(test_file)
   File.open(test_file, 'w') do |f|
     f.write <<~TEST
       require 'minitest/autorun'
-      require_relative('../lib/#{day}_#{filename}.rb')
+      require_relative('../lib/#{day}_#{filename}')
 
       describe #{filename.camelcase} do
         before { @k = #{filename.camelcase} }
