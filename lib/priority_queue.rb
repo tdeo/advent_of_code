@@ -5,18 +5,8 @@ class PriorityQueue
 
   def initialize(&block)
     @q = [nil]
-
     @size = 0
-
-    @block = if block.nil?
-               nil
-             elsif block.arity == -1
-               ->(e) { yield(e) }
-             else
-               block
-             end
-
-    raise 'Unrecognized block arity' if @block && ![1, 2, -2].include?(@block.arity)
+    @block = block
   end
 
   def <<(el)
@@ -42,10 +32,10 @@ class PriorityQueue
   def lte(a, b)
     if @block.nil?
       (a <=> b) <= 0
-    elsif @block.arity == 1 || @block.arity == -2
-      @block.call(a) <= @block.call(b)
-    else
+    elsif @block.arity == 2
       @block.call(a, b) <= 0
+    else
+      @block.call(a) <= @block.call(b)
     end
   end
 
