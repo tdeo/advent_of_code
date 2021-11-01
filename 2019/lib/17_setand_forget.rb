@@ -11,7 +11,7 @@ class SetandForget
   def generate_map!
     @map = ''
     @intcode.run
-    @map << @intcode.getint.chr while @intcode.output?
+    @map += @intcode.getint.chr while @intcode.output?
     @map = @map.strip.split("\n")
     @height = @map.size
     @width = @map[0].size

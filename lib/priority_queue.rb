@@ -15,7 +15,8 @@ class PriorityQueue
              else
                block
              end
-    raise 'Unrecognized block arity' if @block && (@block.arity < 1 || @block.arity > 2)
+
+    raise 'Unrecognized block arity' if @block && ![1, 2, -2].include?(@block.arity)
   end
 
   def <<(el)
@@ -41,7 +42,7 @@ class PriorityQueue
   def lte(a, b)
     if @block.nil?
       (a <=> b) <= 0
-    elsif @block.arity == 1
+    elsif @block.arity == 1 || @block.arity == -2
       @block.call(a) <= @block.call(b)
     else
       @block.call(a, b) <= 0

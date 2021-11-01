@@ -24,7 +24,7 @@ class KnightsOfTheDinnerTable
   end
 
   def part2
-    @happiness.each_key do |person|
+    @happiness.keys.each do |person| # rubocop:disable Style/HashEachMethods
       @happiness['I'][person] = 0
       @happiness[person]['I'] = 0
     end

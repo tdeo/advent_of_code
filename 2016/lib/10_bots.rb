@@ -22,7 +22,7 @@ class Bots
   end
 
   def run_step!
-    @bots.each_key do |k|
+    @bots.keys.each do |k| # rubocop:disable Style/HashEachMethods
       next unless @bots[k].size == 2
 
       low = @bots[k].min
