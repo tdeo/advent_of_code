@@ -36,6 +36,8 @@ lib_file = "./#{year}/lib/#{day}_#{filename}.rb"
 unless File.exist?(lib_file)
   File.open(lib_file, 'w') do |f|
     f.write <<~LIB
+      # frozen_string_literal: true
+
       class #{filename.camelcase}
         def initialize(input)
           @input = input
@@ -57,6 +59,8 @@ test_file = "./#{year}/test/#{day}.rb"
 unless File.exist?(test_file)
   File.open(test_file, 'w') do |f|
     f.write <<~TEST
+      # frozen_string_literal: true
+
       require 'minitest/autorun'
       require_relative('../lib/#{day}_#{filename}')
 
