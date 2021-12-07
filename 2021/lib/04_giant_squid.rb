@@ -40,7 +40,7 @@ class GiantSquid
   end
 
   def part1
-    while @draws.size > 0
+    until @draws.empty?
       draw!
 
       winning = winning_boards.first
