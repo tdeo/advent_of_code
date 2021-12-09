@@ -63,7 +63,12 @@ def run(year, day, parts)
     puts "\n******* Tests #{year}-#{day} *******\n\n"
     puts test_output
 
-    exit 1 if !test_output.include?(' 0 failures') || test_output.include?('\n0 runs')
+    test_success = true
+    test_success = false unless test_output.include?(' 0 failures')
+    test_success = false unless test_output.include?(' 0 errors')
+    test_success = false if test_output.include?("\n0 runs")
+
+    exit 1 unless test_success
   end
 
   parts = [parts || [1, 2]].flatten.map(&:to_i)
