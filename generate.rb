@@ -65,16 +65,16 @@ unless File.exist?(test_file)
       require_relative('../lib/#{day}_#{filename}')
 
       describe #{filename.camelcase} do
-        before { @k = #{filename.camelcase} }
+        let(:described_class) { #{filename.camelcase} }
+        let(:input) { <<~INPUT }
+        INPUT
 
         def test_part1
-          assert_equal true, @k.new(<<~INPUT).part1
-          INPUT
+          assert_equal true, described_class.new(input).part1
         end
 
         def test_part2
-          assert_equal true, @k.new(<<~INPUT).part2
-          INPUT
+          assert_equal true, described_class.new(input).part2
         end
       end
     TEST
