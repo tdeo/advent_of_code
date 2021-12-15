@@ -8,7 +8,14 @@ require 'fileutils'
 dir = __dir__
 Dir.chdir dir
 
-@session = File.read('./session_cookie').strip
+def session_cookie
+  @session_cookie ||= begin
+    File.read('./session_cookie').strip
+  rescue StandardError
+    puts 'Please add your adventofcode.com session cookie into the `session_cookie` file'
+    exit 1
+  end
+end
 
 @post_to_aoc = ARGV.delete('--post')
 @skip_tests = ARGV.delete('--no-test')
@@ -44,7 +51,7 @@ def input(year, day)
   day = day.to_s.rjust(2, '0')
   file = "#{year}/inputs/#{day}.input"
   unless File.exist?(file)
-    input = `curl -sS --cookie "session=#{@session}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+    input = `curl -sS --cookie "session=#{session_cookie}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
     File.open(file, 'w') { |f| f.write(input) }
   end
   File.read(file)
@@ -92,7 +99,7 @@ def run(year, day, parts)
     real = Benchmark.realtime { res = klass.new(input.dup).__send__(m) }
     puts res
     if @post_to_aoc
-      resp = `curl -sSL --cookie \"session=#{@session}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"` # rubocop:disable Layout/LineLength
+      resp = `curl -sSL --cookie \"session=#{session_cookie}\" -XPOST https://adventofcode.com/#{year}/day/#{day.to_i}/answer -d \"level=#{part}&answer=#{res}\"` # rubocop:disable Layout/LineLength
       puts resp[%r{<main>(.*)</main>}m]
     end
     puts "\n\tRun in #{real.round(2)} seconds"
