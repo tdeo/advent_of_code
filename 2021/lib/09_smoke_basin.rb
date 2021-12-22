@@ -4,7 +4,6 @@ class SmokeBasin
   def initialize(input)
     @input = input
     @grid = @input.lines.map { _1.chomp.chars.map(&:to_i) }
-    puts @grid.map(&:join)
   end
 
   def neighbours(i, j)
