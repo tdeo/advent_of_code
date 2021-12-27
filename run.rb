@@ -73,7 +73,6 @@ def run(year, day, parts)
     test_success = true
     test_success = false unless test_output.include?(' 0 failures')
     test_success = false unless test_output.include?(' 0 errors')
-    test_success = false if test_output.include?("\n0 runs")
 
     exit 1 unless test_success
   end
