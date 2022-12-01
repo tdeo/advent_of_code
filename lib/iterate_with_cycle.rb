@@ -17,7 +17,7 @@ class IterateWithCycle
       @current = @succ.call(@current)
       if v[@current] && !cycle_length
         cycle_length = i - v[@current]
-        times = i + (times - i) % cycle_length
+        times = i + ((times - i) % cycle_length)
       end
       v[@current] ||= i
     end

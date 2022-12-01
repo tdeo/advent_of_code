@@ -13,6 +13,6 @@ describe IterateWithCycle do
 
   def test_with_cycle
     i = @k.new(0) { |x| (x + 1) % 10 }
-    assert_equal 2, i.iterate(10**30 + 2)
+    assert_equal 2, i.iterate((10**30) + 2)
   end
 end

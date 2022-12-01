@@ -6,7 +6,8 @@ repos:
         language: system
         files: \.(rb)$
         entry: bundle exec rubocop
+        require_serial: true
         args:
           - --server
-          - --auto-correct
+          - --autocorrect
           - --color

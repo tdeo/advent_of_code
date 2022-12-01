@@ -52,7 +52,7 @@ def input(year, day)
   file = "#{year}/inputs/#{day}.input"
   unless File.exist?(file)
     input = `curl -sS --cookie "session=#{session_cookie}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
-    File.open(file, 'w') { |f| f.write(input) }
+    File.write(file, input)
   end
   File.read(file)
 end
