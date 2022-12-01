@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require_relative '../lib/04_high_entropy_passphrases'
 
-class HighEntropyPassphrasesTest < MiniTest::Test
+class HighEntropyPassphrasesTest < Minitest::Test
   def test_part1_1
     assert_equal 1, HighEntropyPassphrases.new('aa bb cc dd ee').part1
   end

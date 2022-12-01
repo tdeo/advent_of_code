@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require_relative '../lib/02_corruption_checksum'
 
-class CorruptionChecksumTest < MiniTest::Test
+class CorruptionChecksumTest < Minitest::Test
   def test_part1_1
     assert_equal 18, CorruptionChecksum.new('5 1 9 5
 7 5 3

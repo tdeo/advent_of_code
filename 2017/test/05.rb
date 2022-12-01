@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require_relative '../lib/05_maze_trampolines'
 
-class MazeTrampolinesTest < MiniTest::Test
+class MazeTrampolinesTest < Minitest::Test
   def test_part1_1
     assert_equal 5, MazeTrampolines.new('0
 3

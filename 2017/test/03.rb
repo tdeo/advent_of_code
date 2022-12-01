@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require_relative '../lib/03_spiral_memory'
 
-class SpiralMemoryTest < MiniTest::Test
+class SpiralMemoryTest < Minitest::Test
   def test_part1_1
     assert_equal 0, SpiralMemory.new(1).part1
   end
