@@ -7,7 +7,7 @@ describe ArithmeticLogicUnit do
   let(:described_class) { ArithmeticLogicUnit }
   let(:input) { '' }
 
-  def test_part1
+  def xtest_part1
     assert_equal true, described_class.new(<<~INPUT).find_comb { _1.vars['z'] == 0 }
       inp w
       mul x 0
@@ -30,7 +30,7 @@ describe ArithmeticLogicUnit do
     INPUT
   end
 
-  def test_part2
+  def xtest_part2
     assert_equal true, described_class.new(input).part2
   end
 end

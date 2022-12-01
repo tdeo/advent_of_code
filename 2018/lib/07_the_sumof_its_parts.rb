@@ -29,7 +29,7 @@ class TheSumofItsParts
       order << to_do
       @before.each { |_, v| v.delete(to_do) }
     end
-    order.join('')
+    order.join
   end
 
   def can_start_at(step, schedule, workers: 5)

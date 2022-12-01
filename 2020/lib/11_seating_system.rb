@@ -60,7 +60,7 @@ class SeatingSystem
     changed = false
     succ = @maze.map(&:dup)
     @maze.each_with_index do |line, i|
-      line.each_char.each_with_index do |char, j|
+      line.each_char.with_index do |char, j|
         n = send(neighbours, i, j)
         occupied = n.count { |ii, jj| @maze[ii][jj] == OCCUPIED }
         if char == EMPTY && occupied == 0

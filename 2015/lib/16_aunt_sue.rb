@@ -5,7 +5,7 @@ class AuntSue
     @aunts = {}
     input.strip.each_line do |l|
       l =~ /^Sue (\d+): (.*)$/
-      @aunts[$1] = $2.split(', ').map { |t| t.split(': ') }.to_h
+      @aunts[$1] = $2.split(', ').to_h { |t| t.split(': ') }
     end
     @result = {
       'children' => '3',

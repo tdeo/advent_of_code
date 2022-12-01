@@ -12,7 +12,7 @@ class Defrag
   end
 
   def print
-    puts(@grid.first(8).map { |r| r.first(8).join('').tr('0', '.') })
+    puts(@grid.first(8).map { |r| r.first(8).join.tr('0', '.') })
   end
 
   def part1

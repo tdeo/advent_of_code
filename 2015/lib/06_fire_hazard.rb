@@ -9,20 +9,20 @@ class FireHazard
   def apply!(ins)
     case ins
     when /turn on (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] = 1
         end
       end
     when /toggle (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] = 1 - @lights[i][j]
         end
       end
     when /turn off (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] = 0
         end
       end
@@ -37,20 +37,20 @@ class FireHazard
   def apply2!(ins)
     case ins
     when /turn on (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] += 1
         end
       end
     when /toggle (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] += 2
         end
       end
     when /turn off (\d+),(\d+) through (\d+),(\d+)/
-      ($1..$3).each do |i|
-        ($2..$4).each do |j|
+      (($1)..($3)).each do |i|
+        (($2)..($4)).each do |j|
           @lights[i][j] -= 1 if @lights[i][j] > 0
         end
       end

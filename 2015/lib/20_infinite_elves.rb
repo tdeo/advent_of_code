@@ -8,7 +8,7 @@ class InfiniteElves
   end
 
   def divisor_sum(n)
-    divs = n.prime_division.map { |p, pow| (p**(pow + 1) - 1) / (p - 1) }
+    divs = n.prime_division.map { |p, pow| ((p**(pow + 1)) - 1) / (p - 1) }
     divs.empty? ? 1 + n : divs.reduce(:*)
   end
 

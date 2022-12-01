@@ -6,7 +6,7 @@ class HighEntropyPassphrases
   end
 
   def words(phrase)
-    phrase.split(' ').map(&:strip).reject(&:empty?)
+    phrase.split.map(&:strip).reject(&:empty?)
   end
 
   def valid1(phrase)

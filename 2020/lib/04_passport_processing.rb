@@ -7,7 +7,7 @@ class PassportProcessing
     @passports = []
 
     @input.split("\n\n").each do |passport|
-      @passports << passport.split.map { |e| e.split(':') }.to_h
+      @passports << passport.split.to_h { |e| e.split(':') }
     end
   end
 

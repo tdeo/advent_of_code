@@ -15,7 +15,7 @@ class CoprocessorConflagration
   end
 
   def execute!
-    ins, x, y = @instructions[@index].split(' ')
+    ins, x, y = @instructions[@index].split
     y = val(y)
     case ins
     when 'set'

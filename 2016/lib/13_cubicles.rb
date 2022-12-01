@@ -14,7 +14,7 @@ class Cubicles
   def open?(x, y)
     return false if x < 0 || y < 0
 
-    ((x**2 + 3 * x + 2 * x * y + y + y**2) + @key).to_s(2).chars.sum(&:to_i).even?
+    (((x**2) + (3 * x) + (2 * x * y) + y + (y**2)) + @key).to_s(2).chars.sum(&:to_i).even?
   end
 
   def queue!(pos, moves, prev)

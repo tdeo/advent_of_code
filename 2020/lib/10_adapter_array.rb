@@ -10,7 +10,7 @@ class AdapterArray
     @adapters.sort!
 
     @adapters.unshift(0)
-    @adapters << @adapters[-1] + 3
+    @adapters << (@adapters[-1] + 3)
 
     count = Hash.new(0)
     @adapters.each_cons(2) { |a, b| count[b - a] += 1 }

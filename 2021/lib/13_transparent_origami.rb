@@ -18,13 +18,13 @@ class TransparentOrigami
 
   def fold_x(x)
     @dots.each do |dot|
-      dot[0] = 2 * x - dot[0] if dot[0] > x
+      dot[0] = (2 * x) - dot[0] if dot[0] > x
     end
   end
 
   def fold_y(y)
     @dots.each do |dot|
-      dot[1] = 2 * y - dot[1] if dot[1] > y
+      dot[1] = (2 * y) - dot[1] if dot[1] > y
     end
   end
 

@@ -11,9 +11,7 @@ class FourDimensionalAdventure
 
   def dist(i, j)
     i, j = j, i if j < i
-    @dist[i][j] ||= begin
-      @stars[i].zip(@stars[j]).sum { |e| (e[0] - e[1]).abs }
-    end
+    @dist[i][j] ||= @stars[i].zip(@stars[j]).sum { |e| (e[0] - e[1]).abs }
   end
 
   def connected(i, j)

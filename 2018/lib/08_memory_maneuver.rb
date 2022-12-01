@@ -2,7 +2,7 @@
 
 class MemoryManeuver
   def initialize(input)
-    @input = input.split(' ').map(&:to_i)
+    @input = input.split.map(&:to_i)
   end
 
   class Node

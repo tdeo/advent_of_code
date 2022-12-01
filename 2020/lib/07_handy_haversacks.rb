@@ -9,15 +9,15 @@ class HandyHaversacks
       container, contained = line.split('contain')
 
       container = container.gsub(/\bbag.*/, '').strip
-      containees = contained.split(',').map do
+      containees = contained.split(',').map do |item|
         [
-          _1.gsub(/\bbag.*/, '').gsub(/.*\d+/, '').strip,
-          _1.strip.to_i,
+          item.gsub(/\bbag.*/, '').gsub(/.*\d+/, '').strip,
+          item.strip.to_i,
         ]
       end
 
       @contains[container] = containees
-      containees.each { @contained[_1[0]] << container }
+      containees.each { @contained[item[0]] << container }
     end
   end
 

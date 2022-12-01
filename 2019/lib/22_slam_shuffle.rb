@@ -13,7 +13,7 @@ def powmod(a, k)
   return 1 if k == 0
 
   b = powmod(a, k / 2)
-  b = b**2 % $n
+  b = (b**2) % $n
   b *= a if k.odd?
   b
 end
@@ -31,10 +31,10 @@ class Mat22
   end
 
   def mul(o)
-    aa = a * o.a + b * o.c
-    bb = a * o.b + b * o.d
-    cc = c * o.a + d * o.c
-    dd = c * o.b + d * o.d
+    aa = (a * o.a) + (b * o.c)
+    bb = (a * o.b) + (b * o.d)
+    cc = (c * o.a) + (d * o.c)
+    dd = (c * o.b) + (d * o.d)
     @a = aa % $n
     @b = bb % $n
     @c = cc % $n
@@ -134,7 +134,7 @@ class SlamShuffle
     end
 
     m = m.pow(k)
-    (m.a * pos + m.b) % $n
+    ((m.a * pos) + m.b) % $n
   end
 end
 

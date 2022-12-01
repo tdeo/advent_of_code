@@ -7,7 +7,7 @@ class NoSuchThingAsTooMuch
 
   def part1(target = 150)
     valid = 0
-    (0...2**@containers.size).each do |i|
+    (0...(2**@containers.size)).each do |i|
       total = @containers.each_with_index.sum do |c, j|
         c * i[j]
       end
@@ -18,7 +18,7 @@ class NoSuchThingAsTooMuch
 
   def part2(target = 150)
     valids = []
-    (0...2**@containers.size).each do |i|
+    (0...(2**@containers.size)).each do |i|
       total = @containers.each_with_index.sum do |c, j|
         c * i[j]
       end

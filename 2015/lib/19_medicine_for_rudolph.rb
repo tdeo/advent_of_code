@@ -16,7 +16,7 @@ class MedicineForRudolph
     @rules.each do |orig, repl|
       i = 0
       while (i = @mol.index(orig, i))
-        possible << @mol[0...i].to_s + repl + @mol[i + orig.size..].to_s
+        possible << (@mol[0...i].to_s + repl + @mol[i + orig.size..].to_s)
         i += 1
       end
     end

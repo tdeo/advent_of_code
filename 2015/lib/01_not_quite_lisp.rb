@@ -16,7 +16,7 @@ class NotQuiteLisp
 
   def part2
     floor = 0
-    @input.each_char.each_with_index do |c, i|
+    @input.each_char.with_index do |c, i|
       floor -= 1 if c == ')'
       floor += 1 if c == '('
       return i + 1 if floor < 0

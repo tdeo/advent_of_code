@@ -22,7 +22,7 @@ class Security
   def rotate(letter, times)
     return letter if letter == '-'
 
-    ((letter.ord - 'a'.ord + times) % 26 + 'a'.ord).chr
+    (((letter.ord - 'a'.ord + times) % 26) + 'a'.ord).chr
   end
 
   def decrypted_name(room)

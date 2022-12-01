@@ -86,7 +86,7 @@ class ReservoirResearch
     str = (ymin..ymax).map do |y|
       (400..600).map do |x|
         @map[x][y] || ' '
-      end.join('')
+      end.join
     end.join("\n")
     puts str
   end

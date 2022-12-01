@@ -25,7 +25,7 @@ class Knot
   def part2
     @lengths = @input.chars.map(&:ord) + [17, 31, 73, 47, 23]
     64.times { @lengths.each { |l| apply!(l) } }
-    dense = Array.new(16) { |i| @list[16 * i...16 * (i + 1)].reduce(0, :^) }
+    dense = Array.new(16) { |i| @list[(16 * i)...(16 * (i + 1))].reduce(0, :^) }
     dense.map { |i| i.to_s(16).rjust(2, '0') }.join
   end
 end

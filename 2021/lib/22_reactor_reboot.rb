@@ -79,9 +79,9 @@ class ReactorReboot
       step.z = -50..50
     end
 
-    reactor.steps.sum do
-      limited = _1.intersection(bounded)
-      limited.on = _1.on
+    reactor.steps.sum do |step|
+      limited = step.intersection(bounded)
+      limited.on = step.on
       limited.signed_size
     end
   end
@@ -90,6 +90,6 @@ class ReactorReboot
     reactor = Reactor.new
     @steps.each { reactor.add_step(_1) }
 
-    reactor.steps.sum { _1.signed_size }
+    reactor.steps.sum(&:signed_size)
   end
 end

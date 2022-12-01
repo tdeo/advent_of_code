@@ -28,7 +28,7 @@ class SphericalHouses
     y = [0, 0]
     visited = Set.new
     visited << [0, 0]
-    @input.each_char.each_with_index do |c, i|
+    @input.each_char.with_index do |c, i|
       case c
       when '>' then x[i % 2] += 1
       when '<' then x[i % 2] -= 1

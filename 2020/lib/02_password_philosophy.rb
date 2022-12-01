@@ -10,7 +10,7 @@ class PasswordPhilosophy
     @input.each_line do |line|
       policy, password = line.split(': ')
       @passwords << password.chars
-      policy = policy.split(' ')
+      policy = policy.split
       @policies << [
         policy[1],
         policy[0].split('-').map(&:to_i),

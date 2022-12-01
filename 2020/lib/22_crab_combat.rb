@@ -29,7 +29,7 @@ class CrabCombat
 
     def score
       play! if @winner.nil?
-      @winner.reverse_each.each_with_index.sum { |val, i| val * (i + 1) }
+      @winner.reverse_each.with_index.sum { |val, i| val * (i + 1) }
     end
 
     def winner

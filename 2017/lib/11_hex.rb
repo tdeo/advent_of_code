@@ -30,7 +30,7 @@ class Hex
   def distance_to_origin
     x, y = @current.map(&:abs)
     min = [x, y].min
-    min + (x - min) / 2 + (y - min) / 2
+    min + ((x - min) / 2) + ((y - min) / 2)
   end
 
   def part1

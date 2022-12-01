@@ -14,7 +14,7 @@ class SevenSegmentSearch
 
   def part1
     @cases.sum do |row|
-      row[:outputs].count { _1.length < 5 || _1.length == 7}
+      row[:outputs].count { _1.length < 5 || _1.length == 7 }
     end
   end
 

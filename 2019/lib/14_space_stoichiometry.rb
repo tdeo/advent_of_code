@@ -6,10 +6,10 @@ class SpaceStoichiometry
     @reactions = {}
     @input.each_line do |l|
       left, right = l.split(' => ')
-      q, val = right.strip.split(' ')
+      q, val = right.strip.split
       @reactions[val] = { q: q.to_i, in: [] }
       left.strip.split(', ').each do |elem|
-        q2, val2 = elem.split(' ')
+        q2, val2 = elem.split
         @reactions[val][:in] << [val2, q2.to_i]
       end
     end

@@ -7,7 +7,7 @@ class SnailfishNumber
     middle = nil
     @parent = parent
     depth = 0
-    string.to_s.each_char.each_with_index do |c, i|
+    string.to_s.each_char.with_index do |c, i|
       case c
       when '['
         depth += 1
@@ -27,7 +27,7 @@ class SnailfishNumber
   def magnitude
     return value if node?
 
-    3 * left.magnitude + 2 * right.magnitude
+    (3 * left.magnitude) + (2 * right.magnitude)
   end
 
   def node?
@@ -79,7 +79,7 @@ class SnailfishNumber
   def split
     if node? && value >= 10
       @left = SnailfishNumber.new(value / 2, self)
-      @right = SnailfishNumber.new(value - value / 2, self)
+      @right = SnailfishNumber.new(value - (value / 2), self)
       @value = nil
       return true
     end

@@ -101,7 +101,7 @@ class ChronalClassification
   end
 
   def part2
-    mapping = (0..15).map { |i| [i, operations] }.to_h
+    mapping = (0..15).to_h { |i| [i, operations] }
 
     @input.scan(/^Before: (.*)\n(.*)\nAfter: (.*)$/).each do |m|
       operation = m[1].split.map(&:to_i)
@@ -124,7 +124,7 @@ class ChronalClassification
     @input.split("\n\n\n")[1].split("\n").each do |l|
       next if l.empty?
 
-      operation = l.split(' ').map(&:to_i)
+      operation = l.split.map(&:to_i)
       __send__(mapping[operation[0]][0], *operation[1..], regs)
     end
     regs[0]

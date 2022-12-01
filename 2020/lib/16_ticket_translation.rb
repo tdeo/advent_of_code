@@ -46,7 +46,7 @@ class TicketTranslation
   end
 
   def part2(regex = /^departure/)
-    options = @rules.keys.map { |key| [key, (0...@rules.size).to_a] }.to_h
+    options = @rules.keys.to_h { |key| [key, (0...@rules.size).to_a] }
 
     @nearby.each do |ticket|
       next unless valid_ticket?(ticket)

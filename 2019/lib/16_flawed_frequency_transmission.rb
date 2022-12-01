@@ -34,7 +34,7 @@ class FlawedFrequencyTransmission
   def part2
     @array *= 10_000
     pos = @input[0...7].to_i
-    raise 'Position not in second half' unless pos > 1 + @array.size / 2
+    raise 'Position not in second half' unless pos > 1 + (@array.size / 2)
 
     @array = @array[pos..]
     100.times do

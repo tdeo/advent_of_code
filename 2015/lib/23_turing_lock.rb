@@ -8,7 +8,7 @@ class TuringLock
   end
 
   def step!
-    tokens = @instructions[@idx].tr(',', '').split(' ')
+    tokens = @instructions[@idx].tr(',', '').split
     case tokens[0]
     when 'hlf'
       @registers[tokens[1]] /= 2

@@ -23,7 +23,7 @@ class BinaryBoarding
   end
 
   def seat_id(seat)
-    row(seat) * 8 + col(seat)
+    (row(seat) * 8) + col(seat)
   end
 
   def part1

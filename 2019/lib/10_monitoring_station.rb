@@ -4,7 +4,7 @@ class MonitoringStation
   def initialize(input)
     @input = input
     @asteroids = []
-    @input.each_line.each_with_index do |r, i|
+    @input.each_line.with_index do |r, i|
       r.chars.each_with_index do |c, j|
         @asteroids << [j, i] if c == '#'
       end
@@ -56,6 +56,6 @@ class MonitoringStation
         order << targets[k].shift
       end
     end
-    order[199][0] * 100 + order[199][1]
+    (order[199][0] * 100) + order[199][1]
   end
 end

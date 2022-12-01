@@ -18,13 +18,11 @@ class LikeARogue
     row = @rows.last
     @rows << (0...row.size).map do |i|
       case above_chars(i)
-      when '^^.' then '^'
-      when '.^^' then '^'
-      when '^..' then '^'
-      when '..^' then '^'
+      when '^^.', '.^^', '^..', '..^'
+        '^'
       else '.'
       end
-    end.join('')
+    end.join
   end
 
   def part1(rows = 40)

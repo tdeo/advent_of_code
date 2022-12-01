@@ -20,7 +20,7 @@ class AnElephantNamedJoseph
     i = 0
     @elves = init_node(@elves)
     while @elves.total > 1
-      to_delete = (i + @elves.total / 2) % @elves.total
+      to_delete = (i + (@elves.total / 2)) % @elves.total
       i = (i + 1) % @elves.total unless (to_delete % @elves.total) < (i % @elves.total)
       @elves.delete_at(to_delete).to_s
     end
@@ -35,7 +35,7 @@ def init_node(array, parent = nil)
   return n if array.size == 1
 
   a = init_node(array[1..array.size / 2], n)
-  b = init_node(array[array.size / 2 + 1..], n)
+  b = init_node(array[(array.size / 2) + 1..], n)
   n.children = [a, b].compact
   n
 end

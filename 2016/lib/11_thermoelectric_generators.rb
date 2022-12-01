@@ -25,7 +25,7 @@ class ThermoelectricGenerators
   def valid?(opt)
     (0...opt.size / 2).each do |i|
       (0...opt.size / 2).each do |j|
-        return false if i != j && opt[2 * i] != opt[2 * i + 1] && opt[2 * j] == opt[2 * i + 1]
+        return false if i != j && opt[2 * i] != opt[(2 * i) + 1] && opt[2 * j] == opt[(2 * i) + 1]
       end
     end
     true

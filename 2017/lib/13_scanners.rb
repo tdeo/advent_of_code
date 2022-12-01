@@ -49,7 +49,7 @@ class Scanners
       period = 2 * (depth - 1)
       new_mod = mod.lcm(period)
       mult = new_mod / mod
-      allowed = allowed.flat_map { |a| (0...mult).map { |k| a + k * mod } }
+      allowed = allowed.flat_map { |a| (0...mult).map { |k| a + (k * mod) } }
       indices.each do |i|
         allowed.reject! { |k| (k - i) % period == 0 }
       end

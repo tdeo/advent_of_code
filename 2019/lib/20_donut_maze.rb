@@ -36,7 +36,7 @@ class DonutMaze
     @accessible ||= {}
     @accessible[portal] ||= begin
       q = @rev_portals.find { |_, v| v == portal }[0..0]
-      viewed = q.map { |e| [e, 0] }.to_h
+      viewed = q.to_h { |e| [e, 0] }
 
       res = {}
       res[portal.tr('io', 'oi')] = 1 if portal != 'AAo' && portal != 'ZZo'

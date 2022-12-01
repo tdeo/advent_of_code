@@ -40,7 +40,7 @@ class JurassicJigsaw
         lines = (0...lines.size).map do |i|
           (0...lines.size).map do |j|
             lines[lines.size - j - 1][i]
-          end.join('')
+          end.join
         end
       end
 
@@ -154,7 +154,7 @@ class JurassicJigsaw
   def count_monsterless(tile)
     monster_pos = []
     MONSTER.each_with_index do |row, i|
-      row.each_char.each_with_index do |char, j|
+      row.each_char.with_index do |char, j|
         monster_pos << [i, j] if char == '#'
       end
     end
@@ -173,7 +173,7 @@ class JurassicJigsaw
 
     r = 0
     tile.view.each_with_index do |row, i|
-      row.each_char.each_with_index do |char, j|
+      row.each_char.with_index do |char, j|
         next unless char == '#'
         next if habitat_used.key?([i, j])
 

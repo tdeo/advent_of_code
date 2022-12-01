@@ -28,7 +28,7 @@ class OneTimePad
   def part1
     found = 0
     idx = -1
-    (0..1000).each { |i| store_hash!(i) }
+    1001.times { |i| store_hash!(i) }
     while found < 64
       idx += 1
       store_hash!(idx + 1000)
@@ -41,7 +41,7 @@ class OneTimePad
     # This is slow but not that bad
     found = 0
     idx = -1
-    (0..1000).each { |i| store_hash!(i, hash2(i)) }
+    1001.times { |i| store_hash!(i, hash2(i)) }
     while found < 64
       idx += 1
       store_hash!(idx + 1000, hash2(idx + 1000))

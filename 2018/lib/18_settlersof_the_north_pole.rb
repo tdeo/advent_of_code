@@ -25,7 +25,7 @@ class SettlersofTheNorthPole
     tmp = []
     @map.each_with_index do |row, i|
       r = +''
-      row.each_char.each_with_index do |c, j|
+      row.each_char.with_index do |c, j|
         n = neighbours(i, j)
         case c
         when '.'
@@ -73,7 +73,7 @@ class SettlersofTheNorthPole
   end
 
   def fingerprint
-    @map.join('')
+    @map.join
   end
 
   def part2

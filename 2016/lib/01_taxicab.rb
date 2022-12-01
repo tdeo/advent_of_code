@@ -22,7 +22,7 @@ class Taxicab
                             (move[0] == 'L' ? -1 : 0)
                           end)) % @dirs.size
     size = move[1..].to_i
-    @pos = [@pos[0] + size * @dirs[@curdir][0], @pos[1] + size * @dirs[@curdir][1]]
+    @pos = [@pos[0] + (size * @dirs[@curdir][0]), @pos[1] + (size * @dirs[@curdir][1])]
   end
 
   def distance

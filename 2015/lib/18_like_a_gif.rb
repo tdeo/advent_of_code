@@ -15,8 +15,8 @@ class LikeAGif
   end
 
   def corners!
-    @grid[0] |= (1 << @grid.size - 1) | 1
-    @grid[-1] |= (1 << @grid.size - 1) | 1
+    @grid[0] |= (1 << (@grid.size - 1)) | 1
+    @grid[-1] |= (1 << (@grid.size - 1)) | 1
   end
 
   def neighbours(i, j)

@@ -16,7 +16,7 @@ class BeverageBandits
 
       input.split("\n").each_with_index do |l, i|
         r = []
-        l.each_char.each_with_index do |c, j|
+        l.each_char.with_index do |c, j|
           case c
           when '#'
             r << false

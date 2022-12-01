@@ -13,7 +13,7 @@ class CorporatePolicy
     return unless @pass.size < 8
 
     @pass.succ!
-    @pass << 'a' * (8 - @pass.size)
+    @pass << ('a' * (8 - @pass.size))
   end
 
   def valid?

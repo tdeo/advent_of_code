@@ -22,7 +22,7 @@ class InverseCapcha
   def part2
     sum = 0
     (0...@size).map do |i|
-      sum += self[i].to_i if self[i] == self[i + @size / 2]
+      sum += self[i].to_i if self[i] == self[i + (@size / 2)]
     end
     sum
   end

@@ -4,7 +4,7 @@ class GoWithTheFlow
   def initialize(input)
     @input = input
     @instructions = @input.split("\n").map do |ins|
-      i = ins.split(' ')
+      i = ins.split
       i[1..].map(&:to_i).unshift(i[0])
     end
     i = @instructions.shift
@@ -103,7 +103,7 @@ class GoWithTheFlow
     require 'prime'
     r = 1
     a.prime_division.each do |p, pow|
-      r *= (p**(pow + 1) - 1) / (p - 1)
+      r *= ((p**(pow + 1)) - 1) / (p - 1)
     end
     r
   end

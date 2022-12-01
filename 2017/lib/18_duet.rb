@@ -13,7 +13,7 @@ class Duet
   end
 
   def apply!
-    tokens = @instructions[@cur_ins].split(' ').map(&:strip)
+    tokens = @instructions[@cur_ins].split.map(&:strip)
     case tokens[0]
     when 'snd'
       @last_sound = value_for(tokens[1])
@@ -49,7 +49,7 @@ class Duet
   def apply2!(prog)
     return 'finished' unless @instructions[@pos[prog]]
 
-    tokens = @instructions[@pos[prog]].split(' ').map(&:strip)
+    tokens = @instructions[@pos[prog]].split.map(&:strip)
     case tokens[0]
     when 'snd'
       @sent[prog] += 1

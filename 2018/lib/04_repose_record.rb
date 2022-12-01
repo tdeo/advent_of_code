@@ -48,7 +48,7 @@ class ReposeRecord
       next unless day[:guard] == best_guard
 
       day[:times].each_slice(2) do |a, b|
-        (a...b || 60).each do |m|
+        (a...(b || 60)).each do |m|
           minutes[m] += 1
           if minutes[m] > best_count
             best_count = minutes[m]
@@ -69,7 +69,7 @@ class ReposeRecord
     days.each_value do |day|
       g = day[:guard]
       day[:times].each_slice(2) do |a, b|
-        (a...b || 60).each do |m|
+        (a...(b || 60)).each do |m|
           minutes[[m, g]] += 1
           if minutes[[m, g]] > best_count
             best_count = minutes[[m, g]]

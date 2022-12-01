@@ -27,7 +27,7 @@ class PassagePathing
 
         res << [true, *path[1..], succ]
       else
-        res << path + [succ]
+        res << (path + [succ])
       end
     end
     res

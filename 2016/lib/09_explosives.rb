@@ -24,7 +24,7 @@ class Explosives
     return 1 + decode_length(string[1..]) unless /^\((?<a>\d+)x(?<b>\d+)\)/ =~ string
 
     bis = string.sub(/^\((?<a>\d+)x(?<b>\d+)\)/, '')
-    b.to_i * decode_length(bis[0...a.to_i]) + decode_length(bis[a.to_i..])
+    (b.to_i * decode_length(bis[0...a.to_i])) + decode_length(bis[a.to_i..])
   end
 
   def part2

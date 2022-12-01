@@ -237,7 +237,7 @@ class Amphipod
       @lines[2...-1].map { |line| line[i] }.reject { _1 == '.' }.reverse
     end
     @grid = Grid.new(*burrows)
-    @grid.hall = @lines[1].chars.values_at(1, 2, 4, 6, 8, 10, 11).map { _1 == '.' ? nil : _1}
+    @grid.hall = @lines[1].chars.values_at(1, 2, 4, 6, 8, 10, 11).map { _1 == '.' ? nil : _1 }
   end
 
   def part1

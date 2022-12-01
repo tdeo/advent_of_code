@@ -33,7 +33,7 @@ class SubterraneanSustainability
 
   def pot_sum
     s = 0
-    @state.each_char.each_with_index do |c, i|
+    @state.each_char.with_index do |c, i|
       s += (i + @left) if c == '#'
     end
     s
@@ -55,6 +55,6 @@ class SubterraneanSustainability
     end
     score = pot_sum
     next_state!
-    score + (5 * 10**10 - runs) * (pot_sum - score)
+    score + (((5 * (10**10)) - runs) * (pot_sum - score))
   end
 end

@@ -14,7 +14,6 @@ describe ComboBreaker do
   end
 
   def test_part2
-    assert_equal true, @k.new(<<~INPUT).part2
-    INPUT
+    assert_equal true, @k.new('').part2
   end
 end

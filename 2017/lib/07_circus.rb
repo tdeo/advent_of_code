@@ -2,7 +2,7 @@
 
 class Circus
   def initialize(input)
-    @programs = input.split("\n").map do |line|
+    @programs = input.split("\n").to_h do |line|
       m = /^([^\s]+) \((\d+)\)( -> (.*))?$/.match(line.strip)
       [
         m[1],
@@ -12,7 +12,7 @@ class Circus
           children: m[4] ? m[4].split(',').map(&:strip) : [],
         },
       ]
-    end.to_h
+    end
     @weights = {}
   end
 

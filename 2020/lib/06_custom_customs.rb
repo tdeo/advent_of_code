@@ -11,7 +11,7 @@ class CustomCustoms
   def count(group)
     r = {}
     group.each do |person|
-      person.each { r[_1] = true}
+      person.each { r[_1] = true }
     end
     r.count { |_, v| v }
   end
@@ -23,7 +23,7 @@ class CustomCustoms
   def count2(group)
     r = Hash.new(0)
     group.each do |person|
-      person.each { r[_1] += 1}
+      person.each { r[_1] += 1 }
     end
     r.count { |_, v| v == group.size }
   end

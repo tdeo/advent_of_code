@@ -35,7 +35,7 @@ class Swarn
   def move_part!(particle)
     return if particle[:collided]
 
-    (0...3).each do |i|
+    3.times do |i|
       particle[:velocity][i] += particle[:acceleration][i]
       particle[:position][i] += particle[:velocity][i]
     end

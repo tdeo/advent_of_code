@@ -17,8 +17,8 @@ class ConwayCubes
     @ranges = Array.new(@dimension) { [0, 0] }
     @active = 0
 
-    @input.each_line.each_with_index do |line, x|
-      line.each_char.each_with_index do |c, y|
+    @input.each_line.with_index do |line, x|
+      line.each_char.with_index do |c, y|
         next unless c == ACTIVE
 
         pos = [x, y]

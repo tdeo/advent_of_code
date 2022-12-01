@@ -13,7 +13,7 @@ class GiantSquid
   def winning_boards
     @grids.select do |grid|
       wins = false
-      (0...5).each do |i|
+      5.times do |i|
         wins ||= true if (0...5).all? { |j| grid[i][j].nil? }
         wins ||= true if (0...5).all? { |j| grid[j][i].nil? }
       end
@@ -28,7 +28,7 @@ class GiantSquid
 
     @grids.each do |grid|
       grid.each do |row|
-        (0...5).each do |i|
+        5.times do |i|
           row[i] = nil if row[i] == @drawn.last
         end
       end
@@ -36,7 +36,7 @@ class GiantSquid
   end
 
   def score(board)
-    board.sum { |row| row.reject(&:nil?).sum }
+    board.sum { |row| row.compact.sum }
   end
 
   def part1

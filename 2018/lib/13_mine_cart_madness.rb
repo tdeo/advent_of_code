@@ -105,7 +105,7 @@ class MineCartMadness
   def parse_row(l)
     return if l.empty?
 
-    l.each_char.each_with_index do |c, j|
+    l.each_char.with_index do |c, j|
       case c
       when '<'
         @carts << Cart.new(@map.size, j, :left)

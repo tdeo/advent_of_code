@@ -12,7 +12,7 @@ class SafeCracking
   end
 
   def execute!
-    ins, x, y = @instructions[@index].split(' ')
+    ins, x, y = @instructions[@index].split
     print! if x == 'h'
     case ins
     when 'cpy'
@@ -25,7 +25,7 @@ class SafeCracking
       @index += val(y).to_i - 1 if val(x) != 0
     when 'tgl'
       idx = val(x) + @index
-      ins = (@instructions[idx] || '').split(' ')
+      ins = (@instructions[idx] || '').split
       case ins.size
       when 2
         ins[0] = ins[0] == 'inc' ? 'dec' : 'inc'
@@ -50,6 +50,6 @@ class SafeCracking
   def part2
     @registers['a'] = 12
     # Here the trick is to understand what the code does, with is a! + 86*77
-    (1..@registers['a']).reduce(1, :*) + @instructions[19].split(' ')[1].to_i * @instructions[20].split(' ')[1].to_i
+    (1..@registers['a']).reduce(1, :*) + (@instructions[19].split[1].to_i * @instructions[20].split[1].to_i)
   end
 end

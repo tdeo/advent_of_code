@@ -3,7 +3,7 @@
 class Dive
   def initialize(input)
     @input = input
-    @instructions = input.split("\n").map { _1.split }
+    @instructions = input.split("\n").map(&:split)
     @depth = 0
     @horizontal = 0
   end

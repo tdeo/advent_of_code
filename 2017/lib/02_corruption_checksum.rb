@@ -3,7 +3,7 @@
 class CorruptionChecksum
   def initialize(input)
     @matrix = input.split("\n").map do |row|
-      row.split(' ').map(&:strip).reject(&:empty?).map(&:to_i)
+      row.split.map(&:strip).reject(&:empty?).map(&:to_i)
     end
   end
 

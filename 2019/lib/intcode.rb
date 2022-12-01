@@ -67,7 +67,7 @@ class Intcode
   end
 
   def write(di, value)
-    case (@tape[@i] / (10 * 10**di)) % 10
+    case (@tape[@i] / (10 * (10**di))) % 10
     when 2
       @tape[@base + @tape[@i + di]] = value
     when 0
@@ -108,7 +108,7 @@ class Intcode
     when 9
       @base += a
     else
-      raise "Can\'t perform instruction #{@tape[@i]}/#{instruction} at index #{@i}"
+      raise "Can't perform instruction #{@tape[@i]}/#{instruction} at index #{@i}"
     end
   end
 

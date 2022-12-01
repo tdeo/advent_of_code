@@ -26,9 +26,9 @@ class Bathroom
   def part1
     @i = 1
     @j = 1
-    (0..2).each do |i|
-      (0..2).each do |j|
-        @grid[i][j] = 1 + 3 * i + j
+    3.times do |i|
+      3.times do |j|
+        @grid[i][j] = 1 + (3 * i) + j
       end
     end
     solve

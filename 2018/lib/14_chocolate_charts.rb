@@ -4,7 +4,7 @@ class ChocolateCharts
   def initialize(input)
     @input = input.strip
     @recipes = @input.to_i
-    @code = @input.split('').map(&:to_i)
+    @code = @input.chars.map(&:to_i)
     @scores = [3, 7]
     @a = 0
     @b = 1
@@ -13,14 +13,14 @@ class ChocolateCharts
   def round!
     sum = @scores[@a] + @scores[@b]
     @scores << 1 if sum > 9
-    @scores << sum % 10
+    @scores << (sum % 10)
     @a = (1 + @scores[@a] + @a) % @scores.size
     @b = (1 + @scores[@b] + @b) % @scores.size
   end
 
   def part1
     round! while @scores.size < 10 + @recipes
-    @scores[@recipes...@recipes + 10].join('')
+    @scores[@recipes...@recipes + 10].join
   end
 
   def part2

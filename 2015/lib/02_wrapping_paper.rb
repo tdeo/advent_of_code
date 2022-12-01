@@ -11,12 +11,12 @@ class WrappingPaper
 
   def paper(gift)
     gift.sort!
-    3 * gift[0] * gift[1] + 2 * gift[1] * gift[2] + 2 * gift[0] * gift[2]
+    (3 * gift[0] * gift[1]) + (2 * gift[1] * gift[2]) + (2 * gift[0] * gift[2])
   end
 
   def ribbon(gift)
     gift.sort!
-    2 * (gift[0] + gift[1]) + gift.reduce(:*)
+    (2 * (gift[0] + gift[1])) + gift.reduce(:*)
   end
 
   def part1

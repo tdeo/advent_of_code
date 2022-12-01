@@ -29,7 +29,7 @@ class HydrothermalVenture
     dj = sign(line[:finish][1] - line[:start][1])
 
     (0..[line[:finish][0] - line[:start][0], line[:finish][1] - line[:start][1]].map(&:abs).max).each do |k|
-      @grid[line[:start][0] + di * k][line[:start][1] + dj * k] += 1
+      @grid[line[:start][0] + (di * k)][line[:start][1] + (dj * k)] += 1
     end
   end
 

@@ -12,7 +12,7 @@ class LeonardoMonorail
   end
 
   def execute!
-    ins, x, y = @instructions[@index].split(' ')
+    ins, x, y = @instructions[@index].split
     print! if x == 'h'
     case ins
     when 'cpy'

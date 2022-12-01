@@ -19,11 +19,11 @@ class ModeMaze
     (0...upto[0]).each do |x|
       (0...upto[1]).each do |y|
         @erosion[x][y] = if x == 0
-                           (y * 48_271 + @depth) % MOD
+                           ((y * 48_271) + @depth) % MOD
                          elsif y == 0
-                           (x * 16_807 + @depth) % MOD
+                           ((x * 16_807) + @depth) % MOD
                          else
-                           (@erosion[x - 1][y] * @erosion[x][y - 1] + @depth) % MOD
+                           ((@erosion[x - 1][y] * @erosion[x][y - 1]) + @depth) % MOD
                          end
       end
     end

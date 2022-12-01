@@ -3,7 +3,7 @@
 class FirewallRules
   def initialize(input)
     @rules = input.split("\n").map { |r| r.split('-').map(&:to_i) }
-    @valids = [[0, 2**32 - 1]]
+    @valids = [[0, (2**32) - 1]]
   end
 
   def apply_rule!(rule)

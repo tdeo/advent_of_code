@@ -12,7 +12,7 @@ class ReindeerOlympics
   def distance(deer, duration)
     cycles = duration / (deer[:duration] + deer[:rest])
     remainder = duration % (deer[:duration] + deer[:rest])
-    (cycles * deer[:duration] + [remainder, deer[:duration]].min) * deer[:speed]
+    ((cycles * deer[:duration]) + [remainder, deer[:duration]].min) * deer[:speed]
   end
 
   def part1(duration = 2503)

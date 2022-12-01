@@ -5,8 +5,7 @@ require_relative('../lib/16_packet_decoder')
 
 describe PacketDecoder do
   let(:described_class) { PacketDecoder }
-  let(:input) { <<~INPUT }
-  INPUT
+  let(:input) { '' }
 
   def test_part1
     assert_equal 16, described_class.new('8A004A801A8002F478').part1

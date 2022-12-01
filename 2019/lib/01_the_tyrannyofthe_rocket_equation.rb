@@ -16,10 +16,10 @@ class TheTyrannyoftheRocketEquation
   def part2
     s = 0
     @input.each do |i|
-      i = i / 3 - 2
+      i = (i / 3) - 2
       while i > 0
         s += i
-        i = i / 3 - 2
+        i = (i / 3) - 2
       end
     end
     s

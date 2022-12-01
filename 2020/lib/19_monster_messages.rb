@@ -6,10 +6,10 @@ class MonsterMessages
 
     rules, lines = @input.split("\n\n")
     @lines = lines.split("\n")
-    @rules = rules.split("\n").map do |r|
+    @rules = rules.split("\n").to_h do |r|
       a, b = r.split(': ')
       [a.to_i, b.strip]
-    end.to_h
+    end
   end
 
   def matches?(rules, string)
@@ -26,7 +26,7 @@ class MonsterMessages
     options = first.split('|')
 
     options.any? do |option|
-      subrules = option.split(' ').map(&:to_i)
+      subrules = option.split.map(&:to_i)
 
       matches?(subrules + rules[1..], string)
     end

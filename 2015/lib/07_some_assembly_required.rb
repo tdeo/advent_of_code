@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SomeAssemblyRequired
-  MAX = 2**16 - 1
+  MAX = (2**16) - 1
 
   def initialize(input)
     @input = input

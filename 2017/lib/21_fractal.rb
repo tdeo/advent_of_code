@@ -2,14 +2,14 @@
 
 class Fractal
   def initialize(input, times = 5)
-    @grid = '.#. ..# ###'.split(' ').map(&:chars)
+    @grid = '.#. ..# ###'.split.map(&:chars)
     @rules = {}
     @times = times
     expand_rules(input)
   end
 
   def print_grid
-    puts(@grid.map { |r| r.join('') })
+    puts(@grid.map(&:join))
   end
 
   def expand_rules(input)
@@ -54,7 +54,7 @@ class Fractal
     while @grid[i]
       j = 0
       while @grid[i][j]
-        parts << @grid[i...i + size].map { |row| row[j...j + size].join('') }.join('/')
+        parts << @grid[i...i + size].map { |row| row[j...j + size].join }.join('/')
         j += size
       end
       i += size
@@ -70,8 +70,8 @@ class Fractal
       c.times do |j|
         parts.shift.split('/').each_with_index do |part, i2|
           part.chars.each_with_index do |char, j2|
-            grid[i * size + i2] ||= []
-            grid[i * size + i2][j * size + j2] = char
+            grid[(i * size) + i2] ||= []
+            grid[(i * size) + i2][(j * size) + j2] = char
           end
         end
       end

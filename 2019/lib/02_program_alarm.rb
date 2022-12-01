@@ -21,17 +21,17 @@ class ProgramAlarm
   end
 
   def part2(target = 19_690_720)
-    (0..99).each do |i1|
+    100.times do |i1|
       next if i1 >= @tape.length
 
-      (0..99).each do |i2|
+      100.times do |i2|
         next if i2 >= @tape.length
 
         intcode = Intcode.new(@input)
         intcode.set(1, i1)
         intcode.set(2, i2)
         intcode.run
-        return 100 * i1 + i2 if intcode.get(0) == target
+        return (100 * i1) + i2 if intcode.get(0) == target
       end
     end
   end

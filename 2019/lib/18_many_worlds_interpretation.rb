@@ -71,9 +71,9 @@ class ManyWorldsInterpretation
           q << n
         end
       end
-      @pos.keys.select { |k| k =~ /[a-z]/ && v.key?(@pos[k]) }.map do |k|
+      @pos.keys.select { |k| k =~ /[a-z]/ && v.key?(@pos[k]) }.to_h do |k|
         [k, v[@pos[k]]]
-      end.to_h
+      end
     end
   end
 

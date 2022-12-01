@@ -12,7 +12,7 @@ class ClockSignal
   # hence the solution a = "10101010101010".to_i(2) - 7 * 362.
   # Because (7 * 362).to_s(2) = "100111100110"
   def code
-    d = a + 7 * 362
+    d = a + (7 * 362)
     b = c = 0
     loop do
       a = d
@@ -39,11 +39,11 @@ class ClockSignal
   end
 
   def part1
-    x = @input.split("\n")[1].split(' ')[1].to_i
-    y = @input.split("\n")[2].split(' ')[1].to_i
+    x = @input.split("\n")[1].split[1].to_i
+    y = @input.split("\n")[2].split[1].to_i
     i = 2
-    i = i * 4 + 2 while i < x * y
-    i - x * y
+    i = (i * 4) + 2 while i < x * y
+    i - (x * y)
   end
 
   def part2
