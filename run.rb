@@ -63,8 +63,9 @@ def run(year, day, parts)
 
   test_file = "#{year}/test/#{day}.rb"
   if File.exist?(test_file) && !@skip_tests
-    test_cmd = "ruby #{test_file}"
+    test_cmd = "bundle exec ruby #{test_file}"
     test_cmd += " -n /test_part#{parts}/" if parts
+    puts test_cmd
     test_output = `#{test_cmd}`
 
     puts "\n******* Tests #{year}-#{day} *******\n\n"
