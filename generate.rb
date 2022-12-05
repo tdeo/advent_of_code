@@ -43,14 +43,19 @@ unless File.exist?(lib_file)
     require 'sorbet-runtime'
 
     class #{filename.camelcase}
+      extend T::Sig
+
+      sig { params(input: String).void }
       def initialize(input)
         @input = input
       end
 
+      sig { returns(Integer) }
       def part1
         true
       end
 
+      sig { returns(Integer) }
       def part2
         true
       end
@@ -90,4 +95,5 @@ unless File.exist?(test_file)
   TEST
 end
 
+`git add -N #{lib_file} #{test_file}`
 `$EDITOR #{lib_file} #{test_file}`
