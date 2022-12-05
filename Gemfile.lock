@@ -98,6 +98,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   image-charts
+  minitest
   minitest-profile
   nokogiri
   rake

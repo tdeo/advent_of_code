@@ -12,6 +12,7 @@ gem 'rake'
 gem 'sorbet-runtime'
 
 group :development, :test do
+  gem 'minitest'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
   gem 'sorbet'

@@ -1,10 +1,12 @@
 #! /usr/bin/env ruby
+# typed: strict
 # frozen_string_literal: true
 
 require 'pathname'
 require 'active_support/core_ext/string'
+require 'sorbet-runtime'
 
-dir = __dir__
+dir = T.must(__dir__)
 Dir.chdir dir
 
 args = ARGV
@@ -35,7 +37,10 @@ filename = filename.strip.gsub(/[^A-Za-z]/, '').underscore
 lib_file = "./#{year}/lib/#{day}_#{filename}.rb"
 unless File.exist?(lib_file)
   File.write(lib_file, <<~LIB)
+    # typed: strong
     # frozen_string_literal: true
+
+    require 'sorbet-runtime'
 
     class #{filename.camelcase}
       def initialize(input)
@@ -56,20 +61,28 @@ end
 test_file = "./#{year}/test/#{day}.rb"
 unless File.exist?(test_file)
   File.write(test_file, <<~TEST)
+    # typed: strong
     # frozen_string_literal: true
 
+    require 'sorbet-runtime'
     require 'minitest/autorun'
     require_relative('../lib/#{day}_#{filename}')
 
-    describe #{filename.camelcase} do
-      let(:described_class) { #{filename.camelcase} }
-      let(:input) { <<~INPUT }
+    class #{filename.camelcase}Test < Minitest::Spec
+      extend T::Sig
+      sig { returns(T.class_of(#{filename.camelcase})) }
+      def described_class = #{filename.camelcase}
+
+      sig { returns(String) }
+      def input = <<~INPUT
       INPUT
 
+      sig { void }
       def test_part1
         assert_equal true, described_class.new(input).part1
       end
 
+      sig { void }
       def test_part2
         assert_equal true, described_class.new(input).part2
       end

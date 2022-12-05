@@ -2,7 +2,7 @@ require:
   - rubocop-performance
 
 AllCops:
-  TargetRubyVersion: 2.7.1
+  TargetRubyVersion: 3.0.2
   NewCops: enable
 
 Layout/FirstArrayElementIndentation:
