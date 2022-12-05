@@ -61,7 +61,7 @@ end
 test_file = "./#{year}/test/#{day}.rb"
 unless File.exist?(test_file)
   File.write(test_file, <<~TEST)
-    # typed: strong
+    # typed: strict
     # frozen_string_literal: true
 
     require 'sorbet-runtime'
