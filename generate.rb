@@ -52,12 +52,12 @@ unless File.exist?(lib_file)
 
       sig { returns(Integer) }
       def part1
-        true
+        0
       end
 
       sig { returns(Integer) }
       def part2
-        true
+        0
       end
     end
   LIB
@@ -84,12 +84,12 @@ unless File.exist?(test_file)
 
       sig { void }
       def test_part1
-        assert_equal true, described_class.new(input).part1
+        assert_equal nil, described_class.new(input).part1
       end
 
       sig { void }
       def test_part2
-        assert_equal true, described_class.new(input).part2
+        assert_equal nil, described_class.new(input).part2
       end
     end
   TEST
