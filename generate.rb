@@ -96,4 +96,4 @@ unless File.exist?(test_file)
 end
 
 `git add -N #{lib_file} #{test_file}`
-`$EDITOR #{lib_file} #{test_file}`
+`timeout 1 $EDITOR #{lib_file} #{test_file}`
