@@ -17,7 +17,7 @@ class HandyHaversacks
       end
 
       @contains[container] = containees
-      containees.each { @contained[item[0]] << container }
+      containees.each { |item| @contained[item[0]] << container }
     end
   end
 

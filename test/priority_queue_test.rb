@@ -13,6 +13,7 @@ describe PriorityQueue do
     q << 5
     q << 1
     q << 8
+
     assert_equal 1, q.pop
     assert_equal 3, q.pop
     assert_equal 5, q.pop
@@ -27,6 +28,7 @@ describe PriorityQueue do
     q << ['c', 5]
     q << ['d', 1]
     q << ['e', 8]
+
     assert_equal ['d', 1], q.pop
     assert_equal ['b', 3], q.pop
     assert_equal ['c', 5], q.pop
@@ -41,6 +43,7 @@ describe PriorityQueue do
     q << ['c', 5]
     q << ['d', 1]
     q << ['e', 8]
+
     assert_equal ['d', 1], q.pop
     assert_equal ['b', 3], q.pop
     assert_equal ['c', 5], q.pop
@@ -55,6 +58,7 @@ describe PriorityQueue do
     q << ['c', 5]
     q << ['d', 1]
     q << ['e', 8]
+
     assert_equal ['d', 1], q.pop
     assert_equal ['b', 3], q.pop
     assert_equal ['c', 5], q.pop

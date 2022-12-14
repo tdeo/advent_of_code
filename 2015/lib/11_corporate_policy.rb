@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CorporatePolicy
-  TRIOS = /(#{'a'.upto('z').each_cons(3).map(&:join).join('|')})/.freeze
+  TRIOS = /(#{'a'.upto('z').each_cons(3).map(&:join).join('|')})/
 
   def initialize(input)
     @pass = input.strip

@@ -13,6 +13,7 @@ describe BeverageBandits do
 #.G.#G#
 #######')
     elf = k.instance_variable_get(:@map).grid[1][1]
+
     assert_equal [1, 3], elf.destination
     assert_equal [1, 2], elf.best_move
   end
@@ -28,6 +29,7 @@ describe BeverageBandits do
 #G..G..G#
 #########')
     k.round
+
     assert_equal '#########
 #.G...G.#
 #...G...#
@@ -38,6 +40,7 @@ describe BeverageBandits do
 #.......#
 #########', k.repr(life: false)
     k.round
+
     assert_equal '#########
 #..G.G..#
 #...G...#
@@ -48,6 +51,7 @@ describe BeverageBandits do
 #.......#
 #########', k.repr(life: false)
     k.round
+
     assert_equal '#########
 #.......#
 #..GGG..#

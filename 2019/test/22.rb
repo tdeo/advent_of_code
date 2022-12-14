@@ -39,6 +39,7 @@ cut -1').process!(10)
 
   def test_part2_1
     res = [5, 4, 3, 2, 1, 0]
+
     res.each_with_index do |val, i|
       assert_equal val, @k.new('deal into new stack').part2(6, i, 1)
     end
@@ -46,6 +47,7 @@ cut -1').process!(10)
 
   def test_part2_2
     res = [2, 3, 4, 5, 0, 1]
+
     res.each_with_index do |val, i|
       assert_equal val, @k.new('cut 2').part2(6, i, 1)
     end
@@ -53,6 +55,7 @@ cut -1').process!(10)
 
   def test_part2_3
     res = [4, 5, 0, 1, 2, 3]
+
     res.each_with_index do |val, i|
       assert_equal val, @k.new('cut -2').part2(6, i, 1)
     end
@@ -60,6 +63,7 @@ cut -1').process!(10)
 
   def test_part2_4
     res = [0, 5, 3, 1, 6, 4, 2]
+
     res.each_with_index do |val, i|
       assert_equal val, @k.new('deal with increment 3').part2(7, i, 1)
     end

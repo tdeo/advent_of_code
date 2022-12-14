@@ -15,7 +15,9 @@ group :development, :test do
   gem 'byebug'
   gem 'minitest'
   gem 'rubocop'
+  gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rake', require: false
   gem 'sorbet'
   gem 'tapioca', require: false
 end

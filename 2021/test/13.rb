@@ -34,6 +34,6 @@ describe TransparentOrigami do
   end
 
   def test_part2
-    assert_equal true, true
+    assert true
   end
 end

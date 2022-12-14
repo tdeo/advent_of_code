@@ -47,11 +47,7 @@ class HydrothermalVenture
 
   def part1
     @lines.each do |line|
-      if line[:start][0] == line[:finish][0]
-        mark(line)
-      elsif line[:start][1] == line[:finish][1]
-        mark(line)
-      end
+      mark(line) if line[:start][0] == line[:finish][0] || line[:start][1] == line[:finish][1]
     end
     score
   end

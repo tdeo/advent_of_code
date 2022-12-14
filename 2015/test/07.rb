@@ -16,6 +16,7 @@ y RSHIFT 2 -> g
 NOT x -> h
 NOT y -> i')
     i.part1
+
     assert_equal({
                    'd' => 72,
                    'e' => 507,

@@ -9,7 +9,7 @@ class Integer
 end
 
 class ReactorReboot
-  INST_RE = /^(on|off) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)$/.freeze
+  INST_RE = /^(on|off) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)$/
 
   class Step
     attr_accessor :x, :y, :z, :on

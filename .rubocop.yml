@@ -1,5 +1,7 @@
 require:
   - rubocop-performance
+  - rubocop-rake
+  - rubocop-minitest
 
 AllCops:
   TargetRubyVersion: 3.0.2
@@ -14,6 +16,9 @@ Layout/LineLength:
     - "**/test/*.rb"
 
 Metrics:
+  Enabled: false
+
+Minitest/MultipleAssertions:
   Enabled: false
 
 Naming/MethodParameterName:

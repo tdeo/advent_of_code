@@ -7,17 +7,17 @@ describe ManyWorldsInterpretation do
   before { @k = ManyWorldsInterpretation }
 
   def test_cycle
-    assert_equal false, @k.new('
+    refute_predicate @k.new('
 #########
 #b.A.@.a#
-#########').cycles?
+#########'), :cycles?
 
-    assert_equal true, @k.new('
+    assert_predicate @k.new('
 #####
 # @ #
 # # #
 #   #
-#####').cycles?
+#####'), :cycles?
   end
 
   def test_part1
