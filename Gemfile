@@ -18,6 +18,7 @@ group :development, :test do
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rake', require: false
+  gem 'rubocop-sorbet', require: false
   gem 'sorbet'
   gem 'tapioca', require: false
 end

@@ -2,6 +2,7 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'pathname'
 require 'active_support/core_ext/string'
 require 'sorbet-runtime'
@@ -36,6 +37,7 @@ filename = filename.strip.gsub(/[^A-Za-z]/, '').underscore
 
 lib_file = "./#{year}/lib/#{day}_#{filename}.rb"
 unless File.exist?(lib_file)
+  FileUtils.mkdir_p(File.dirname(lib_file))
   File.write(lib_file, <<~LIB)
     # typed: strong
     # frozen_string_literal: true
@@ -65,6 +67,7 @@ end
 
 test_file = "./#{year}/test/#{day}.rb"
 unless File.exist?(test_file)
+  FileUtils.mkdir_p(File.dirname(test_file))
   File.write(test_file, <<~TEST)
     # typed: strict
     # frozen_string_literal: true

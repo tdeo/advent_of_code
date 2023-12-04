@@ -9,15 +9,6 @@ class PriorityQueue
 
   Elem = type_member { { upper: Kernel } }
 
-  class Compare
-    extend T::Sig
-
-    sig { params(other: Compare).returns(Integer) }
-    def <=>(_other)
-      0
-    end
-  end
-
   sig { returns(Integer) }
   attr_reader :size
 
