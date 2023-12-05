@@ -87,12 +87,12 @@ unless File.exist?(test_file)
 
       sig { void }
       def test_part1
-        assert_equal nil, described_class.new(input).part1
+        assert_equal 0, described_class.new(input).part1
       end
 
       sig { void }
       def test_part2
-        assert_equal nil, described_class.new(input).part2
+        assert_equal 0, described_class.new(input).part2
       end
     end
   TEST
