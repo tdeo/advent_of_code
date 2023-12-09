@@ -33,7 +33,8 @@ class GearRatios
       end
     end
 
-    def gears
+    sig { params(_blk: T.proc.params(args: [Integer, Integer]).void).void }
+    def gears(&_blk)
       (row - 1..row + 1).any? do |r|
         next if r < 0
         next if r >= @input.size
@@ -56,12 +57,13 @@ class GearRatios
     @parts = T.let([], T::Array[Part])
     @input.each_with_index do |line, row|
       line.scan(/\d+/) do |val|
+        value = T.cast(val, String)
         @parts << Part.new(
           input: @input,
           row: row,
           col: T.must(Regexp.last_match).pre_match.size,
-          value: Array(val).first.to_i,
-          size: val.size,
+          value: value.to_i,
+          size: value.size,
         )
       end
     end
@@ -74,16 +76,19 @@ class GearRatios
 
   sig { returns(Integer) }
   def part2
-    gears = Hash.new { |h, k| h[k] = [] }
+    gears = T.let(
+      Hash.new { |h, k| h[k] = [] },
+      T::Hash[[Integer, Integer], T::Array[Integer]],
+    )
     @parts.each do |part|
       part.gears do |g|
-        gears[g] << part.value
+        T.must(gears[g]) << part.value
       end
     end
     gears.each_value.sum do |neighbours|
       next 0 if neighbours.size != 2
 
-      neighbours.reduce(:*)
+      T.must(neighbours.first) * T.must(neighbours.last)
     end
   end
 end
