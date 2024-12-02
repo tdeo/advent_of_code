@@ -4,7 +4,7 @@
 
 require 'fileutils'
 require 'pathname'
-require 'active_support/core_ext/string'
+require 'active_support/all'
 require 'sorbet-runtime'
 
 dir = T.must(__dir__)
@@ -65,7 +65,7 @@ unless File.exist?(lib_file)
   LIB
 end
 
-test_file = "./#{year}/test/#{day}.rb"
+test_file = "./#{year}/test/#{day}_test.rb"
 unless File.exist?(test_file)
   FileUtils.mkdir_p(File.dirname(test_file))
   File.write(test_file, <<~TEST)

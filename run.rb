@@ -52,6 +52,8 @@ def input(year, day)
   file = "#{year}/inputs/#{day}.input"
   unless File.exist?(file)
     input = `curl -sS --cookie "session=#{session_cookie}" -XGET https://adventofcode.com/#{year}/day/#{day.to_i}/input`
+    raise input if input.include?('Puzzle inputs differ by user')
+
     File.write(file, input)
   end
   File.read(file)
@@ -86,9 +88,9 @@ def run(year, day, parts)
   puts input.split("\n").first(6).join("\n")[0..500]
   puts "...\n"
 
-  file = Dir[Pathname.new(year).join('lib', "#{day}_*")].first
+  file = Dir[Pathname.new(year).join('lib', "#{day}_*")].first.to_s
   require_relative file
-  klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join)
+  klass = Module.const_get(file.gsub(%r{^#{year}/lib/\d+_(.*)\.rb$}, '\1').split('_').map(&:capitalize).join) # rubocop:disable Sorbet/ConstantsFromStrings
 
   parts.map do |part|
     m = :"part#{part}"
