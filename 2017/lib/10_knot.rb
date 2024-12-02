@@ -17,7 +17,7 @@ class Knot
   end
 
   def part1
-    @lengths = @input.split(',').map(&:strip).map(&:to_i)
+    @lengths = @input.split(',').map { _1.strip.to_i }
     @lengths.each { |l| apply!(l) }
     @list.first(2).reduce(1, :*)
   end

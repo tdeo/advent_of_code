@@ -56,7 +56,7 @@ class Cryostasis
   end
 
   def process_security_checkpoint(output)
-    items = parse(output)
+    parse(output)
     @map['Security Checkpoint'] = { 'north' => 'Engineering' }
     d = dest
     puts d.inspect

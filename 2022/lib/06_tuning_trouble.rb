@@ -18,6 +18,7 @@ class TuningTrouble
 
       return i + count
     end
+    0
   end
 
   sig { returns(Integer) }

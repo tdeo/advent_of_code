@@ -13,7 +13,7 @@ class HillClimbingAlgorithm
     @finish = T.let([-1, -1], [Integer, Integer])
     @grid = T.let([], T::Array[T::Array[Integer]])
     @grid = T.let(@input.split("\n").each_with_index.map do |row, i|
-      row.each_char.map.with_index do |char, j|
+      T.let(row.each_char.map.with_index do |char, j|
         case char
         when 'S'
           @start = [i, j]
@@ -24,7 +24,7 @@ class HillClimbingAlgorithm
         else
           char.ord - 'a'.ord
         end
-      end
+      end, T::Array[Integer],)
     end, T::Array[T::Array[Integer]],)
   end
 

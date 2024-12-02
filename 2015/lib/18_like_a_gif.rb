@@ -44,9 +44,7 @@ class LikeAGif
   end
 
   def next_grid!
-    new_grid = []
-    (0...@grid.size).each { |i| new_grid << next_row(i) }
-    @grid = new_grid
+    @grid = (0...@grid.size).map { |i| next_row(i) }
   end
 
   def part1(steps = 100)

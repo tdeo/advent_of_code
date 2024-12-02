@@ -22,7 +22,7 @@ class ARegularMap
       when ')'
         stack.pop
       end
-      i, j = pos  # row, col
+      i, j = pos # row, col
       case c
       when 'N'
         @map[i - 1][j] = '-'

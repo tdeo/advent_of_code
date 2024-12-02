@@ -105,7 +105,7 @@ class WizardSimulator
     if @turn.odd?
       %i[boss]
     else
-      @spells.map { |s| s[:name] if available?(s[:name]) && @me[:mana] >= s[:mana_cost] }.compact
+      @spells.filter_map { |s| s[:name] if available?(s[:name]) && @me[:mana] >= s[:mana_cost] }
     end
   end
 

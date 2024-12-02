@@ -22,7 +22,7 @@ class HaltingProblem
       next unless line.start_with? '- '
 
       if line.start_with? '- Write the value '
-        @state_actions[cur_state][cur_value][:write] = \
+        @state_actions[cur_state][cur_value][:write] =
           line.match(/- Write the value (\d)\./)[1].to_i
       end
       if line.start_with? '- Move one slot to the '
@@ -35,7 +35,7 @@ class HaltingProblem
                                                       end
       end
       if line.start_with? '- Continue with state '
-        @state_actions[cur_state][cur_value][:continue] = \
+        @state_actions[cur_state][cur_value][:continue] =
           line.match(/- Continue with state (.*)\./)[1]
       end
     end

@@ -13,7 +13,7 @@ class TheSumofItsParts
     steps = {}
     @before.each do |k, v|
       steps[k] = false
-      v.each { |e, _| steps[e] = false }
+      v.each_key { |e| steps[e] = false }
     end
     steps = steps.keys.sort
     order = []
@@ -27,7 +27,7 @@ class TheSumofItsParts
       end
       steps.delete(to_do)
       order << to_do
-      @before.each { |_, v| v.delete(to_do) }
+      @before.each_value { |v| v.delete(to_do) }
     end
     order.join
   end
@@ -43,7 +43,7 @@ class TheSumofItsParts
     steps = {}
     @before.each do |k, v|
       steps[k] = false
-      v.each { |e, _| steps[e] = false }
+      v.each_key { |e| steps[e] = false }
     end
     steps = steps.keys.sort
 
@@ -61,7 +61,7 @@ class TheSumofItsParts
       steps.delete(to_do)
       schedule << [to_do, finishes_at]
       schedule.sort_by!(&:last)
-      @before.each { |_, v| v[to_do] = finishes_at if v.key?(to_do) }
+      @before.each_value { |v| v[to_do] = finishes_at if v.key?(to_do) }
     end
     schedule.map(&:last).max
   end

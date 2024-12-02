@@ -11,11 +11,11 @@ class ElectromagneticMoat
   end
 
   def highest_score(used, start)
-    @bridges[start].map do |bridge|
+    @bridges[start].filter_map do |bridge|
       next if used.include?(bridge[:idx])
 
       bridge[:score] + highest_score(used + [bridge[:idx]], bridge[:to])
-    end.compact.max || 0
+    end.max || 0
   end
 
   def part1
@@ -23,12 +23,12 @@ class ElectromagneticMoat
   end
 
   def longest_highest_score(used, start)
-    @bridges[start].map do |bridge|
+    @bridges[start].filter_map do |bridge|
       next if used.include?(bridge[:idx])
 
       rest = longest_highest_score(used + [bridge[:idx]], bridge[:to])
       [rest[0] + 1, bridge[:score] + rest[1]]
-    end.compact.max || [0, 0]
+    end.max || [0, 0]
   end
 
   def part2

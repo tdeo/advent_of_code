@@ -52,7 +52,7 @@ class Swarn
 
       collisions[part[:position]] << part[:idx]
     end
-    collisions.each do |_, parts|
+    collisions.each_value do |parts|
       next unless parts.size > 1
 
       parts.each { |i| @particles[i][:collided] = true }

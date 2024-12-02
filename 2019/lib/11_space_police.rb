@@ -33,7 +33,7 @@ class SpacePolice
     new_dir = DIRS.index(@dir)
     new_dir += turn == 0 ? 1 : -1
     new_dir += 4
-    new_dir = new_dir % 4
+    new_dir %= 4
     @dir = DIRS[new_dir]
 
     @robot[0] += @dir[0]

@@ -19,7 +19,7 @@ class HighEntropyPassphrases
   end
 
   def valid2(phrase)
-    w = words(phrase).map(&:chars).map(&:sort)
+    w = words(phrase).map { _1.chars.sort }
     w.size == w.uniq.size
   end
 

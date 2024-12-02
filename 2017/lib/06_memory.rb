@@ -4,7 +4,7 @@ require 'set'
 
 class Memory
   def initialize(input)
-    @banks = input.split.map(&:strip).map(&:to_i)
+    @banks = input.split.map { _1.strip.to_i }
   end
 
   def max_case

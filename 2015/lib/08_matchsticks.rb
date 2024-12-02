@@ -6,7 +6,7 @@ class Matchsticks
   end
 
   def part1
-    @strings.sum { |str| str.size - eval(str).size }  # rubocop:disable Security/Eval
+    @strings.sum { |str| str.size - eval(str).size } # rubocop:disable Security/Eval
   end
 
   def part2

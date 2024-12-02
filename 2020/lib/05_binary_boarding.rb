@@ -31,7 +31,7 @@ class BinaryBoarding
   end
 
   def part2
-    taken = @seats.map { [seat_id(_1), true] }.to_h
+    taken = @seats.to_h { [seat_id(_1), true] }
     (taken.keys.min..taken.keys.max).each do |i|
       return i unless taken.include? i
     end

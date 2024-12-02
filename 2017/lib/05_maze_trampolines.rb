@@ -2,7 +2,7 @@
 
 class MazeTrampolines
   def initialize(input)
-    @tramps = input.split("\n").map(&:strip).map(&:to_i)
+    @tramps = input.split("\n").map { _1.strip.to_i }
     @size = @tramps.size
     @idx = 0
     # @tramps[@idx] = @tramps[@idx][1...-1]

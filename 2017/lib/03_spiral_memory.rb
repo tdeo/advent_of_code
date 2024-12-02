@@ -62,8 +62,8 @@ class SpiralMemory
   def pp
     x_max = @seq.keys.max
     x_min = @seq.keys.min
-    y_max = @seq.map { |_, l| l.keys.max }.compact.max
-    y_min = @seq.map { |_, l| l.keys.min }.compact.min
+    y_max = @seq.filter_map { |_, l| l.keys.max }.max
+    y_min = @seq.filter_map { |_, l| l.keys.min }.min
 
     y_max.downto(y_min) do |y|
       x_min.upto(x_max) do |x|

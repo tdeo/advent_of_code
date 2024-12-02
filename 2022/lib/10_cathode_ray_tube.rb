@@ -20,7 +20,7 @@ class CathodeRayTube
     when 'noop' then @values << T.must(@values[-1])
     when 'addx'
       @values << T.must(@values[-1])
-      @values << (T.must(@values[-1]) + T.must(rest)[0].to_i)
+      @values << (T.must(@values[-1]) + rest[0].to_i)
     else raise ArgumentError, instruction
     end
   end

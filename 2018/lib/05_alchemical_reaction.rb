@@ -14,7 +14,7 @@ class AlchemicalReaction
         @rest << @input[i]
       elsif (@input[i].ord - @rest[-1].ord).abs == ('a'.ord - 'A'.ord).abs
         @rest = @rest[0...-1]
-      else
+      else # rubocop:todo Lint/DuplicateBranch
         @rest << @input[i]
       end
     end

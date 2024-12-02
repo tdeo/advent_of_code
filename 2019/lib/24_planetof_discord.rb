@@ -94,9 +94,10 @@ class PlanetofDiscord
             grid[level][n] == '#'
           end
         end
+
         if grid[level][cell] == '.' && (1..2).cover?(val)
           next_grid[level][cell] = '#'
-        elsif grid[level][cell] == '#' && val == 1
+        elsif grid[level][cell] == '#' && val == 1 # rubocop:todo Lint/DuplicateBranch
           next_grid[level][cell] = '#'
         end
       end

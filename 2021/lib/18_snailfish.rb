@@ -71,7 +71,7 @@ class SnailfishNumber
       true
     elsif @left.node? || @right.node?
       raise 'not explodable, only one child is a value' if depth >= 4
-    else
+    else # rubocop:todo Lint/DuplicateBranch
       @left.explode(depth + 1) || @right.explode(depth + 1)
     end
   end

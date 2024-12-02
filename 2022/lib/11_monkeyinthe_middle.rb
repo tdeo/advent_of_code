@@ -76,7 +76,7 @@ class MonkeyintheMiddle
         if divide
           item /= 3
         else
-          item = item % @lcm
+          item %= @lcm
         end
         target = item % monkey.test == 0 ? monkey.true_target : monkey.false_target
         T.must(@monkeys[target]).items << item
