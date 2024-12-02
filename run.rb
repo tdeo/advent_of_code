@@ -63,7 +63,7 @@ def run(year, day, parts)
   init_year(year)
   day = day.to_s.rjust(2, '0')
 
-  test_file = "#{year}/test/#{day}.rb"
+  test_file = "#{year}/test/#{day}_test.rb"
   if File.exist?(test_file) && !@skip_tests
     test_cmd = "bundle exec ruby #{test_file}"
     test_cmd += " -n /test_part#{parts}/" if parts
