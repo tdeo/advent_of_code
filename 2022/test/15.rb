@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/15_beacon_exclusion_zone')
 
-class BeaconExclusionZoneTest < Minitest::Spec
+class BeaconExclusionZoneTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(BeaconExclusionZone)) }
   def described_class = BeaconExclusionZone

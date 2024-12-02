@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/01_historian_hysteria')
 
-class HistorianHysteriaTest < Minitest::Spec
+class HistorianHysteriaTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(HistorianHysteria)) }
   def described_class = HistorianHysteria

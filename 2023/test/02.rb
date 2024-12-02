@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/02_cube_conundrum')
 
-class CubeConundrumTest < Minitest::Spec
+class CubeConundrumTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(CubeConundrum)) }
   def described_class = CubeConundrum

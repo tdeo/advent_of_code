@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/06_wait_for_it')
 
-class WaitForItTest < Minitest::Spec
+class WaitForItTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(WaitForIt)) }
   def described_class = WaitForIt

@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/09_rope_bridge')
 
-class RopeBridgeTest < Minitest::Spec
+class RopeBridgeTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(RopeBridge)) }
   def described_class = RopeBridge

@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/05_supply_stacks')
 
-class SupplyStacksTest < Minitest::Spec
+class SupplyStacksTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(SupplyStacks)) }
   def described_class = SupplyStacks

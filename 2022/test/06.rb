@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/06_tuning_trouble')
 
-class TuningTroubleTest < Minitest::Spec
+class TuningTroubleTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(TuningTrouble)) }
   def described_class = TuningTrouble

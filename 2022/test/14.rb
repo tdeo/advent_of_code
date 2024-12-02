@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/14_regolith_reservoir')
 
-class RegolithReservoirTest < Minitest::Spec
+class RegolithReservoirTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(RegolithReservoir)) }
   def described_class = RegolithReservoir

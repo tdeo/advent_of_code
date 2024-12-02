@@ -1,24 +1,29 @@
 # frozen_string_literal: true
 
-ruby '3.0.2'
+ruby '3.3.6'
 
 source 'https://rubygems.org'
 
-gem 'activesupport'
-gem 'image-charts'
-gem 'minitest-profile'
-gem 'nokogiri'
-gem 'rake'
-gem 'sorbet-runtime'
+gem 'activesupport', require: false
+gem 'railties', require: false
+gem 'rake', require: false
+
+gem 'image-charts', require: false
+gem 'nokogiri', require: false
 
 group :development, :test do
-  gem 'byebug'
-  gem 'minitest'
-  gem 'rubocop'
+  gem 'byebug', require: false
+
+  gem 'minitest', require: false
+  gem 'minitest-profile', require: false
+
+  gem 'rubocop', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rake', require: false
   gem 'rubocop-sorbet', require: false
-  gem 'sorbet'
+
+  gem 'sorbet', require: false
+  gem 'sorbet-runtime', require: false
   gem 'tapioca', require: false
 end

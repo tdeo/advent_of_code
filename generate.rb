@@ -76,7 +76,7 @@ unless File.exist?(test_file)
     require 'minitest/autorun'
     require_relative('../lib/#{day}_#{filename}')
 
-    class #{filename.camelcase}Test < Minitest::Spec
+    class #{filename.camelcase}Test < Minitest::Test
       extend T::Sig
       sig { returns(T.class_of(#{filename.camelcase})) }
       def described_class = #{filename.camelcase}

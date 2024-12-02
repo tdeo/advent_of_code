@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/01_trebuchet')
 
-class TrebuchetTest < Minitest::Spec
+class TrebuchetTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(Trebuchet)) }
   def described_class = Trebuchet

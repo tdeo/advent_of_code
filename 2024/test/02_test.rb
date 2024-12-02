@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/02_red_nosed_reports')
 
-class RedNosedReportsTest < Minitest::Spec
+class RedNosedReportsTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(RedNosedReports)) }
   def described_class = RedNosedReports

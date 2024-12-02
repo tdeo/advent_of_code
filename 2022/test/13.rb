@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/13_distress_signal')
 
-class DistressSignalTest < Minitest::Spec
+class DistressSignalTest < Minitest::Test
   extend T::Sig
   sig { returns(T.class_of(DistressSignal)) }
   def described_class = DistressSignal
