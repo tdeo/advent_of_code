@@ -14,10 +14,13 @@ class HotSprings
 
       [T.must(pattern), T.must(count).split(',').map(&:to_i)]
     end, T::Array[[String, T::Array[Integer]]],)
+    @memo = T.let({}, T::Hash[[String, T::Array[Integer]], Integer])
   end
 
   sig { params(pattern: String, target: T::Array[Integer]).returns(Integer) }
   def options(pattern, target)
+    return T.must(@memo[[pattern, target]]) if @memo.key?([pattern, target])
+
     if target.empty?
       return 0 if pattern.include?('#')
 
@@ -31,7 +34,7 @@ class HotSprings
       r += options(T.must(pattern[...-T.must(target.last) - 1]), T.must(target[...-1]))
     end
     r += options(T.must(pattern[...-1]), target) unless pattern[-1] == '#'
-
+    @memo[[pattern, target]] = r
     r
   end
 
@@ -45,7 +48,6 @@ class HotSprings
   sig { returns(Integer) }
   def part2
     @problems.sum do |pattern, target|
-      print '.'
       options(([pattern] * 5).join('?'), target * 5)
     end
   end

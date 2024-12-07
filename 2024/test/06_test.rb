@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+# require 'sorbet-runtime'
 require 'minitest/autorun'
 require_relative('../lib/06_guard_gallivant')
 
