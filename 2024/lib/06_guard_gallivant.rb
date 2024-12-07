@@ -15,38 +15,25 @@ class GuardGallivant
 
   sig { params(cell: Map::Cell[String]).returns(T.nilable(Map::Cell[String])) }
   def succ(cell)
-    current = T.let(cell, T.nilable(Map::Cell[String]))
-    case cell.value
-    when '^'
-      if cell.above&.value == '#'
-        cell.value = '>'
-      else
-        current = current&.above
-        current&.value = '^'
-      end
-    when '>'
-      if cell.right&.value == '#'
-        cell.value = 'v'
-      else
-        current = current&.right
-        current&.value = '>'
-      end
-    when 'v'
-      if cell.below&.value == '#'
-        cell.value = '<'
-      else
-        current = current&.below
-        current&.value = 'v'
-      end
-    when '<'
-      if cell.left&.value == '#'
-        cell.value = '^'
-      else
-        current = current&.left
-        current&.value = '<'
-      end
+    succ = case cell.value
+           when '^' then cell.above
+           when '>' then cell.right
+           when '<' then cell.left
+           when 'v' then cell.below
+           end
+
+    if succ&.value == '#'
+      cell.value = case cell.value
+                   when '^' then '>'
+                   when '>' then 'v'
+                   when 'v' then '<'
+                   when '<' then '^'
+                   else raise
+                   end
+      return cell
     end
-    current
+    succ&.value = cell.value
+    succ
   end
 
   sig { params(cell: Map::Cell[String]).returns(T::Boolean) }
