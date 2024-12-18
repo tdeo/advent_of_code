@@ -15,9 +15,9 @@ class PriorityQueue
   sig do
     params(
       block: T.any(
-        NilClass,
-        T.proc.params(arg0: T.nilable(Elem)).returns(Integer),
         T.proc.params(arg0: T.nilable(Elem), arg1: T.nilable(Elem)).returns(Integer),
+        T.proc.params(arg0: T.nilable(Elem)).returns(Integer),
+        NilClass,
       ),
     ).void
   end

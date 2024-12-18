@@ -10,6 +10,7 @@ class Map
   Elem = type_member
 
   class Cell
+    include Comparable
     extend T::Sig
     extend T::Generic
 
@@ -24,6 +25,11 @@ class Map
       @j = j
       @map = map
       @value = T.let(T.must(@map.value_at(i, j)), Elem)
+    end
+
+    sig { params(other: Cell[Elem]).returns(Integer) }
+    def <=>(other)
+      coords <=> other.coords
     end
 
     sig { returns([Integer, Integer]) }
@@ -88,7 +94,7 @@ class Map
     params(_blk: T.proc.params(arg0: Elem, i: T.nilable(Integer), j: T.nilable(Integer)).returns(T::Boolean))
       .returns(T.nilable(Cell[Elem]))
   end
-  def find(&_blk)
+  def find(&_blk) # rubocop:disable Naming/BlockForwarding
     (0...@height).each do |i|
       (0...@width).each do |j|
         val = value_at(i, j)
