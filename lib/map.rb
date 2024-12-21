@@ -8,6 +8,7 @@ class Map
   extend T::Generic
 
   Elem = type_member
+  Coords = T.type_alias { [Integer, Integer] }
 
   class Cell
     include Comparable
@@ -32,7 +33,7 @@ class Map
       coords <=> other.coords
     end
 
-    sig { returns([Integer, Integer]) }
+    sig { returns(Coords) }
     def coords
       [@i, @j]
     end
@@ -55,6 +56,11 @@ class Map
     sig { returns(T.nilable(Cell[Elem])) }
     def right
       @map.at(@i, @j + 1)
+    end
+
+    sig { returns(T::Array[Cell[Elem]]) }
+    def neighbours
+      [above, below, left, right].compact
     end
   end
 
