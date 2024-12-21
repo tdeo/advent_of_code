@@ -1,12 +1,17 @@
+---
+
 require:
-  - rubocop-performance
-  - rubocop-rake
-  - rubocop-minitest
-  - rubocop-sorbet
+- rubocop-performance
+- rubocop-rake
+- rubocop-minitest
+- rubocop-sorbet
 
 AllCops:
   TargetRubyVersion: 3.3.6
   NewCops: enable
+
+Metrics:
+  Enabled: false
 
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
@@ -14,10 +19,7 @@ Layout/FirstArrayElementIndentation:
 Layout/LineLength:
   Max: 120
   Exclude:
-    - "**/test/*.rb"
-
-Metrics:
-  Enabled: false
+  - "**/test/*.rb"
 
 Minitest/MultipleAssertions:
   Enabled: false
@@ -33,6 +35,9 @@ Sorbet/FalseSigil:
 
 Style/Documentation:
   Enabled: false
+
+Style/EmptyHeredoc:
+  AutoCorrect: false
 
 Style/ExplicitBlockArgument:
   Enabled: false
