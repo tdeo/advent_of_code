@@ -83,6 +83,7 @@ unless File.exist?(test_file)
 
       sig { returns(String) }
       def input = <<~INPUT
+
       INPUT
 
       sig { void }

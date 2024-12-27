@@ -96,6 +96,17 @@ class Map
     T.must(@grid[i])[j] = val
   end
 
+  sig { returns(T::Enumerator[Cell[Elem]]) }
+  def cells
+    Enumerator.new do |y|
+      (0...@height).each do |i|
+        (0...@width).each do |j|
+          y << at(i, j)
+        end
+      end
+    end
+  end
+
   sig do
     params(_blk: T.proc.params(arg0: Elem, i: T.nilable(Integer), j: T.nilable(Integer)).returns(T::Boolean))
       .returns(T.nilable(Cell[Elem]))
