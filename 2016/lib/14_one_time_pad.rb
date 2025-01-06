@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'digest'
-require 'set'
 
 class OneTimePad
   def initialize(input)

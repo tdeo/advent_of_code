@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class JurassicJigsaw
   ORIENTATIONS = (0...8).to_a
   SIDES = %i[top left bottom right].freeze

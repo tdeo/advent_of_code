@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class WizardSimulator
   def initialize(input)
     @input = input

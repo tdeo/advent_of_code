@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class Taxicab
   def initialize(input)
     @pos = [0, 0]

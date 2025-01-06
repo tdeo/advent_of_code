@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class Cubicles
   def initialize(input)
     @key = input.strip.to_i

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class SphericalHouses
   def initialize(input)
     @input = input.strip

@@ -28,7 +28,7 @@ class Balance
   def part1
     groups = groups_weighting(@total_weight / 3)
     groups.sort_by! { |g| [g.size, entanglement(g)] }
-    best = groups.find { |a| groups.any? { |b| (a & b).empty? } }
+    best = groups.find { |a| groups.any? { |b| !a.intersect?(b) } }
     entanglement(best)
   end
 
@@ -38,7 +38,7 @@ class Balance
     best = groups.find do |a|
       groups.any? do |b|
         groups.any? do |c|
-          ((a & b) & c).empty?
+          !(a & b).intersect?(c)
         end
       end
     end

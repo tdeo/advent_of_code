@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'digest'
-require 'set'
 
 class TwoStepsForward
   OPEN = Set.new(%w[b c d e f]).freeze

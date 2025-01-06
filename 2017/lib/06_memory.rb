@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class Memory
   def initialize(input)
     @banks = input.split.map { _1.strip.to_i }

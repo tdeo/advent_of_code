@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class ThermoelectricGenerators
   def initialize(input)
     @elevator = 1

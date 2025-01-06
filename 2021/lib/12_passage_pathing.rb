@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class PassagePathing
   START = 'start'
   FINISH = 'end'
