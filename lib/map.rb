@@ -111,7 +111,7 @@ class Map
     params(_blk: T.proc.params(arg0: Elem, i: T.nilable(Integer), j: T.nilable(Integer)).returns(T::Boolean))
       .returns(T.nilable(Cell[Elem]))
   end
-  def find(&_blk) # rubocop:disable Naming/BlockForwarding
+  def find(&_blk)
     (0...@height).each do |i|
       (0...@width).each do |j|
         val = value_at(i, j)
