@@ -1,79 +1,103 @@
+# typed: strong
 # frozen_string_literal: true
 
+require 'sorbet-runtime'
+require 'active_support/all'
+
 class ArithmeticLogicUnit
-  class ALU
-    attr_accessor :vars, :initial_vars
+  extend T::Sig
 
-    def initialize(input)
-      @initial_vars = Hash.new(0)
-      @instructions = input.split("\n").map(&:split)
-    end
+  Vars = T.type_alias { T::Hash[String, Integer] }
+  Instructions = T.type_alias { T::Array[T::Array[String]] }
 
-    def value_for(sym)
-      case sym
-      when /^-?\d+$/
-        sym.to_i
-      when /^[wxyz]$/
-        @vars[sym]
-      else
-        raise "Unrecognized #{sym}"
-      end
-    end
-
-    def apply(instruction)
-      op, var1, var2 = instruction
-      case op
-      when 'inp'
-        @vars[var1] = @inputs.shift
-      when 'add'
-        @vars[var1] += value_for(var2)
-      when 'mul'
-        @vars[var1] *= value_for(var2)
-      when 'div'
-        @vars[var1] /= value_for(var2)
-      when 'mod'
-        @vars[var1] = value_for(var1) % value_for(var2)
-      when 'eql'
-        @vars[var1] = value_for(var1) == value_for(var2) ? 1 : 0
-      end
-    end
-
-    def perform(inputs)
-      @inputs = inputs
-      @vars = @initial_vars.dup
-      @instructions.each do |instruction|
-        apply(instruction)
-      end
-    end
-  end
-
+  sig { params(input: String).void }
   def initialize(input)
     @input = input
+    @instructions = T.let(input.split("\n").map(&:split), Instructions)
   end
 
-  def find_comb
-    10_000.times do |value|
-      vars = value + 0
-      alu = ALU.new(@input)
-      alu.initial_vars['w'] = vars % 10
-      vars /= 10
-      alu.initial_vars['x'] = vars % 10
-      vars /= 10
-      alu.initial_vars['y'] = vars % 10
-      vars /= 10
-      alu.initial_vars['z'] = vars % 10
-      (1..9).each do |input|
-        alu.perform([input])
-        puts "#{input} #{alu.initial_vars}" if yield(alu)
-      end
+  sig { params(instructions: Instructions, input: Vars, output: Vars).returns(T::Boolean) }
+  def valid?(instructions, input, output)
+    vals = perform(instructions, input)
+    output.all? { |k, v| vals[k] == v }
+  end
+
+  sig { params(instructions: Instructions, input: Vars, stdin: T::Array[String]).returns(Vars) }
+  def perform(instructions, input, stdin = [])
+    vals = input.dup
+    instructions.each do |ins|
+      op, k, b = ins
+      k = T.must(k)
+      a = vals[k] || 0
+      b = (vals.key?(b || '') ? vals[T.must(b)] : b).to_i
+      vals[k] = case op
+                when 'add' then a + b
+                when 'mul' then a * b
+                when 'div' then a / b
+                when 'mod' then a % b
+                when 'eql' then a == b ? 1 : 0
+                when 'inp' then T.must(stdin.shift).to_i
+                else raise
+                end
     end
+    vals
   end
 
+  sig { returns(Integer) }
   def part1
-    true
+    blocks = @instructions.split { _1[0] == 'inp' }.reject(&:empty?)
+
+    ancestors = T.let({ 0 => '' }, T::Hash[Integer, String])
+    blocks.each_with_index do |block, i|
+      max_z = 1
+      (blocks[i + 1..] || []).flatten(1).each do |ins|
+        next unless ins[0] == 'div' && ins[1] == 'z'
+
+        max_z *= ins[2].to_i
+      end
+
+      a2 = T.let({}, T::Hash[Integer, String])
+
+      ancestors.each_key do |z|
+        (1..9).each do |w|
+          res = T.must(perform(block, { 'w' => w, 'z' => z })['z'])
+          next unless res < max_z
+
+          a2[res] ||= ''
+          a2[res] = T.must([a2[res], "#{ancestors[z]}#{w}"].max)
+        end
+      end
+      ancestors = a2
+    end
+    ancestors[0].to_i
   end
 
+  sig { returns(Integer) }
   def part2
-    true
+    blocks = @instructions.split { _1[0] == 'inp' }.reject(&:empty?)
+
+    ancestors = T.let({ 0 => '' }, T::Hash[Integer, String])
+    blocks.each_with_index do |block, i|
+      max_z = 1
+      (blocks[i + 1..] || []).flatten(1).each do |ins|
+        next unless ins[0] == 'div' && ins[1] == 'z'
+
+        max_z *= ins[2].to_i
+      end
+
+      a2 = T.let({}, T::Hash[Integer, String])
+
+      ancestors.each_key do |z|
+        (1..9).each do |w|
+          res = T.must(perform(block, { 'w' => w, 'z' => z })['z'])
+          next unless res < max_z
+
+          a2[res] ||= 'z'
+          a2[res] = T.must([a2[res], "#{ancestors[z]}#{w}"].min)
+        end
+      end
+      ancestors = a2
+    end
+    ancestors[0].to_i
   end
 end
