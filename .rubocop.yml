@@ -36,6 +36,9 @@ Naming/VariableNumber:
 Sorbet/FalseSigil:
   Enabled: false
 
+Style/BitwisePredicate:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

@@ -1,6 +1,16 @@
 repos:
 -   repo: local
     hooks:
+    -   id: ruboclean
+        name: Ruboclean
+        language: system
+        files: .rubocop.yml
+        entry: bundle exec ruboclean
+        args:
+            - --silent
+            - --preserve-comments
+            - --preserve-paths
+
     -   id: rubocop
         name: Rubocop
         language: system
@@ -11,6 +21,7 @@ repos:
           - --server
           - --autocorrect
           - --color
+
     -   id: sorbet
         name: Sorbet
         language: system

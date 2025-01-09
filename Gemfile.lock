@@ -102,6 +102,7 @@ GEM
     regexp_parser (2.9.3)
     reline (0.5.12)
       io-console (~> 0.5)
+    ruboclean (0.7.1)
     rubocop (1.69.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -176,6 +177,7 @@ DEPENDENCIES
   nokogiri
   railties
   rake
+  ruboclean
   rubocop
   rubocop-minitest
   rubocop-performance

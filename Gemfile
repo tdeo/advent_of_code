@@ -16,6 +16,7 @@ group :development, :test do
 
   gem 'minitest', require: false
 
+  gem 'ruboclean', require: false
   gem 'rubocop', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
