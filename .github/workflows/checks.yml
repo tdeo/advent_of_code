@@ -27,13 +27,13 @@ jobs:
           node-version: 24
           cache: "yarn"
 
-      - uses: actions/setup-python@v5
-      - uses: pre-commit/action@v3.0.1
-
       - name: troubleshoot
         run: |
           ls -la
           ls -la node_modules
+
+      - uses: actions/setup-python@v5
+      - uses: pre-commit/action@v3.0.1
 
       - name: Run tests
         run: bundle exec rake test
