@@ -22,6 +22,11 @@ jobs:
           ruby-version: 3.3.6
           bundler-cache: true
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "yarn"
+
       - name: Run tests
         run: bundle exec rake test
 
