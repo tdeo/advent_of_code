@@ -1,30 +1,42 @@
 repos:
--   repo: local
-    hooks:
-    -   id: ruboclean
-        name: Ruboclean
-        language: system
-        files: .rubocop.yml
-        entry: bundle exec ruboclean
-        args:
-            - --silent
-            - --preserve-comments
-            - --preserve-paths
+- repo: local
+  hooks:
+  - id: ruboclean
+    name: Ruboclean
+    language: system
+    files: .rubocop.yml
+    entry: bundle exec ruboclean
+    args:
+        - --silent
+        - --preserve-comments
+        - --preserve-paths
 
-    -   id: rubocop
-        name: Rubocop
-        language: system
-        files: \.(rb)$
-        entry: bundle exec rubocop
-        require_serial: true
-        args:
-          - --server
-          - --autocorrect
-          - --color
+  - id: rubocop
+    name: Rubocop
+    language: system
+    files: \.(rb)$
+    entry: bundle exec rubocop
+    require_serial: true
+    args:
+      - --server
+      - --autocorrect
+      - --color
 
-    -   id: sorbet
-        name: Sorbet
-        language: system
-        files: \.(rb)$
-        entry: bundle exec srb tc
-        pass_filenames: false
+  - id: sorbet
+    name: Sorbet
+    language: system
+    files: \.(rb)$
+    entry: bundle exec srb tc
+    pass_filenames: false
+
+  - id: actionlint
+    name: Lint Github workflows
+    language: docker_image
+    entry: rhysd/actionlint:1.7.7
+    files: ^\.github/workflows/.*\.(yml|yaml)$
+
+  - id: hadolint
+    name: Lint Dockerfiles
+    language: docker_image
+    entry: hadolint/hadolint hadolint
+    files: Dockerfile

@@ -2,12 +2,6 @@
 
 require 'bigdecimal'
 
-class Integer
-  def to_d
-    BigDecimal(self)
-  end
-end
-
 class ReactorReboot
   INST_RE = /^(on|off) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)$/
 
