@@ -1,0 +1,12 @@
+{
+  "name": "advent_of_code",
+  "version": "1.0.0",
+  "repository": "git@github.com:tdeo/advent_of_code.git",
+  "author": "Thierry Deo <thierry.deo@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "biome": "^0.3.3",
+    "prettier": "^3.6.2",
+    "prettier-yaml": "^0.1.2"
+  }
+}
