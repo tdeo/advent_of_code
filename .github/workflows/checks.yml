@@ -23,7 +23,7 @@ jobs:
           bundler-cache: true
 
       - name: Run tests
-        run: bundle execrake test
+        run: bundle exec rake test
 
       - uses: actions/setup-python@v5
       - uses: pre-commit/action@v3.0.1
