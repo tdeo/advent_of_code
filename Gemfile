@@ -15,6 +15,7 @@ group :development, :test do
   gem 'byebug', require: true
 
   gem 'minitest', require: false
+  gem 'minitest-focus', require: false
 
   gem 'ruboclean', require: false
   gem 'rubocop', require: false
