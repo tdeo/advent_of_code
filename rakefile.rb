@@ -4,7 +4,7 @@ require 'active_support/all'
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
-  t.pattern = '**/test/*.rb'
+  t.pattern = '*/test/*.rb'
   t.warning = true
   t.options = '--no-plugins'
 end
