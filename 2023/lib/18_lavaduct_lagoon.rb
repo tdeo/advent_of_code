@@ -67,7 +67,8 @@ class LavaductLagoon
   def part2
     @moves = @input.each_line(chomp: true).map do |line|
       _dir, _count, color = line.split
-      color = color[2...-1]
+      color = T.must(color)
+      color = T.must(color[2...-1])
       dir = case color[-1]
             when '0' then Dir::Right
             when '1' then Dir::Down
@@ -75,7 +76,7 @@ class LavaductLagoon
             when '3' then Dir::Up
             else raise "Unknown color: #{color}"
             end
-      dist = color[0...-1].to_i(16)
+      dist = T.must(color[0...-1]).to_i(16)
       Move.new(dir: dir, dist: dist)
     end
 
