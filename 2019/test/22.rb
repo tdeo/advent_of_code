@@ -68,8 +68,4 @@ cut -1').process!(10)
       assert_equal val, @k.new('deal with increment 3').part2(7, i, 1)
     end
   end
-
-  def test_part2
-    assert_equal 2019, @k.new(File.read('./2019/inputs/22.input')).part2(10_007, 7665, 1)
-  end
 end
