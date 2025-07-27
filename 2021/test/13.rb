@@ -34,6 +34,12 @@ describe TransparentOrigami do
   end
 
   def test_part2
-    assert_equal 0..4, described_class.new(input).part2
+    assert_output(<<~OUTPUT) { described_class.new(input).part2 }
+      #####
+      #   #
+      #   #
+      #   #
+      #####
+    OUTPUT
   end
 end
