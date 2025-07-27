@@ -35,6 +35,6 @@ class LavaductLagoonTest < Minitest::Test
 
   sig { void }
   def test_part2
-    assert_equal 0, described_class.new(input).part2
+    assert_equal 952_408_144_115, described_class.new(input).part2
   end
 end
