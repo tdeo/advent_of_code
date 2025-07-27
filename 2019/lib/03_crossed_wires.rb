@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CrossedWires
+class CrossedWires2019
   def initialize(input)
     @input = input
     @u, @v = @input.split("\n").map { |l| l.split(',') }

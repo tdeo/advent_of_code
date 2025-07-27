@@ -163,7 +163,7 @@ class WarehouseWoes
 
   sig { returns(Integer) }
   def gps_sum
-    rocks = %w(0 [).to_set
+    rocks = %w(O [).to_set
     @map.each_with_index.sum do |row, i|
       row.each_char.with_index.sum do |char, j|
         next 0 unless rocks.include?(char)

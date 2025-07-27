@@ -3,8 +3,8 @@
 require 'minitest/autorun'
 require_relative('../lib/03_crossed_wires')
 
-describe CrossedWires do
-  before { @k = CrossedWires }
+describe CrossedWires2019 do
+  before { @k = CrossedWires2019 }
 
   def test_part1
     assert_equal 6, @k.new("R8,U5,L5,D3
