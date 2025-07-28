@@ -3,11 +3,11 @@
 require 'minitest/autorun'
 require_relative '../lib/priority_queue'
 
-describe PriorityQueue do
-  before { @k = PriorityQueue }
+class PriorityQueueTest < Minitest::Test
+  def described_class = PriorityQueue
 
   def test_no_block
-    q = @k.new
+    q = described_class.new
     q << 7
     q << 3
     q << 5
@@ -22,7 +22,7 @@ describe PriorityQueue do
   end
 
   def test_proc
-    q = @k.new { |a| a.last + 1 }
+    q = described_class.new { |a| a.last + 1 }
     q << ['a', 7]
     q << ['b', 3]
     q << ['c', 5]
@@ -37,7 +37,7 @@ describe PriorityQueue do
   end
 
   def test_block_arity_1
-    q = @k.new(&:last)
+    q = described_class.new(&:last)
     q << ['a', 7]
     q << ['b', 3]
     q << ['c', 5]
@@ -52,7 +52,7 @@ describe PriorityQueue do
   end
 
   def test_block_arity_2
-    q = @k.new { |a, b| a.last - b.last }
+    q = described_class.new { |a, b| a.last - b.last }
     q << ['a', 7]
     q << ['b', 3]
     q << ['c', 5]
