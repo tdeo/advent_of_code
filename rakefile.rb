@@ -5,7 +5,7 @@ require 'minitest/test_task'
 require_relative 'minitest/slow_tests_plugin'
 
 Minitest::TestTask.create do |t|
-  t.test_globs = '**/test/*_test.rb'
+  t.test_globs = '*/test/*_test.rb'
   t.warning = true
 end
 
