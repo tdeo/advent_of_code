@@ -23,7 +23,8 @@ class LobbyLayout
         when 'e' then pos[1] += 1
         when 'w' then pos[1] -= 1
         end
-        i + 2
+
+        i += 2
       else
         case char
         when 'e' then pos[1] += 2
