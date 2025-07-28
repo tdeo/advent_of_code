@@ -46,6 +46,8 @@ class ManyWorldsInterpretationTest < Minitest::Test
   end
 
   def test_part1_d
+    slow_test!
+
     assert_equal 136, described_class.new('
 #################
 #i.G..c...e..H.p#

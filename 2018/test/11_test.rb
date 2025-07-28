@@ -15,10 +15,14 @@ class ChronalChargeTest < Minitest::Test
   end
 
   def test_part2
+    slow_test!
+
     assert_equal '90,269,16', described_class.new('18').part2
   end
 
   def test_part2_2
+    slow_test!
+
     assert_equal '232,251,12', described_class.new('42').part2
   end
 end

@@ -16,6 +16,8 @@ class DiracDiceTest < Minitest::Test
   end
 
   def test_part2
+    slow_test!
+
     assert_equal 444_356_092_776_315, described_class.new(input).part2
   end
 end

@@ -13,6 +13,8 @@ class ConwayCubesTest < Minitest::Test
   end
 
   def test_part2
+    slow_test!
+
     assert_equal 848, described_class.new('.#.
 ..#
 ###').part2

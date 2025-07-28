@@ -13,6 +13,8 @@ class SporificaVirusTest < Minitest::Test
   end
 
   def test_part2
+    slow_test!
+
     assert_equal 2_511_944, described_class.new('..#
 #..
 ...').part2

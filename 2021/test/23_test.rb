@@ -14,10 +14,14 @@ class AmphipodTest < Minitest::Test
   INPUT
 
   def test_part1
+    slow_test!
+
     assert_equal 12_521, described_class.new(input).part1
   end
 
   def test_part2
+    slow_test!
+
     assert_equal 44_169, described_class.new(input).part2
   end
 end

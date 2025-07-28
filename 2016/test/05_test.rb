@@ -7,10 +7,14 @@ class ChessTest < Minitest::Test
   def described_class = Chess
 
   def test_part1
+    slow_test!
+
     assert_equal '18f4', described_class.new('abc').part1(4)
   end
 
   def test_part2
+    slow_test!
+
     assert_equal '05ac', described_class.new('abc').part2(4)
   end
 end

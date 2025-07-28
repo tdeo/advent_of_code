@@ -25,6 +25,8 @@ class CrabCupsTest < Minitest::Test
   end
 
   def test_part2
+    slow_test!
+
     assert_equal 149_245_887_792, described_class.new(<<~INPUT).part2
       389125467
     INPUT
