@@ -19,19 +19,19 @@ class PipeMaze
 
   sig { params(i: Integer, j: Integer).returns(T::Boolean) }
   def connects_left?(i, j)
-    at(i, j) == '-' || at(i, j) == '7' || at(i, j) == 'J'
+    ['-', '7', 'J'].include?(at(i, j))
   end
   sig { params(i: Integer, j: Integer).returns(T::Boolean) }
   def connects_right?(i, j)
-    at(i, j) == '-' || at(i, j) == 'F' || at(i, j) == 'L'
+    ['-', 'F', 'L'].include?(at(i, j))
   end
   sig { params(i: Integer, j: Integer).returns(T::Boolean) }
   def connects_top?(i, j)
-    at(i, j) == '|' || at(i, j) == 'J' || at(i, j) == 'L'
+    ['|', 'J', 'L'].include?(at(i, j))
   end
   sig { params(i: Integer, j: Integer).returns(T::Boolean) }
   def connects_bottom?(i, j)
-    at(i, j) == '|' || at(i, j) == '7' || at(i, j) == 'F'
+    ['|', '7', 'F'].include?(at(i, j))
   end
   sig { params(i: Integer, j: Integer).returns(T::Array[[Integer, Integer]]) }
   def neighbours(i, j)

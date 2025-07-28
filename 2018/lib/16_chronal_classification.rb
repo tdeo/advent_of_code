@@ -78,7 +78,7 @@ class ChronalClassification
     %i[addr addi mulr muli banr bani borr bori setr seti gtir gtri gtrr eqir eqri eqrr]
   end
 
-  def behave_like_3_or_more(operation, before, after)
+  def behave_like_3_or_more?(operation, before, after)
     c = 0
     operations.each do |op|
       operation[0] = op
@@ -91,7 +91,7 @@ class ChronalClassification
   def part1
     c = 0
     @input.scan(/^Before: (.*)\n(.*)\nAfter: (.*)$/).each do |m|
-      c += 1 if behave_like_3_or_more(
+      c += 1 if behave_like_3_or_more?(
         m[1].split.map(&:to_i),
         eval(m[0]), # rubocop:disable Security/Eval
         eval(m[2]), # rubocop:disable Security/Eval

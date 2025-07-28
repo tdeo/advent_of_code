@@ -39,6 +39,6 @@ class ComboBreaker
   end
 
   def part2
-    true
+    0
   end
 end

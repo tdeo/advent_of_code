@@ -29,11 +29,9 @@ class ReservoirResearch
   end
 
   def flow(x, y)
-    # puts "\e[2J\e[1;1H"
-    # print!(y - 10, y + 30)
-    # sleep 0.02
     return if y > @maxy
 
+    flows = ['#', '~'].to_set
     if @map[x][y].nil?
       @count += 1 if y >= @miny
       @map[x][y] = '|'
@@ -42,11 +40,11 @@ class ReservoirResearch
       @count += 1 if y >= @miny - 1 && y < @maxy
       @map[x][y + 1] = '|'
       flow(x, y + 1)
-    elsif @map[x][y + 1] == '#' || @map[x][y + 1] == '~'
+    elsif flows.include?(@map[x][y + 1])
       left = right = nil
 
       a = x
-      while @map[a][y + 1] == '#' || @map[a][y + 1] == '~'
+      while flows.include?(@map[a][y + 1])
         a -= 1
         if @map[a][y].nil?
           @count += 1 if y >= @miny
@@ -59,7 +57,7 @@ class ReservoirResearch
       end
 
       a = x
-      while @map[a][y + 1] == '#' || @map[a][y + 1] == '~'
+      while flows.include?(@map[a][y + 1])
         a += 1
         if @map[a][y].nil?
           @count += 1 if y >= @miny

@@ -43,7 +43,7 @@ class SeatingSystem
       loop do
         break if ii < 0 || jj < 0 || ii >= @height || jj >= @width
 
-        if @maze[ii][jj] == OCCUPIED || @maze[ii][jj] == EMPTY
+        if [OCCUPIED, EMPTY].include?(@maze[ii][jj])
           @visible_from[i][j] << [ii, jj]
           break
         end

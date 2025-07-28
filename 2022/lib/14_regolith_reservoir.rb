@@ -63,7 +63,7 @@ class RegolithReservoir
   end
 
   sig { returns(T::Boolean) }
-  def pour_one_sand
+  def pour_one_sand?
     i, j = @source.dup
     limit = T.must(@map.keys.max)
     while i <= limit
@@ -87,7 +87,7 @@ class RegolithReservoir
   sig { returns(Integer) }
   def part1
     count = 0
-    count += 1 while pour_one_sand
+    count += 1 while pour_one_sand?
     count
   end
 
@@ -98,7 +98,7 @@ class RegolithReservoir
 
     count = 0
     loop do
-      raise 'Pour does not finish' unless pour_one_sand
+      raise 'Pour does not finish' unless pour_one_sand?
 
       count += 1
       break if T.must(@map[0])[500] == Item::Sand

@@ -62,7 +62,7 @@ class PulsePropagation
              else
                raise
              end
-      name = T.must(name[1..]) if name[0] == '%' || name[0] == '&'
+      name = T.must(name[1..]) if %w[% &].include?(name[0])
       Module.new(name: name, type: type, destinations: destinations, modules: modules)
     end
   end

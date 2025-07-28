@@ -82,8 +82,7 @@ class CarePackage
           @map[[x, y]] = TILES[tile]
         end
       end
-      # print_map # if Random.rand() < 0.1
-      return score if @map.count { |_, v| v == 'B' } == 0 # No more blocks
+      return score if @map.none? { |_, v| v == 'B' }
 
       @intcode.sendint(move)
     end

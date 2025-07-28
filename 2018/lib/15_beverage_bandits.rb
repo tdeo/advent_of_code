@@ -233,7 +233,7 @@ class BeverageBandits
           low = m
           puts "Elves loose with power #{m}"
           break
-        elsif @map.units.count { |u| u.type == :G } == 0
+        elsif @map.units.none? { |u| u.type == :G }
           up = m
           puts "Elves win with power #{m}"
           break

@@ -20,7 +20,7 @@ class TicketTranslation
   end
 
   def valid?(value, ranges)
-    ranges.any? { |low, high| low <= value && value <= high }
+    ranges.any? { |low, high| value.between?(low, high) }
   end
 
   def valid_ticket?(ticket)

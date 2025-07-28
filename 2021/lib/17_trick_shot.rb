@@ -14,7 +14,7 @@ class TrickShot
     x = y = 0
 
     loop do
-      return true if x >= @xmin && x <= @xmax && y >= @ymin && y <= @ymax
+      return true if x.between?(@xmin, @xmax) && y >= @ymin && y <= @ymax
 
       return false if x > @xmax
       return false if vx == 0 && x < @xmin
