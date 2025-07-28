@@ -12,7 +12,7 @@ gem 'image-charts', require: false
 gem 'nokogiri', require: false
 
 group :development, :test do
-  gem 'byebug', require: true
+  gem 'byebug', require: false
 
   gem 'minitest', require: false
   gem 'minitest-focus', require: false
