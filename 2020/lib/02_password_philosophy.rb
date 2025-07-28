@@ -20,7 +20,7 @@ class PasswordPhilosophy
 
   def valid?(password, policy)
     occurences = password.count(policy[0])
-    occurences >= policy[1][0] && occurences <= policy[1][1]
+    occurences.between?(policy[1][0], policy[1][1])
   end
 
   def part1

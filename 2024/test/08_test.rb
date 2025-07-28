@@ -7,6 +7,7 @@ require_relative('../lib/08_resonant_collinearity')
 
 class ResonantCollinearityTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ResonantCollinearity)) }
   def described_class = ResonantCollinearity
 

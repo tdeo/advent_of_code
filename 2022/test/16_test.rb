@@ -7,6 +7,7 @@ require_relative('../lib/16_proboscidea_volcanium')
 
 class ProboscideaVolcaniumTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ProboscideaVolcanium)) }
   def described_class = ProboscideaVolcanium
 

@@ -7,6 +7,7 @@ require_relative('../lib/09_rope_bridge')
 
 class RopeBridgeTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RopeBridge)) }
   def described_class = RopeBridge
 

@@ -7,6 +7,7 @@ require_relative('../lib/20_race_condition')
 
 class RaceConditionTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RaceCondition)) }
   def described_class = RaceCondition
 

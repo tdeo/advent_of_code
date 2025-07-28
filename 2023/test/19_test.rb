@@ -7,6 +7,7 @@ require_relative('../lib/19_aplenty')
 
 class AplentyTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Aplenty)) }
   def described_class = Aplenty
 

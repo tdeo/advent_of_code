@@ -7,6 +7,7 @@ require_relative('../lib/08_treetop_tree_house')
 
 class TreetopTreeHouseTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(TreetopTreeHouse)) }
   def described_class = TreetopTreeHouse
 

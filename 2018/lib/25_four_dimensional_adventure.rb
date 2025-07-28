@@ -14,7 +14,7 @@ class FourDimensionalAdventure
     @dist[i][j] ||= @stars[i].zip(@stars[j]).sum { |e| (e[0] - e[1]).abs }
   end
 
-  def connected(i, j)
+  def connected?(i, j)
     dist(i, j) <= 3
   end
 
@@ -25,7 +25,7 @@ class FourDimensionalAdventure
     (0...@stars.size).each do |i|
       todo[i] = true
       (0...i).each do |j|
-        next unless connected(i, j)
+        next unless connected?(i, j)
 
         neighbours[i] << j
         neighbours[j] << i

@@ -15,7 +15,7 @@ class ScrambledLettersAndHash
     when /^rotate (left|right) (.*)$/
       @passwd = @passwd.chars
       $2.to_i.times do
-        if ($1 == 'right') ^ (reverse)
+        if ($1 == 'right') ^ reverse
           @passwd.unshift(@passwd.pop)
         else
           @passwd.push(@passwd.shift)
@@ -41,13 +41,13 @@ class ScrambledLettersAndHash
     when /^reverse positions (.*) through (.*)$/
       i = $1.to_i
       j = $2.to_i
-      @passwd = @passwd[0...i] + @passwd[i..j].reverse + @passwd[j + 1..]
+      @passwd = @passwd[0...i] + @passwd[i..j].reverse + @passwd[(j + 1)..]
     when /^move position (.*) to position (.*)$/
       i = $1.to_i
       j = $2.to_i
       i, j = j, i if reverse
       letter = @passwd[i]
-      @passwd = @passwd[0...i] + @passwd[i + 1..]
+      @passwd = @passwd[0...i] + @passwd[(i + 1)..]
       @passwd = @passwd[0...j] + letter + @passwd[j..]
     else
       raise "unrecognized instruction: #{ins}"

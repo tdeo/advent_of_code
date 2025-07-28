@@ -7,6 +7,7 @@ require_relative('../lib/24_arithmetic_logic_unit')
 
 class ArithmeticLogicUnitTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ArithmeticLogicUnit)) }
   def described_class = ArithmeticLogicUnit
 

@@ -46,7 +46,7 @@ class CathodeRayTube
     end
 
     (0..220).step(40).each do |i|
-      puts T.must(output[i...i + 40]).join
+      puts T.must(output[i...(i + 40)]).join
     end
   end
 end

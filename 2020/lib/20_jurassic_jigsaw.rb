@@ -158,9 +158,9 @@ class JurassicJigsaw
     end
 
     habitat_used = {}
-    (0...tile.view.size - MONSTER.size).each do |i|
+    (0...(tile.view.size - MONSTER.size)).each do |i|
       row = tile.view[i]
-      (0...row.size - MONSTER[0].size).each do |j|
+      (0...(row.size - MONSTER[0].size)).each do |j|
         next unless monster_pos.all? { |ii, jj| tile.view[i + ii][j + jj] == '#' }
 
         monster_pos.each do |ii, jj|
@@ -189,7 +189,7 @@ class JurassicJigsaw
     map_entry = []
     map_entry << 'Map 0'
     @map.each do |row|
-      (1...tile_size - 1).each do |i|
+      (1...(tile_size - 1)).each do |i|
         map_entry << row.map { _1.view[i][1..-2] }.join
       end
     end

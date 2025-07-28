@@ -37,7 +37,7 @@ class CrabCups
   end
 
   def part2(moves: 10_000_000)
-    @succ = @succ + (@size + 2..1_000_000).to_a + [@input[0].to_i]
+    @succ = @succ + ((@size + 2)..1_000_000).to_a + [@input[0].to_i]
     @succ[@input[-1].to_i] = @size + 1
 
     @size = @succ.size - 1

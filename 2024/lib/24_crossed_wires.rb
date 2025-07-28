@@ -160,7 +160,7 @@ class CrossedWires
   def valid_for?(bit)
     20.times do
       x = Random.rand((1 << bit)...(1 << (bit + 1))).to_i
-      y = Random.rand(0...(1 << (bit + 1)) - x).to_i
+      y = Random.rand(0...((1 << (bit + 1)) - x)).to_i
       @wires.clear
       (0..44).each do |i|
         @wires["x#{i.to_s.rjust(2, '0')}"] = (x[i] == 1)

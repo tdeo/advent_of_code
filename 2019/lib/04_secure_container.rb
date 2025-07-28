@@ -25,7 +25,7 @@ class SecureContainer
           idx = 0
         end
         initial[idx] += 1
-        (idx + 1...initial.size).each do |i|
+        ((idx + 1)...initial.size).each do |i|
           initial[i] = initial[i - 1]
         end
       end

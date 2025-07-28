@@ -7,6 +7,7 @@ require_relative('../lib/04_camp_cleanup')
 
 class CampCleanupTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CampCleanup)) }
   def described_class = CampCleanup
 

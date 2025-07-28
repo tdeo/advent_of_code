@@ -7,6 +7,7 @@ require_relative('../lib/02_red_nosed_reports')
 
 class RedNosedReportsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RedNosedReports)) }
   def described_class = RedNosedReports
 

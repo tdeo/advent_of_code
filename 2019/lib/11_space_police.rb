@@ -46,8 +46,8 @@ class SpacePolice
     mini, maxi = @panels.keys.map(&:first).minmax
     minj, maxj = @panels.keys.map(&:last).minmax
 
-    (mini - 1..maxi + 1).each do |i|
-      (minj - 1..maxj + 1).each do |j|
+    ((mini - 1)..(maxi + 1)).each do |i|
+      ((minj - 1)..(maxj + 1)).each do |j|
         if @robot == [i, j]
           print 'R'
         else

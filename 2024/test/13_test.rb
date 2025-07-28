@@ -7,6 +7,7 @@ require_relative('../lib/13_claw_contraption')
 
 class ClawContraptionTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ClawContraption)) }
   def described_class = ClawContraption
 

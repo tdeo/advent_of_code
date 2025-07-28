@@ -15,7 +15,7 @@ class EncodingError
 
   def valid?
     target = @numbers[@index]
-    (@index - @n...@index).each do |i|
+    ((@index - @n)...@index).each do |i|
       return true if @visible.key?(target - @numbers[i])
     end
     false

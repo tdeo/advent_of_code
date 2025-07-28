@@ -7,6 +7,7 @@ require_relative('../lib/12_hill_climbing_algorithm')
 
 class HillClimbingAlgorithmTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(HillClimbingAlgorithm)) }
   def described_class = HillClimbingAlgorithm
 

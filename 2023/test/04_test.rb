@@ -7,6 +7,7 @@ require_relative('../lib/04_scratchcards')
 
 class ScratchcardsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Scratchcards)) }
   def described_class = Scratchcards
 

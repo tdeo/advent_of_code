@@ -7,6 +7,7 @@ require_relative('../lib/12_hot_springs')
 
 class HotSpringsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(HotSprings)) }
   def described_class = HotSprings
 

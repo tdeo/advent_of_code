@@ -83,7 +83,7 @@ class PlanetofDiscord
 
   def part2_step(grid)
     next_grid = Hash.new { |h, k| h[k] = Hash.new('.') }
-    (grid.keys.min - 1..grid.keys.max + 1).each do |level|
+    ((grid.keys.min - 1)..(grid.keys.max + 1)).each do |level|
       (1..25).each do |cell|
         next if cell == 13
 

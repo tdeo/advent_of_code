@@ -7,6 +7,7 @@ require_relative('../lib/06_guard_gallivant')
 
 class GuardGallivantTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(GuardGallivant)) }
   def described_class = GuardGallivant
 

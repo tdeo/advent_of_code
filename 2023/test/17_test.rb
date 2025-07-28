@@ -7,6 +7,7 @@ require_relative('../lib/17_clumsy_crucible')
 
 class ClumsyCrucibleTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ClumsyCrucible)) }
   def described_class = ClumsyCrucible
 

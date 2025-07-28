@@ -20,7 +20,7 @@ class AllergenAssessment
     find_all_matches
   end
 
-  def find_match
+  def find_match?
     @allergens.each_key do |allergen|
       next unless @allergens[allergen].nil?
 
@@ -40,7 +40,7 @@ class AllergenAssessment
   end
 
   def find_all_matches
-    loop { break unless find_match }
+    loop { break unless find_match? }
   end
 
   def part1

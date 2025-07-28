@@ -7,6 +7,7 @@ require_relative('../lib/16_the_floor_will_be_lava')
 
 class TheFloorWillBeLavaTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(TheFloorWillBeLava)) }
   def described_class = TheFloorWillBeLava
 

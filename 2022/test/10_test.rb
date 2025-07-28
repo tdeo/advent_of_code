@@ -7,6 +7,7 @@ require_relative('../lib/10_cathode_ray_tube')
 
 class CathodeRayTubeTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CathodeRayTube)) }
   def described_class = CathodeRayTube
 

@@ -7,6 +7,7 @@ require_relative('../lib/13_pointof_incidence')
 
 class PointofIncidenceTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PointofIncidence)) }
   def described_class = PointofIncidence
 

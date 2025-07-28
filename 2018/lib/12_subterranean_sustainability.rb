@@ -18,7 +18,7 @@ class SubterraneanSustainability
     @left -= 2
     next_state = ''
     (@state.size - 4).times do |i|
-      next_state += @rules[@state[i..i + 4]]
+      next_state += @rules[@state[i..(i + 4)]]
     end
     @state = next_state
 

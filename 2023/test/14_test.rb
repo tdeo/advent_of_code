@@ -7,6 +7,7 @@ require_relative('../lib/14_parabolic_reflector_dish')
 
 class ParabolicReflectorDishTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ParabolicReflectorDish)) }
   def described_class = ParabolicReflectorDish
 

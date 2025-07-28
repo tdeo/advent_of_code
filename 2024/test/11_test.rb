@@ -7,6 +7,7 @@ require_relative('../lib/11_plutonian_pebbles')
 
 class PlutonianPebblesTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PlutonianPebbles)) }
   def described_class = PlutonianPebbles
 

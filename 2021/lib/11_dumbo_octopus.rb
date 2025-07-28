@@ -9,10 +9,10 @@ class DumboOctopus
 
   def flash!(i, j)
     @flashes += 1
-    (i - 1..i + 1).each do |ii|
+    ((i - 1)..(i + 1)).each do |ii|
       next if ii < 0 || ii >= @octopuses.size
 
-      (j - 1..j + 1).each do |jj|
+      ((j - 1)..(j + 1)).each do |jj|
         next if jj < 0 || jj >= @octopuses[ii].size
         next if jj == j && ii == i
 

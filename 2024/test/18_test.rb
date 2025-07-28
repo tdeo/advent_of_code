@@ -7,6 +7,7 @@ require_relative('../lib/18_ram_run')
 
 class RamRunTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RamRun)) }
   def described_class = RamRun
 

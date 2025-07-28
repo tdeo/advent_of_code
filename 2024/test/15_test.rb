@@ -7,6 +7,7 @@ require_relative('../lib/15_warehouse_woes')
 
 class WarehouseWoesTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(WarehouseWoes)) }
   def described_class = WarehouseWoes
 

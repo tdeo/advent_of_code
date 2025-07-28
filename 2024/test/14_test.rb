@@ -7,6 +7,7 @@ require_relative('../lib/14_restroom_redoubt')
 
 class RestroomRedoubtTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RestroomRedoubt)) }
   def described_class = RestroomRedoubt
 

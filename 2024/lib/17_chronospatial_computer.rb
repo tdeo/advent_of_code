@@ -66,7 +66,7 @@ class ChronospatialComputer
   def a_options(output, a_target)
     r = []
     t = a_target << 3
-    (t...t + (1 << 3)).each do |i|
+    (t...(t + (1 << 3))).each do |i|
       parse!
       @a = i
       ((@program.size / 2) - 1).times { perform_instruction! }

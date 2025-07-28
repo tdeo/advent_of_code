@@ -56,7 +56,7 @@ class PriorityQueue
       b: T.nilable(Elem),
     ).returns(T::Boolean)
   end
-  def lte(a, b)
+  def lte?(a, b)
     if @block.nil?
       T.must(a <=> b) <= 0
     elsif @block.arity == 2
@@ -77,7 +77,7 @@ class PriorityQueue
   def bubble_up(i)
     parent = i / 2
     return if i <= 1
-    return if lte(T.must(@q[parent]), T.must(@q[i]))
+    return if lte?(T.must(@q[parent]), T.must(@q[i]))
 
     exchange(i, parent)
     bubble_up(parent)
@@ -90,8 +90,8 @@ class PriorityQueue
 
     lchild = @q[child]
     rchild = @q[child + 1]
-    child += 1 if child < @q.size - 1 && lte(rchild, lchild)
-    return if lte(T.must(@q[i]), T.must(@q[child]))
+    child += 1 if child < @q.size - 1 && lte?(rchild, lchild)
+    return if lte?(T.must(@q[i]), T.must(@q[child]))
 
     exchange(i, child)
     bubble_down(child)

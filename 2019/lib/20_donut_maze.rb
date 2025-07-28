@@ -7,9 +7,9 @@ class DonutMaze
     @input = input
     @maze = input.split("\n").reject(&:empty?)
     @portals = Hash.new { |h, k| h[k] = [] }
-    (1..@maze.size - 2).each do |i|
+    (1..(@maze.size - 2)).each do |i|
       line = @maze[i]
-      (1..line.size - 2).each do |j|
+      (1..(line.size - 2)).each do |j|
         c = line[j]
         next unless ('A'..'Z').cover?(c)
 

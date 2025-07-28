@@ -7,6 +7,7 @@ require_relative('../lib/19_beacon_scanner')
 
 class BeaconScannerTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(BeaconScanner)) }
   def described_class = BeaconScanner
 

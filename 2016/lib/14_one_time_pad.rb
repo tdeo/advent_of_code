@@ -15,7 +15,7 @@ class OneTimePad
   end
 
   def key?(idx)
-    @triplet[idx] && (idx + 1..idx + 1000).any? { |i| @quintuplets[i].include?(@triplet[idx]) }
+    @triplet[idx] && ((idx + 1)..(idx + 1000)).any? { |i| @quintuplets[i].include?(@triplet[idx]) }
   end
 
   def hash2(idx)

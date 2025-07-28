@@ -23,6 +23,7 @@ class LobbyLayout
         when 'e' then pos[1] += 1
         when 'w' then pos[1] -= 1
         end
+
         i += 2
       else
         case char
@@ -85,8 +86,8 @@ class LobbyLayout
       imin, imax = @flipped.keys.map(&:first).minmax
       jmin, jmax = @flipped.keys.map(&:last).minmax
 
-      (imin - 1..imax + 1).each do |i|
-        (jmin - 2..jmax + 2).each do |j|
+      ((imin - 1)..(imax + 1)).each do |i|
+        ((jmin - 2)..(jmax + 2)).each do |j|
           next unless (i + j).even?
 
           n = neighbours(i, j)

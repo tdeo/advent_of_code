@@ -62,7 +62,7 @@ class RaceCondition < Map
       next unless @start_dist[cell.coords]
 
       (-cheat_size..cheat_size).each do |di|
-        (-cheat_size + di.abs..cheat_size - di.abs).each do |dj|
+        ((-cheat_size + di.abs)..(cheat_size - di.abs)).each do |dj|
           other = at(i + di, j + dj)
           next unless other && other.value != '#' && @end_dist[other.coords]
 

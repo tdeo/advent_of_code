@@ -7,6 +7,7 @@ require_relative('../lib/11_monkeyinthe_middle')
 
 class MonkeyintheMiddleTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(MonkeyintheMiddle)) }
   def described_class = MonkeyintheMiddle
 

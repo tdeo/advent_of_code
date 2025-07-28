@@ -108,8 +108,8 @@ class BeaconScanner
         s2 = set2.map { T.must(_1[i]) }.sort
         m1 = s1[0]
         m2 = s2[0]
-        s1 = s1.map! { _1 - T.must(m1) }
-        s2 = s2.map! { _1 - T.must(m2) }
+        s1.map! { _1 - T.must(m1) }
+        s2.map! { _1 - T.must(m2) }
 
         reverse!(i) unless s1 == s2
       end

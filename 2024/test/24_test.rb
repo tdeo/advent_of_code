@@ -7,6 +7,7 @@ require_relative('../lib/24_crossed_wires')
 
 class CrossedWiresTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CrossedWires)) }
   def described_class = CrossedWires
 

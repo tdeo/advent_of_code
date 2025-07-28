@@ -17,7 +17,7 @@ class RedNosedReports
     report.each_cons(2).all? do |a, b|
       a = T.must(a)
       b = T.must(b)
-      b >= a + 1 && b <= a + 3
+      b.between?(a + 1, a + 3)
     end
   end
 
@@ -28,7 +28,7 @@ class RedNosedReports
 
   sig { params(report: T::Array[Integer]).returns(T::Boolean) }
   def safe_with_error?(report)
-    idx = (1...report.size - 1).find do |i|
+    idx = (1...(report.size - 1)).find do |i|
       a = T.must(report[i - 1])
       b = T.must(report[i])
       b < a + 1 || b > a + 3

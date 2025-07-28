@@ -34,8 +34,8 @@ class RucksackReorganization
   sig { returns(Integer) }
   def part1
     @rucksacks.sum do |rucksack|
-      a = rucksack[0...rucksack.size / 2]
-      b = rucksack[-rucksack.size / 2..]
+      a = rucksack[0...(rucksack.size / 2)]
+      b = rucksack[(-rucksack.size / 2)..]
       priority(common_char(T.must(a), T.must(b)))
     end
   end

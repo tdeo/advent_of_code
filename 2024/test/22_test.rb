@@ -7,6 +7,7 @@ require_relative('../lib/22_monkey_market')
 
 class MonkeyMarketTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(MonkeyMarket)) }
   def described_class = MonkeyMarket
 

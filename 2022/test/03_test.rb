@@ -7,6 +7,7 @@ require_relative('../lib/03_rucksack_reorganization')
 
 class RucksackReorganizationTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(RucksackReorganization)) }
   def described_class = RucksackReorganization
 

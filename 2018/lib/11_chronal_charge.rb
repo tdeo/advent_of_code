@@ -23,8 +23,8 @@ class ChronalCharge
   def part1
     best = -100
     cell = nil
-    (1..@size - 2).each do |i|
-      (1..@size - 2).each do |j|
+    (1..(@size - 2)).each do |i|
+      (1..(@size - 2)).each do |j|
         val = @power[i][j] + @power[i + 1][j] + @power[i + 2][j] +
               @power[i][j + 1] + @power[i + 1][j + 1] + @power[i + 2][j + 1] +
               @power[i][j + 2] + @power[i + 1][j + 2] + @power[i + 2][j + 2]
@@ -45,7 +45,7 @@ class ChronalCharge
     best = s
     from = 1
 
-    (1..@size - l).each do |i|
+    (1..(@size - l)).each do |i|
       s += a[i + l] - a[i]
       if s > best
         best = s

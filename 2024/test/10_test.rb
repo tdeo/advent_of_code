@@ -7,6 +7,7 @@ require_relative('../lib/10_hoof_it')
 
 class HoofItTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(HoofIt)) }
   def described_class = HoofIt
 
