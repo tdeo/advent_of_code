@@ -24,6 +24,9 @@ Layout/LineLength:
 Minitest/MultipleAssertions:
   Enabled: false
 
+Minitest/TestMethodName:
+  AutoCorrect: false
+
 Naming/BlockForwarding:
   Enabled: false
 
