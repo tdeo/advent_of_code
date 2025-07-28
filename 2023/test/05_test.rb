@@ -7,6 +7,7 @@ require_relative('../lib/05_if_you_give_a_seed_a_fertilizer')
 
 class IfYouGiveASeedAFertilizerTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(IfYouGiveASeedAFertilizer)) }
   def described_class = IfYouGiveASeedAFertilizer
 

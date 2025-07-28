@@ -7,6 +7,7 @@ require_relative('../lib/05_print_queue')
 
 class PrintQueueTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PrintQueue)) }
   def described_class = PrintQueue
 

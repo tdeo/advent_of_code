@@ -31,7 +31,7 @@ class HotSprings
 
     r = 0
     if !T.must(pattern[-T.must(target.last)..]).include?('.') && (pattern[-T.must(target.last) - 1] || '.') != '#'
-      r += options(T.must(pattern[...-T.must(target.last) - 1]), T.must(target[...-1]))
+      r += options(T.must(pattern[...(-T.must(target.last) - 1)]), T.must(target[...-1]))
     end
     r += options(T.must(pattern[...-1]), target) unless pattern[-1] == '#'
     @memo[[pattern, target]] = r

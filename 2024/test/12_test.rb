@@ -7,6 +7,7 @@ require_relative('../lib/12_garden_groups')
 
 class GardenGroupsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(GardenGroups)) }
   def described_class = GardenGroups
 

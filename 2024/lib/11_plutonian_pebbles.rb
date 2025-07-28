@@ -22,7 +22,7 @@ class PlutonianPebbles
         size_after(1, rounds - 1)
       elsif value.to_s.size.even?
         v = value.to_s
-        size_after(v[...v.size / 2].to_i, rounds - 1) + size_after(v[v.size / 2..].to_i, rounds - 1)
+        size_after(v[...(v.size / 2)].to_i, rounds - 1) + size_after(v[(v.size / 2)..].to_i, rounds - 1)
       else
         size_after(2024 * value, rounds - 1)
       end

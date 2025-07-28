@@ -22,8 +22,8 @@ class TrenchMap
   end
 
   def code(i, j)
-    (i - 1..i + 1).flat_map do |ii|
-      (j - 1..j + 1).map { |jj| at(ii, jj) }
+    ((i - 1)..(i + 1)).flat_map do |ii|
+      ((j - 1)..(j + 1)).map { |jj| at(ii, jj) }
     end.join
   end
 

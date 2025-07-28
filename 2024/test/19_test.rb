@@ -7,6 +7,7 @@ require_relative('../lib/19_linen_layout')
 
 class LinenLayoutTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(LinenLayout)) }
   def described_class = LinenLayout
 

@@ -29,7 +29,7 @@ class ClawContraption
     sig { returns(T.nilable(Integer)) }
     def cheapest
       best = T.let(nil, T.nilable(Integer))
-      (0..@prize[0] / @a[0]).each do |i|
+      (0..(@prize[0] / @a[0])).each do |i|
         j = (@prize[0] - (i * @a[0])) / @b[0]
         next unless (i * @a[0]) + (j * @b[0]) == @prize[0]
         next unless (i * @a[1]) + (j * @b[1]) == @prize[1]

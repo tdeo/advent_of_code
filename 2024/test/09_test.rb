@@ -7,6 +7,7 @@ require_relative('../lib/09_disk_fragmenter')
 
 class DiskFragmenterTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(DiskFragmenter)) }
   def described_class = DiskFragmenter
 

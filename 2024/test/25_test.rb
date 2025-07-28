@@ -7,6 +7,7 @@ require_relative('../lib/25_code_chronicle')
 
 class CodeChronicleTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CodeChronicle)) }
   def described_class = CodeChronicle
 

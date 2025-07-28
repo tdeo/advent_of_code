@@ -47,8 +47,8 @@ class Cubicles
       path << current
     end
 
-    (0..path.to_a.map(&:last).max + 10).each do |i|
-      (0..path.to_a.map(&:first).max + 10).each do |j|
+    (0..(path.to_a.map(&:last).max + 10)).each do |i|
+      (0..(path.to_a.map(&:first).max + 10)).each do |j|
         if @target == [j, i]
           print 'X'
         elsif path.include?([j, i])

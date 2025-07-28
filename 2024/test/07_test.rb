@@ -7,6 +7,7 @@ require_relative('../lib/07_bridge_repair')
 
 class BridgeRepairTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(BridgeRepair)) }
   def described_class = BridgeRepair
 

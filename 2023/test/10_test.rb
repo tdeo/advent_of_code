@@ -7,6 +7,7 @@ require_relative('../lib/10_pipe_maze')
 
 class PipeMazeTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PipeMaze)) }
   def described_class = PipeMaze
 

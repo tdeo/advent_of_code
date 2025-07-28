@@ -7,6 +7,7 @@ require_relative('../lib/21_keypad_conundrum')
 
 class KeypadConundrumTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(KeypadConundrum)) }
   def described_class = KeypadConundrum
 

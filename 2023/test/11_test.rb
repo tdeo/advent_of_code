@@ -7,6 +7,7 @@ require_relative('../lib/11_cosmic_expansion')
 
 class CosmicExpansionTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CosmicExpansion)) }
   def described_class = CosmicExpansion
 

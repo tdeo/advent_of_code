@@ -7,7 +7,7 @@ class AlchemicalReaction
 
   def part1(delete: {})
     @rest = +''
-    (0..@input.size - 1).each do |i|
+    (0..(@input.size - 1)).each do |i|
       if delete.key?(@input[i])
         # Do nothing, used for part2
       elsif @rest.empty?

@@ -7,6 +7,7 @@ require_relative('../lib/08_haunted_wasteland')
 
 class HauntedWastelandTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(HauntedWasteland)) }
   def described_class = HauntedWasteland
 

@@ -33,7 +33,7 @@ class Scratchcards
 
     @cards.each_with_index do |card, i|
       win_count = (T.must(card.first) & T.must(card.last)).size
-      (i + 1..i + win_count).each do |j|
+      ((i + 1)..(i + win_count)).each do |j|
         counts[j] = T.must(counts[j]) + T.must(counts[i])
       end
     end

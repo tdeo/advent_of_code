@@ -7,6 +7,7 @@ require_relative('../lib/16_reindeer_maze')
 
 class ReindeerMazeTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ReindeerMaze)) }
   def described_class = ReindeerMaze
 

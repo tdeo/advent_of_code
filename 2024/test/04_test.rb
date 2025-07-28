@@ -7,6 +7,7 @@ require_relative('../lib/04_ceres_search')
 
 class CeresSearchTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CeresSearch)) }
   def described_class = CeresSearch
 

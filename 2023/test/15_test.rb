@@ -7,6 +7,7 @@ require_relative('../lib/15_lens_library')
 
 class LensLibraryTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(LensLibrary)) }
   def described_class = LensLibrary
 

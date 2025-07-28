@@ -7,6 +7,7 @@ require_relative('../lib/18_lavaduct_lagoon')
 
 class LavaductLagoonTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(LavaductLagoon)) }
   def described_class = LavaductLagoon
 

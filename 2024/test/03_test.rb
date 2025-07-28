@@ -7,6 +7,7 @@ require_relative('../lib/03_mull_it_over')
 
 class MullItOverTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(MullItOver)) }
   def described_class = MullItOver
 

@@ -7,6 +7,7 @@ require_relative('../lib/03_gear_ratios')
 
 class GearRatiosTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(GearRatios)) }
   def described_class = GearRatios
 

@@ -56,6 +56,7 @@ class GardenGroups
   end
 
   extend T::Sig
+
   sig { returns(Integer) }
   def part1
     res = 0
@@ -95,6 +96,7 @@ class GardenGroups
   end
 
   extend T::Sig
+
   sig { returns(Integer) }
   def part2
     res = 0

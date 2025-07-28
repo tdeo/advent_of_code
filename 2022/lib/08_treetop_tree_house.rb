@@ -22,7 +22,7 @@ class TreetopTreeHouse
     end
 
     # right
-    return true if (j + 1...T.must(@trees[i]).size).all? do |jj|
+    return true if ((j + 1)...T.must(@trees[i]).size).all? do |jj|
       T.must(T.must(@trees[i])[jj]) < T.must(T.must(@trees[i])[j])
     end
 
@@ -32,7 +32,7 @@ class TreetopTreeHouse
     end
 
     # bottom
-    return true if (i + 1...@trees.size).all? do |ii|
+    return true if ((i + 1)...@trees.size).all? do |ii|
       T.must(T.must(@trees[ii])[j]) < T.must(T.must(@trees[i])[j])
     end
 
@@ -65,13 +65,13 @@ class TreetopTreeHouse
     end
 
     # down
-    (i + 1...@trees.size).each do |ii|
+    ((i + 1)...@trees.size).each do |ii|
       res[0] += 1
       break if T.must(T.must(@trees[ii])[j]) >= T.must(T.must(@trees[i])[j])
     end
 
     # right
-    (j + 1...T.must(@trees[i]).size).each do |jj|
+    ((j + 1)...T.must(@trees[i]).size).each do |jj|
       res[1] += 1
       break if T.must(T.must(@trees[i])[jj]) >= T.must(T.must(@trees[i])[j])
     end

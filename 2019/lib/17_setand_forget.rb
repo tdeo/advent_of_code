@@ -20,8 +20,8 @@ class SetandForget
   def part1
     s = 0
     generate_map!
-    (1...@height - 1).each do |i|
-      (1...@width - 1).each do |j|
+    (1...(@height - 1)).each do |i|
+      (1...(@width - 1)).each do |j|
         next unless @map[i][j] == '#' &&
                     @map[i + 1][j] == '#' &&
                     @map[i - 1][j] == '#' &&

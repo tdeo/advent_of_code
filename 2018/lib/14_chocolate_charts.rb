@@ -20,14 +20,14 @@ class ChocolateCharts
 
   def part1
     round! while @scores.size < 10 + @recipes
-    @scores[@recipes...@recipes + 10].join
+    @scores[@recipes...(@recipes + 10)].join
   end
 
   def part2
     step = 0
     loop do
       300_000.times { round! }
-      (step...@scores.size - @code.size).each do |i|
+      (step...(@scores.size - @code.size)).each do |i|
         return i if @code.each_with_index.all? { |c, j| c == @scores[i + j] }
       end
       step = @scores.size - @code.size

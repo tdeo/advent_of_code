@@ -21,7 +21,7 @@ class SnailfishNumber
     return unless middle
 
     @left = SnailfishNumber.new(string[1...middle], self)
-    @right = SnailfishNumber.new(string[middle + 1...-1], self)
+    @right = SnailfishNumber.new(string[(middle + 1)...-1], self)
   end
 
   def magnitude

@@ -7,6 +7,7 @@ require_relative('../lib/07_no_space_left_on_device')
 
 class NoSpaceLeftOnDeviceTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(NoSpaceLeftOnDevice)) }
   def described_class = NoSpaceLeftOnDevice
 

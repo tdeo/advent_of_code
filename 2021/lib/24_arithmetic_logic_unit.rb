@@ -50,7 +50,7 @@ class ArithmeticLogicUnit
     ancestors = T.let({ 0 => '' }, T::Hash[Integer, String])
     blocks.each_with_index do |block, i|
       max_z = 1
-      (blocks[i + 1..] || []).flatten(1).each do |ins|
+      (blocks[(i + 1)..] || []).flatten(1).each do |ins|
         next unless ins[0] == 'div' && ins[1] == 'z'
 
         max_z *= ins[2].to_i
@@ -79,7 +79,7 @@ class ArithmeticLogicUnit
     ancestors = T.let({ 0 => '' }, T::Hash[Integer, String])
     blocks.each_with_index do |block, i|
       max_z = 1
-      (blocks[i + 1..] || []).flatten(1).each do |ins|
+      (blocks[(i + 1)..] || []).flatten(1).each do |ins|
         next unless ins[0] == 'div' && ins[1] == 'z'
 
         max_z *= ins[2].to_i

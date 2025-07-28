@@ -7,6 +7,7 @@ require_relative('../lib/17_chronospatial_computer')
 
 class ChronospatialComputerTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ChronospatialComputer)) }
   def described_class = ChronospatialComputer
 

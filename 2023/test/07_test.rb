@@ -7,6 +7,7 @@ require_relative('../lib/07_camel_cards')
 
 class CamelCardsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(CamelCards)) }
   def described_class = CamelCards
 

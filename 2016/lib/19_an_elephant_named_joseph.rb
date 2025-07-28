@@ -34,8 +34,8 @@ def init_node(array, parent = nil)
   n = Node.new(array.first, array.size, parent, [])
   return n if array.size == 1
 
-  a = init_node(array[1..array.size / 2], n)
-  b = init_node(array[(array.size / 2) + 1..], n)
+  a = init_node(array[1..(array.size / 2)], n)
+  b = init_node(array[((array.size / 2) + 1)..], n)
   n.children = [a, b].compact
   n
 end

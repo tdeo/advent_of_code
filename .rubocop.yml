@@ -1,6 +1,6 @@
 ---
 
-require:
+plugins:
 - rubocop-performance
 - rubocop-rake
 - rubocop-minitest
@@ -9,6 +9,7 @@ require:
 AllCops:
   TargetRubyVersion: 3.3.6
   NewCops: enable
+  ParserEngine: parser_prism
 
 Metrics:
   Enabled: false

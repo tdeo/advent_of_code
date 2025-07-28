@@ -14,7 +14,7 @@ class SpaceImageFormat
   def part2(height = 6, width = 25)
     layers = @input.chars.each_slice(height * width).to_a
     image = [nil] * (height * width)
-    (0...height * width).each do |i|
+    (0...(height * width)).each do |i|
       layers.each do |lay|
         if lay[i] != '2'
           image[i] = lay[i]

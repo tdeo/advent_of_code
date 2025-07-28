@@ -65,7 +65,7 @@ class ConwayCubes
     succ_ranges = Array.new(@dimension) { [nil, nil] }
     succ_active = 0
 
-    flat = @ranges.map { |r| (r[0] - 1..r[1] + 1) }
+    flat = @ranges.map { |r| ((r[0] - 1)..(r[1] + 1)) }
 
     iterate_many(*flat) do |pos|
       succ[pos] = if @map[pos]

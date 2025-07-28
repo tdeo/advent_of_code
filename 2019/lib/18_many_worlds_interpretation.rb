@@ -114,9 +114,9 @@ class ManyWorldsInterpretation
 
   def part2
     i, j = @pos['@']
-    @maze[i - 1][j - 1..j + 1] = '1#2'
-    @maze[i][j - 1..j + 1] = '###'
-    @maze[i + 1][j - 1..j + 1] = '3#4'
+    @maze[i - 1][(j - 1)..(j + 1)] = '1#2'
+    @maze[i][(j - 1)..(j + 1)] = '###'
+    @maze[i + 1][(j - 1)..(j + 1)] = '3#4'
 
     @pos = {}
     read_positions

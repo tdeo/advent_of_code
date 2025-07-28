@@ -54,7 +54,7 @@ class Fractal
     while @grid[i]
       j = 0
       while @grid[i][j]
-        parts << @grid[i...i + size].map { |row| row[j...j + size].join }.join('/')
+        parts << @grid[i...(i + size)].map { |row| row[j...(j + size)].join }.join('/')
         j += size
       end
       i += size

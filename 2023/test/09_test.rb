@@ -7,6 +7,7 @@ require_relative('../lib/09_mirage_maintenance')
 
 class MirageMaintenanceTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(MirageMaintenance)) }
   def described_class = MirageMaintenance
 

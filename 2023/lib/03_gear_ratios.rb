@@ -8,6 +8,7 @@ class GearRatios
 
   class Part < T::Struct
     extend T::Sig
+
     prop :row, Integer
     prop :col, Integer
     prop :value, Integer
@@ -16,11 +17,11 @@ class GearRatios
 
     sig { returns(T::Boolean) }
     def valid?
-      (row - 1..row + 1).any? do |r|
+      ((row - 1)..(row + 1)).any? do |r|
         next if r < 0
         next if r >= @input.size
 
-        (col - 1..col + size).any? do |c|
+        ((col - 1)..(col + size)).any? do |c|
           next if c < 0
           next if c >= T.must(@input[r]).size
 
@@ -35,11 +36,11 @@ class GearRatios
 
     sig { params(_blk: T.proc.params(args: [Integer, Integer]).void).void }
     def gears(&_blk)
-      (row - 1..row + 1).any? do |r|
+      ((row - 1)..(row + 1)).any? do |r|
         next if r < 0
         next if r >= @input.size
 
-        (col - 1..col + size).any? do |c|
+        ((col - 1)..(col + size)).any? do |c|
           next if c < 0
           next if c >= T.must(@input[r]).size
 

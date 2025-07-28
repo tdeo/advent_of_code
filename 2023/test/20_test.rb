@@ -7,6 +7,7 @@ require_relative('../lib/20_pulse_propagation')
 
 class PulsePropagationTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PulsePropagation)) }
   def described_class = PulsePropagation
 

@@ -7,6 +7,7 @@ require_relative('../lib/25_sea_cucumber')
 
 class SeaCucumberTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(SeaCucumber)) }
   def described_class = SeaCucumber
 

@@ -7,6 +7,7 @@ require_relative('../lib/23_lan_party')
 
 class LanPartyTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(LanParty)) }
   def described_class = LanParty
 
