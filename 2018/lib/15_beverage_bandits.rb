@@ -214,11 +214,8 @@ class BeverageBandits
     while @map.units.map(&:type).uniq.size > 1
       round
       i += 1
-      # puts i
-      # puts repr if i % 10 == 0 || i >= 90
     end
     r = [i - 1, @map.units.sum(&:health)]
-    # puts r.inspect
     final_result ? r.reduce(:*) : r
   end
 
