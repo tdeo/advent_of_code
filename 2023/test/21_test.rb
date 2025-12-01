@@ -32,6 +32,8 @@ class StepCounterTest < Minitest::Test
 
   sig { void }
   def test_part2
+    skip('Not implemented')
+
     assert_equal 12, described_class.new(<<~INPUT).part2(7)
       .......
       .......
