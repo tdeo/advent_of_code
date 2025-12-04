@@ -58,9 +58,12 @@ class Map
       @map.at(@i, @j + 1)
     end
 
-    sig { returns(T::Array[Cell[Elem]]) }
-    def neighbours
-      [above, below, left, right].compact
+    sig { params(diagonals: T::Boolean).returns(T::Array[Cell[Elem]]) }
+    def neighbours(diagonals: false)
+      neighbours = []
+      neighbours += [above, below, left, right]
+      neighbours += [above&.left, above&.right, below&.left, below&.right] if diagonals
+      neighbours.compact
     end
   end
 
