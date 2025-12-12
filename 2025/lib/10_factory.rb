@@ -25,6 +25,15 @@ class Factory
       end, T::Array[Integer],)
 
       @joltages = T.let(T.must(joltages.to_s[1...-1]).split(',').map(&:to_i), T::Array[Integer])
+
+      @outcomes = T.let({}, T::Hash[Integer, T::Array[Integer]])
+      @outcomes[0] = @joltages.map { 0 }
+
+      @moves_for_parity = T.let({}, T::Hash[Integer, T::Array[Integer]])
+      @moves_for_parity[0] = [0]
+
+      @min_moves_for = T.let({}, T::Hash[T::Array[Integer], Integer])
+      @min_moves_for[@joltages.map { 0 }] = 0
     end
 
     sig { returns(Integer) }
@@ -39,28 +48,52 @@ class Factory
       raise
     end
 
-    sig { returns(Integer) }
-    def min_for_joltage
-      print '.'
-      initial = @joltages.map { 0 }
-      states = T.let({ initial => 0 }, T::Hash[T::Array[Integer], Integer])
-      q = T.let([initial], T::Array[T::Array[Integer]])
-      while (current = q.shift)
-        @buttons.each do |button|
-          next_state = current.dup
-          count = T.must(states[current])
-          return count if next_state == @joltages
-          next if next_state.each_with_index.any? { |val, index| val > T.must(@joltages[index]) }
+    sig { void }
+    def prepare!
+      return if @outcomes.size > 1
 
-          button.each { next_state[_1] = T.must(next_state[_1]) + 1 }
-
-          unless states.key?(next_state)
-            states[next_state] = count + 1
-            q << next_state
+      (1..@buttons.size).each do |i|
+        @buttons.each_with_index.to_a.combination(i).each do |combo|
+          outcome = @joltages.map { 0 }
+          buttons = 0
+          parity = 0
+          combo.each do |button, index|
+            parity ^= T.must(@button_vals[index])
+            buttons ^= (1 << index)
+            button.each { outcome[_1] = T.must(outcome[_1]) + 1 }
           end
+
+          # require 'byebug'
+          # debugger
+
+          @outcomes[buttons] = outcome
+          @moves_for_parity[parity] ||= []
+          T.must(@moves_for_parity[parity]) << buttons
         end
       end
-      raise
+    end
+
+    sig { params(target: T::Array[Integer]).returns(Integer) }
+    def min_moves_for(target = @joltages)
+      prepare!
+
+      @min_moves_for[target] ||= begin
+        parity = target.map { _1 % 2 }.reverse.join.to_i(2)
+        @moves_for_parity[parity]&.filter_map do |first_move|
+          remaining = target.dup
+          invalid = T.let(false, T::Boolean)
+          T.must(@outcomes[first_move]).each_with_index do |count, index|
+            remaining[index] = T.must(remaining[index]) - count
+            break invalid = true if remaining[index].to_i < 0
+          end
+          next if invalid
+
+          first_move_count = first_move.to_s(2).count('1')
+
+          remaining.map! { _1 / 2 }
+          (2 * min_moves_for(remaining)) + first_move_count
+        end&.min || 1_000_000
+      end
     end
   end
 
@@ -77,6 +110,6 @@ class Factory
 
   sig { returns(Integer) }
   def part2
-    @machines.sum(&:min_for_joltage)
+    @machines.sum(&:min_moves_for)
   end
 end
