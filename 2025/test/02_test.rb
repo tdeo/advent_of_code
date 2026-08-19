@@ -7,6 +7,7 @@ require_relative('../lib/02_gift_shop')
 
 class GiftShopTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(GiftShop)) }
   def described_class = GiftShop
 

@@ -50,8 +50,6 @@ class TheSumofItsParts
     schedule = [] # array of [task, endtime]
 
     until steps.empty?
-      to_do = nil
-
       steps.sort_by! { |e| [can_start_at(e, schedule, workers: workers), e] }
 
       to_do = steps.first

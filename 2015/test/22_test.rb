@@ -13,7 +13,7 @@ Damage: 8")
                               mana: 250,
                               health: 10,
                               armor: 0,
-                            },)
+                            })
 
     assert_equal 173 + 53, i.part1
   end

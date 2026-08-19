@@ -7,6 +7,7 @@ require_relative('../lib/04_printing_department')
 
 class PrintingDepartmentTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(PrintingDepartment)) }
   def described_class = PrintingDepartment
 

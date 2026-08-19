@@ -7,6 +7,7 @@ require_relative('../lib/12_christmas_tree_farm')
 
 class ChristmasTreeFarmTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(ChristmasTreeFarm)) }
   def described_class = ChristmasTreeFarm
 

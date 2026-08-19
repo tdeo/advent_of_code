@@ -7,6 +7,7 @@ require_relative('../lib/21_step_counter')
 
 class StepCounterTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(StepCounter)) }
   def described_class = StepCounter
 

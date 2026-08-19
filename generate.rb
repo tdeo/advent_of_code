@@ -3,7 +3,6 @@
 # frozen_string_literal: true
 
 require 'fileutils'
-require 'pathname'
 require 'active_support/all'
 require 'sorbet-runtime'
 
@@ -17,8 +16,7 @@ if args.delete('auto')
   args = [t.year, t.day].map(&:to_s)
 end
 
-if (args.delete('-h') || args.delete('--help')) \
-  || (args[0] !~ /^\d*$/ || args[1] !~ /^\d*$/)
+if (args.delete('-h') || args.delete('--help')) || (args[0] !~ /^\d*$/ || args[1] !~ /^\d*$/)
   puts 'Usage: ./generate.rb <year> <problem number> [name]'
   exit 1
 end

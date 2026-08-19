@@ -7,6 +7,7 @@ require_relative('../lib/01_secret_entrance')
 
 class SecretEntranceTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(SecretEntrance)) }
   def described_class = SecretEntrance
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby '3.3.6'
+ruby '4.0.6'
 
 source 'https://rubygems.org'
 

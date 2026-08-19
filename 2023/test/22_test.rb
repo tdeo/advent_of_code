@@ -7,6 +7,7 @@ require_relative('../lib/22_sand_slabs')
 
 class SandSlabsTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(SandSlabs)) }
   def described_class = SandSlabs
 

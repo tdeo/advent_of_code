@@ -7,7 +7,7 @@ plugins:
 - rubocop-sorbet
 
 AllCops:
-  TargetRubyVersion: 3.3.6
+  TargetRubyVersion: 4.0
   NewCops: enable
   ParserEngine: parser_prism
 
@@ -40,6 +40,9 @@ Naming/VariableNumber:
 Sorbet/FalseSigil:
   Enabled: false
 
+Style/ArgumentsForwarding:
+  UseAnonymousForwarding: false
+
 Style/BitwisePredicate:
   Enabled: false
 
@@ -57,6 +60,9 @@ Style/FrozenStringLiteralComment:
 
 Style/HashLikeCase:
   Enabled: false
+
+Style/ItBlockParameter:
+  EnforcedStyle: disallow
 
 Style/NumericPredicate:
   EnforcedStyle: comparison

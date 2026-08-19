@@ -7,6 +7,7 @@ require_relative('../lib/06_trash_compactor')
 
 class TrashCompactorTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(TrashCompactor)) }
   def described_class = TrashCompactor
 

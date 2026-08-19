@@ -7,6 +7,7 @@ require_relative('../lib/10_factory')
 
 class FactoryTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Factory)) }
   def described_class = Factory
 

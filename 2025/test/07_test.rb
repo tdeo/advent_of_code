@@ -7,6 +7,7 @@ require_relative('../lib/07_laboratories')
 
 class LaboratoriesTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Laboratories)) }
   def described_class = Laboratories
 

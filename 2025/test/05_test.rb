@@ -7,6 +7,7 @@ require_relative('../lib/05_cafeteria')
 
 class CafeteriaTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Cafeteria)) }
   def described_class = Cafeteria
 

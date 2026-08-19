@@ -24,7 +24,7 @@ class RockPaperScissors
 
   sig { params(input: String).void }
   def initialize(input)
-    @input = T.let(input, String)
+    @input = input
     @rounds = T.let([], T::Array[[Elf, Me]])
     @input.split("\n").each do |line|
       elf, me = line.split

@@ -18,44 +18,44 @@ def powmod(a, k)
   b
 end
 
-class Mat22
-  attr_reader :a, :b, :c, :d
-
-  def initialize(r1, r2)
-    @a, @b = r1
-    @c, @d = r2
-  end
-
-  def dup
-    self.class.new([@a, @b], [@c, @d])
-  end
-
-  def mul(o)
-    aa = (a * o.a) + (b * o.c)
-    bb = (a * o.b) + (b * o.d)
-    cc = (c * o.a) + (d * o.c)
-    dd = (c * o.b) + (d * o.d)
-    @a = aa % $n
-    @b = bb % $n
-    @c = cc % $n
-    @d = dd % $n
-    self
-  end
-
-  def inspect
-    [[@a, @b], [@c, @d]].inspect
-  end
-
-  def pow(k)
-    return dup if k == 1
-
-    a = dup.pow(k / 2)
-    a.mul(a)
-    k.even? ? a : a.mul(self)
-  end
-end
-
 class SlamShuffle
+  class Mat22
+    attr_reader :a, :b, :c, :d
+
+    def initialize(r1, r2)
+      @a, @b = r1
+      @c, @d = r2
+    end
+
+    def dup
+      self.class.new([@a, @b], [@c, @d])
+    end
+
+    def mul(o)
+      aa = (a * o.a) + (b * o.c)
+      bb = (a * o.b) + (b * o.d)
+      cc = (c * o.a) + (d * o.c)
+      dd = (c * o.b) + (d * o.d)
+      @a = aa % $n
+      @b = bb % $n
+      @c = cc % $n
+      @d = dd % $n
+      self
+    end
+
+    def inspect
+      [[@a, @b], [@c, @d]].inspect
+    end
+
+    def pow(k)
+      return dup if k == 1
+
+      a = dup.pow(k / 2)
+      a.mul(a)
+      k.even? ? a : a.mul(self)
+    end
+  end
+
   def initialize(input)
     @input = input
     @steps = input.strip.split("\n")

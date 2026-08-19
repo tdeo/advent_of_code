@@ -6,10 +6,10 @@ require 'sorbet-runtime'
 class CeresSearch
   extend T::Sig
 
-  DIRECTIONS = T.let([
+  DIRECTIONS = [
     [1, 0], [-1, 0], [0, 1], [0, -1],
     [1, 1], [-1, -1], [1, -1], [-1, 1],
-  ].freeze, T::Array[[Integer, Integer]],)
+  ].freeze
 
   sig { params(input: String).void }
   def initialize(input)
@@ -22,6 +22,8 @@ class CeresSearch
     @grid.each_with_index.sum do |row, i|
       row.each_with_index.sum do |_c, j|
         DIRECTIONS.count do |di, dj|
+          di = T.must(di)
+          dj = T.must(dj)
           next unless i + (3 * di) >= 0 && j + (3 * dj) >= 0 && i + (3 * di) < @grid.size && j + (3 * dj) < row.size
 
           x = T.must(@grid[i])[j]
@@ -39,6 +41,8 @@ class CeresSearch
     @grid.each_with_index.sum do |row, i|
       row.each_with_index.count do |_c, j|
         DIRECTIONS.last(4).count do |di, dj|
+          di = T.must(di)
+          dj = T.must(dj)
           next unless i >= 1 && j >= 1 && i < @grid.size - 1 && j < @grid.size - 1
 
           m = T.must(@grid[i - di])[j - dj]

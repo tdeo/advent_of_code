@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class Array
-  def <(other)
-    self[0] < other[0] || (self[0] == other[0] && self[1] < other[1])
-  end
+Array.define_method(:<) do |other|
+  self[0] < other[0] || (self[0] == other[0] && self[1] < other[1])
 end
 
 class BeverageBandits

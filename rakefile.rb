@@ -2,7 +2,6 @@
 
 require 'active_support/all'
 require 'minitest/test_task'
-require_relative 'minitest/slow_tests_plugin'
 
 Minitest::TestTask.create do |t|
   t.test_globs = '*/test/*_test.rb'

@@ -17,7 +17,7 @@ class ThermoelectricGenerators
   end
 
   def hash(opt, ele)
-    (opt.each_slice(2).sort.map { |e| e.map(&:to_s).join(',') } << ele.to_s).join('|')
+    (opt.each_slice(2).sort.map { |e| e.join(',') } << ele.to_s).join('|')
   end
 
   def valid?(opt)

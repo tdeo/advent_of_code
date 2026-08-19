@@ -8,7 +8,7 @@ class CalorieCounting
 
   sig { params(input: String).void }
   def initialize(input)
-    @input = T.let(input, String)
+    @input = input
     @elves = T.let([[]], T::Array[T::Array[Integer]])
     @input.split("\n").each do |l|
       if l.empty?

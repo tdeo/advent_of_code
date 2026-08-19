@@ -7,6 +7,7 @@ require_relative('../lib/11_reactor')
 
 class ReactorTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Reactor)) }
   def described_class = Reactor
 

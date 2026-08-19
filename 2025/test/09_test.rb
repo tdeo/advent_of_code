@@ -7,6 +7,7 @@ require_relative('../lib/09_movie_theater')
 
 class MovieTheaterTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(MovieTheater)) }
   def described_class = MovieTheater
 

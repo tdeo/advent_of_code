@@ -7,6 +7,7 @@ require_relative('../lib/03_lobby')
 
 class LobbyTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Lobby)) }
   def described_class = Lobby
 

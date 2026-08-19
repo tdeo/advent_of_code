@@ -7,6 +7,7 @@ require_relative('../lib/08_playground')
 
 class PlaygroundTest < Minitest::Test
   extend T::Sig
+
   sig { returns(T.class_of(Playground)) }
   def described_class = Playground
 

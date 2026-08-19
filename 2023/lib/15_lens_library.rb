@@ -30,7 +30,7 @@ class LensLibrary
     @input.split(',').each do |instruction|
       label = T.must(instruction[/\w+/])
       box = hash(label)
-      op = instruction[/[\-=]/]
+      op = instruction[/[-=]/]
       if op == '-'
         boxes[box]&.delete(label)
       elsif op == '='

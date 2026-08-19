@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'benchmark'
-require 'pathname'
 require 'fileutils'
 
 dir = __dir__
@@ -94,7 +93,7 @@ def run(year, day, parts)
 
   parts.map do |part|
     m = :"part#{part}"
-    next unless klass.instance_methods.include?(m)
+    next unless klass.method_defined?(m)
 
     puts "\n******* Running part #{part} *******\n\n"
     res = nil
