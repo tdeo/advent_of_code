@@ -24,6 +24,8 @@ group :development, :test do
   gem 'rubocop-rake', require: false
   gem 'rubocop-sorbet', require: false
 
+  gem 'ruby-lsp', require: false
+
   gem 'sorbet', require: false
   gem 'sorbet-runtime', require: false
   gem 'tapioca', require: false
