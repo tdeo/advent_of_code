@@ -10,6 +10,7 @@ class Memory
   end
 
   def deal!
+    @banks = @banks.dup
     i = max_case
     k = @banks[i]
     @banks[i] = 0

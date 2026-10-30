@@ -24,6 +24,8 @@ class NotEnoughMineralsTest < Minitest::Test
 
   sig { void }
   def test_part2
+    slow_test!
+
     assert_equal 56 * 62, described_class.new(input).part2
   end
 end

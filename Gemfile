@@ -5,7 +5,6 @@ ruby '4.0.6'
 source 'https://rubygems.org'
 
 gem 'activesupport', require: false
-gem 'railties', require: false
 gem 'rake', require: false
 
 gem 'image-charts', require: false
