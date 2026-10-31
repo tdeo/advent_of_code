@@ -21,6 +21,24 @@ jobs:
       - name: Run tests
         run: bundle exec rake test
 
+  sorbet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 4.0.6
+          bundler-cache: true
+
+      - name: Update RBI files
+        run: bundle exec tapioca gems
+
+      - name: Run Sorbet
+        run: bundle exec srb tc
+
   lint:
     runs-on: ubuntu-latest
 
