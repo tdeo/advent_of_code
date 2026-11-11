@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/21_scrambled_letters_and_hash')
 
 class ScrambledLettersAndHashTest < Minitest::Test

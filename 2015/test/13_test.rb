@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/13_knights_of_the_dinner_table')
 
 class KnightsOfTheDinnerTableTest < Minitest::Test

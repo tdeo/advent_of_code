@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/23_turing_lock')
 
 class TuringLockTest < Minitest::Test

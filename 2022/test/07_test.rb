@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/07_no_space_left_on_device')
 
 class NoSpaceLeftOnDeviceTest < Minitest::Test

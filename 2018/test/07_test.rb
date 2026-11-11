@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/07_the_sumof_its_parts')
 
 class TheSumofItsPartsTest < Minitest::Test

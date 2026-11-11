@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/24_never_tell_me_the_odds')
 
 class NeverTellMeTheOddsTest < Minitest::Test

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/18_settlersof_the_north_pole')
 
 class SettlersofTheNorthPoleTest < Minitest::Test

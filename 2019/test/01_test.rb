@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/01_the_tyrannyofthe_rocket_equation')
 
 class TheTyrannyoftheRocketEquationTest < Minitest::Test

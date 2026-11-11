@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/12_christmas_tree_farm')
 
 class ChristmasTreeFarmTest < Minitest::Test

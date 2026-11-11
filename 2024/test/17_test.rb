@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/17_chronospatial_computer')
 
 class ChronospatialComputerTest < Minitest::Test

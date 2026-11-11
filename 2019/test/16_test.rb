@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/16_flawed_frequency_transmission')
 
 class FlawedFrequencyTransmissionTest < Minitest::Test

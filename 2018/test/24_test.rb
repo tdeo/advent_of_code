@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/24_immune_system_simulator_xx')
 
 class ImmuneSystemSimulatorXxTest < Minitest::Test

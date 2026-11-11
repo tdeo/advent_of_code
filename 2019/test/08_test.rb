@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/08_space_image_format')
 
 class SpaceImageFormatTest < Minitest::Test

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative '../lib/iterate_with_cycle'
 
 class IterateWithCycleTest < Minitest::Test

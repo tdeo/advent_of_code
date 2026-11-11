@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/16_the_floor_will_be_lava')
 
 class TheFloorWillBeLavaTest < Minitest::Test

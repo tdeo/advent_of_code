@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/17_no_such_thing_as_too_much')
 
 class NoSuchThingAsTooMuchTest < Minitest::Test

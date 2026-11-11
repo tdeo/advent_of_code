@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'sorbet-runtime'
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/02_red_nosed_reports')
 
 class RedNosedReportsTest < Minitest::Test

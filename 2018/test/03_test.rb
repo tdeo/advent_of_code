@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/03_no_matter_how_you_slice_it')
 
 class NoMatterHowYouSliceItTest < Minitest::Test

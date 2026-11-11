@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
+require 'test/test_helper'
 require_relative('../lib/04_passport_processing')
 
 class PassportProcessingTest < Minitest::Test
